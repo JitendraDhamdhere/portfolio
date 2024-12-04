@@ -563,71 +563,79 @@
   </section>
 
   <!-- experience section ends -->
-
-
-  <!-- Contact Section -->
-  <section class="contact" id="contact">
-    <center>
-      <h2 class="heading"><i class="fas fa-headset"></i> Get in <span>Touch</span></h2>
-
-      <div class="container">
-        <div class="content">
-          <div class="image-box">
-            <img draggable="false" src="./assets/images/contact1.png" alt="">
-          </div>
-          <form id="contact-form">
-
-            <div class="form-group">
-              <div class="field">
-                <input type="text" name="name" placeholder="Name" required>
-                <i class='fas fa-user'></i>
-              </div>
-              <div class="field">
-                <input type="email" name="email" placeholder="Email" required>
-                <i class='fas fa-envelope'></i>
-              </div>
-              <div class="field">
-                <input type="text" name="phone" placeholder="Phone">
-                <i class='fas fa-phone-alt'></i>
-              </div>
-              <div class="message">
-                <textarea placeholder="Message" name="message" required></textarea>
-                <i class="fas fa-comment-dots"></i>
-              </div>
-            </div>
-            <div class="button-area">
-              <button type="submit">
-                Submit <i class="fa fa-paper-plane"></i>
-              </button>
-            </div>
-          </form>
+<!-- Contact Section -->
+<section class="contact" id="contact">
+  <center>
+    <h2 class="heading"><i class="fas fa-headset"></i> Get in <span>Touch</span></h2>
+    <div class="container">
+      <div class="content">
+        <div class="image-box">
+          <img draggable="false" src="./assets/images/contact1.png" alt="">
         </div>
+        <form id="contact-form">
+          <div class="form-group">
+            <div class="field">
+              <input type="text" name="name" placeholder="Name" required>
+              <i class='fas fa-user'></i>
+            </div>
+            <div class="field">
+              <input type="email" name="email" placeholder="Email" required>
+              <i class='fas fa-envelope'></i>
+            </div>
+            <div class="field">
+              <input type="text" name="phone" placeholder="Phone">
+              <i class='fas fa-phone-alt'></i>
+            </div>
+            <div class="message">
+              <textarea placeholder="Message" name="message" required></textarea>
+              <i class="fas fa-comment-dots"></i>
+            </div>
+          </div>
+          <div class="button-area">
+            <button type="submit">
+              Submit <i class="fa fa-paper-plane"></i>
+            </button>
+          </div>
+        </form>
       </div>
+    </div>
+  </center>
+</section>
+
+<!-- Google Form Section -->
+<section id="google-form" style="display: none;">
+  <center>
+    <h2 class="heading"><i class="fas fa-headset"></i> Get in <span>Touch</span></h2>
+    <p class="apology-message">
+      We’re sorry for the inconvenience. Our system is currently experiencing server-side issues. 
+      Please fill out the Google Form below to get in touch with us. Thank you for your understanding!
+    </p>
+    <center>    <iframe src="https://forms.gle/tXk5NiJHHuK6K1uy5" class="google-form-iframe" width="1000" height="1000"></iframe>
     </center>
-  </section>
+  </center>
+</section>
 
-  <!-- EmailJS to handle form submission -->
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    // Initialize EmailJS with your public key
-    emailjs.init("oRGpe9OYRR-mi1z4a");  // Replace with your actual public key if this is incorrect
 
-    // Add submit event listener to the form
-    document.getElementById("contact-form").addEventListener("submit", function (event) {
-      event.preventDefault();  // Prevent default form submission
 
-      // Send form data using EmailJS
-      emailjs.sendForm("service_f3bhmhl", "template_0uxqdm6", this)
-        .then(function (response) {
-          console.log("SUCCESS!", response.status, response.text);
-          document.getElementById("contact-form").reset();  // Reset the form
-          alert("Form Submitted Successfully");  // Alert success
-        }, function (error) {
-          console.log("FAILED...", error);
-          alert("Form Submission Failed! Try Again");  // Alert failure
-        });
-    });
-  </script>
+<!-- Script -->
+<script>
+  document.getElementById("contact-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    // Simulate an error condition (replace this with your actual error-checking logic)
+    const isSubmissionFailed = true; // Set to true to simulate a failure
+
+    if (isSubmissionFailed) {
+      // Hide the main contact form and show the Google Form section
+      document.querySelector(".contact").style.display = "none";
+      document.getElementById("google-form").style.display = "block";
+    } else {
+      // Handle successful form submission
+      alert("Form submitted successfully!");
+    }
+  });
+</script>
+
 
 
 

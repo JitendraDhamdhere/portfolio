@@ -10,9 +10,9 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             //H   
-            //  "url": "file:///C:/Users/Jitendra/Portfolio/index.html",
+              "url": "file:///C:/Users/Jitendra/portfolio/index.html",
             //A  
-            "url": "file:///C:/Users/Admin/portfolio/index.html",
+           // "url": "file:///C:/Users/Admin/portfolio/index.html",
             "webRoot": "${workspaceFolder}"
         }
     ]
