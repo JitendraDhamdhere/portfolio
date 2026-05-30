@@ -574,6 +574,99 @@
     }
 
     /* ═══════════════════════════════════════════
+       HERO PROFILE PHOTO STYLING (OPTION B)
+       ═══════════════════════════════════════════ */
+    .hero-avatar-wrapper {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin-bottom: 25px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--green) 0%, rgba(0, 255, 128, 0.1) 100%);
+      box-shadow: 0 0 20px rgba(0, 255, 128, 0.15);
+      display: inline-block;
+      animation: avatarPulse 4s infinite alternate;
+    }
+
+    .hero-avatar-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--bg);
+      background: var(--bg2);
+    }
+
+    .hero-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(15%) contrast(105%) brightness(95%);
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .hero-avatar-wrapper:hover .hero-avatar-img {
+      filter: grayscale(0%) contrast(110%) brightness(100%);
+      transform: scale(1.05);
+    }
+
+    /* scanline scan grid CRT overlay effect */
+    .hero-avatar-inner::after {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 128, 0.12) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
+      background-size: 100% 4px, 6px 100%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    /* High-tech pulsing scan loop border */
+    .hero-avatar-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid var(--green);
+      opacity: 0.4;
+      animation: radarScan 3s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes radarScan {
+      0% { transform: scale(1); opacity: 0.6; }
+      50% { opacity: 0.3; }
+      100% { transform: scale(1.1); opacity: 0; }
+    }
+
+    @keyframes avatarPulse {
+      0% { 
+        box-shadow: 0 0 15px rgba(0, 255, 128, 0.15); 
+        border-color: rgba(0, 255, 128, 0.4);
+      }
+      100% { 
+        box-shadow: 0 0 25px rgba(0, 255, 128, 0.35);
+        border-color: rgba(0, 255, 128, 0.8);
+      }
+    }
+
+    /* Mobile Alignment Override */
+    @media (max-width: 991px) {
+      .hero-avatar-wrapper {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 140px;
+        height: 140px;
+      }
+    }
+
+    /* ═══════════════════════════════════════════
        ABOUT ME SECTION
        ═══════════════════════════════════════════ */
     #about {
@@ -1929,6 +2022,12 @@
         <div class="hero-grid">
 
           <div class="reveal-left">
+            <!-- Profile Avatar with terminal glowing scans -->
+            <div class="hero-avatar-wrapper">
+              <div class="hero-avatar-inner">
+                <img src="./assets/images/jitendra.jpg" alt="Jitendra Dhamdhere" class="hero-avatar-img">
+              </div>
+            </div>
             <div class="hero-sub">// portfolio — software engineer</div>
             <h1 class="hero-title">Jitendra<br><span>Dhamdhere.</span></h1>
 
@@ -2627,7 +2726,7 @@
           <script
             src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-          <!-- Contact Form & Fallback Wrapper -->
+          <!-- Contact Form Wrapper -->
           <div class="reveal-right" id="contactSectionWrap">
 
             <!-- Main Contact Form -->
@@ -2674,22 +2773,6 @@
               </form>
             </div>
 
-            <!-- Fallback Google Form Section (Hidden by default, loaded dynamically upon dispatcher fail) -->
-            <div class="google-form-fallback" id="fallbackForm"
-              style="display: none;">
-              <h3 class="fallback-title"><i
-                  class="fas fa-exclamation-triangle"></i> Primary Dispatch
-                Offline</h3>
-              <p class="fallback-msg">
-                The primary email SMTP dispatcher is currently undergoing
-                routing maintenance. We have activated our secure Google Form
-                backup layer below to ensure your message is received instantly.
-                Thank you for your understanding!
-              </p>
-              <iframe src="https://forms.gle/tXk5NiJHHuK6K1uy5"
-                class="google-form-iframe">Loading clearing form...</iframe>
-            </div>
-
           </div>
 
           <script>
@@ -2700,8 +2783,6 @@
               const form = document.getElementById("portfolioContactForm");
               const submitBtn = document.getElementById("submitBtn");
               const status = document.getElementById("formStatus");
-              const mainFormWrap = document.getElementById("mainContactForm");
-              const fallbackSection = document.getElementById("fallbackForm");
 
               form.addEventListener("submit", async (e) => {
                 e.preventDefault();
@@ -2738,21 +2819,11 @@
                   }, 3000);
 
                 } catch (error) {
-                  console.warn("Primary dispatcher failed. Activating secure fallback...", error);
-                  
+                  console.error("Primary dispatcher failed:", error);
                   status.style.color = "#dc2626";
-                  status.innerHTML = "❌ Routing error. Loading secure backup gateway...";
-                  submitBtn.innerHTML = 'Routing... <i class="fas fa-random fa-spin"></i>';
-
-                  // Graceful animated delay before cross-fading to Google Form
-                  setTimeout(() => {
-                    // Hide main form container
-                    mainFormWrap.style.display = 'none';
-                    // Show fallback container
-                    fallbackSection.style.display = 'block';
-                    // Smoothly scroll the fallback into view
-                    fallbackSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  }, 1500);
+                  status.innerHTML = "❌ Failed to send. Please contact me directly at jitendradhamdhere333@gmail.com.";
+                  submitBtn.disabled = false;
+                  submitBtn.innerHTML = originalText;
                 }
               });
             });
