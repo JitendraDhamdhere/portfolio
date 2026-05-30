@@ -681,9 +681,15 @@
       <span>Click Download to get the official PDF resume!</span>
     </div>
 
-    <a href="./assets/jitendra_dhamdhere_resume_java_developer_2_yrs_exp.pdf" download="Jitendra_Dhamdhere_Resume.pdf" class="action-btn btn-primary">
-      <i class="fas fa-download"></i> Download PDF
-    </a>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <button class="action-btn btn-secondary theme-toggle" id="themeBtn" aria-label="Toggle Theme" style="padding: 10px; width: 38px; height: 38px; display: inline-flex; justify-content: center; align-items: center; border-radius: 6px;">
+        <i class="fas fa-sun" id="themeIcon"></i>
+      </button>
+
+      <a href="./assets/jitendra_dhamdhere_resume_java_developer_2_yrs_exp.pdf" download="Jitendra_Dhamdhere_Resume.pdf" class="action-btn btn-primary">
+        <i class="fas fa-download"></i> Download PDF
+      </a>
+    </div>
   </div>
 
   <!-- Main Resume Content Canvas -->
@@ -926,5 +932,31 @@
     </div>
 
   </div>
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    // Local Storage Check
+    const savedTheme = localStorage.getItem('jd-theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', targetTheme);
+      localStorage.setItem('jd-theme', targetTheme);
+      updateThemeIcon(targetTheme);
+    });
+
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.className = 'fas fa-sun';
+      } else {
+        themeIcon.className = 'fas fa-moon';
+      }
+    }
+  </script>
 </body>
 </html>
