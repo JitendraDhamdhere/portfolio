@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="Jitendra Dhamdhere, Case Study, Contractor Management, Java Developer, Spring Boot, MySQL, iText5, Industrial Compliance">
+  <meta name="description" content="Engineering Case Study: Contractor Management System designed by Java Backend Developer Jitendra Dhamdhere for a Canadian enterprise.">
+  <meta name="author" content="Jitendra Dhamdhere">
+
+  <!-- Title -->
+  <title>Case Study: Contractor Compliance | Jitendra Dhamdhere</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/images/favicon1.png" type="image/png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       CASE STUDY CUSTOM CSS (Slate & Emerald)
+       ═══════════════════════════════════════════ */
+    :root {
+      --bg: #050806;
+      --bg-panel: #0a0f0c;
+      --surface: #101813;
+      --border: rgba(0, 255, 128, 0.08);
+      --border-dark: rgba(0, 255, 128, 0.16);
+      
+      --green: #00ff80;
+      --green-dark: #00b359;
+      --amber: #ffd700;
+      --amber-dark: #cc9900;
+      
+      --text: #e6f5ec;
+      --muted: #96a99e;
+      --dim: #5c7566;
+      
+      --sans: 'Outfit', sans-serif;
+      --code: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    /* Background Geometric Grid Accents */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: 
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── HEADER / ACTION BAR ─── */
+    .top-bar {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 8, 6, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-family: var(--code);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--muted);
+      transition: all 0.25s ease;
+      background: transparent;
+    }
+
+    .btn-back:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(0, 255, 128, 0.04);
+      transform: translateX(-2px);
+    }
+
+    .top-meta {
+      font-family: var(--code);
+      font-size: 0.7rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* ─── HERO HEADER ─── */
+    .hero-header {
+      padding: 50px 0 35px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      font-family: var(--code);
+      font-size: 0.75rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .hero-title h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .hero-title h1 span {
+      color: var(--green);
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    /* Grid Layout for Metadata and Core Summary */
+    .meta-overview-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .overview-text {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .overview-text p {
+      margin-bottom: 16px;
+    }
+
+    /* Metadata Panel Card */
+    .metadata-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-family: var(--code);
+      font-size: 0.65rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 500;
+    }
+
+    .meta-value {
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .meta-value span {
+      color: var(--green);
+    }
+
+    /* ─── CASE STUDY SECTIONS ─── */
+    .case-section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-family: var(--code);
+      font-size: 0.8rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .section-text {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* Key Implementation Bullets */
+    .implementation-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .implementation-item {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      transition: border-color 0.25s ease;
+    }
+
+    .implementation-item:hover {
+      border-color: rgba(0, 255, 128, 0.2);
+    }
+
+    .item-icon {
+      color: var(--green);
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    .item-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .item-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── SVG ARCHITECTURE DIAGRAM ─── */
+    .diagram-container {
+      background: #090e0b;
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 30px 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 25px 0;
+      overflow-x: auto;
+    }
+
+    .diagram-container svg {
+      max-width: 100%;
+      min-width: 800px;
+      height: auto;
+    }
+
+    /* ─── TECH STACK GRID ─── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .tech-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tech-card:hover {
+      border-color: rgba(0, 255, 128, 0.16);
+      transform: translateY(-2px);
+    }
+
+    .tech-header {
+      font-family: var(--code);
+      font-size: 0.72rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tech-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tech-bullets li {
+      font-size: 0.84rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tech-bullets li::before {
+      content: '▪';
+      color: var(--green);
+      font-size: 0.7rem;
+    }
+
+    /* ─── KEY OUTCOMES ─── */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .outcome-card {
+      background: var(--surface);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .outcome-num {
+      font-family: var(--code);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+
+    .outcome-label {
+      font-size: 0.85rem;
+      color: var(--text);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .outcome-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── PROPRIETARY NOTICE ─── */
+    .proprietary-notice {
+      background: rgba(255, 215, 0, 0.03);
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .notice-icon {
+      color: var(--amber);
+      font-size: 1.3rem;
+      margin-top: 2px;
+    }
+
+    .notice-title {
+      font-family: var(--code);
+      font-size: 0.76rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .notice-text {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── RESPONSIVE STYLING ─── */
+    @media (max-width: 860px) {
+      .meta-overview-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .metadata-card {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px 40px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero-title h1 {
+        font-size: 2rem;
+      }
+
+      .outcome-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .metadata-card {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation / Action Bar -->
+  <header class="top-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <a href="https://jitendradhamdhere.github.io/portfolio/" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+      <span class="top-meta">// Engineering Case Study</span>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Hero Title Block -->
+    <header class="hero-header">
+      <span class="eyebrow">INDUSTRIAL COMPLIANCE ERP</span>
+      <div class="hero-title">
+        <h1>Contractor Management<br><span>System.</span></h1>
+      </div>
+
+      <!-- Overview and Meta Grid -->
+      <div class="meta-overview-grid">
+        <div class="overview-text">
+          <p>
+            Industrial sectors and building enterprises operating in Canada are subject to extremely strict safety and environmental hazard protocols. Verifying, logging, and tracking contractor compliance documents is crucial for minimizing institutional liabilities and passing municipal and federal audits.
+          </p>
+          <p>
+            I designed and developed the core backend workflow for a robust **Contractor Management &amp; Hazard Documentation System** for a Canadian enterprise. The application is built around a secure <strong>Spring Boot and Spring Security</strong> backend, utilizing <strong>MySQL</strong> for schema registries and <strong>iText5</strong> for automated programmatic compliance PDF certificate generations.
+          </p>
+        </div>
+
+        <aside class="metadata-card">
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">Java Backend Developer</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Client / Firm</span>
+            <span class="meta-value">Canada Enterprise Client</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Duration</span>
+            <span class="meta-value">Apr 2024 — Present</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Domain</span>
+            <span class="meta-value">Industrial Compliance ERP</span>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <!-- The Problem Section -->
+    <section class="case-section">
+      <h2 class="section-title">The Engineering Challenge</h2>
+      <p class="section-text">
+        Managing industrial contractor compliance is historically a paperwork bottleneck. Contractors must submit multi-role insurance, safety declarations, and hazard reports. Validating these forms through multi-step checklists manually is highly error-prone, and failing to block contractors with expired credentials from entering active construction zones introduces heavy regulatory fines.
+      </p>
+      <p class="section-text">
+        Furthermore, when a contractor completes document audits successfully, the system must issue secure, tamper-proof compliance certificates. Generating these certificates as high-quality PDF files dynamically on the server and storing them securely without running out of disk space or causing performance drops during bulk hiring seasons poses a major scalability challenge.
+      </p>
+    </section>
+
+    <!-- My Role Section -->
+    <section class="case-section">
+      <h2 class="section-title">My Implementation Role</h2>
+      <p class="section-text">
+        I engineered the multi-step verification workflows, mapped database compliance schemas, configured Spring Security user-level filters, and built the server-side PDF generator.
+      </p>
+
+      <ul class="implementation-list">
+        
+        <li class="implementation-item">
+          <i class="fas fa-file-signature item-icon"></i>
+          <div>
+            <h3 class="item-title">Multi-Step Compliance Wizard</h3>
+            <p class="item-desc">
+              I designed a transactional document verification checklist engine in Java. When a contractor uploads their insurance and safety profiles, my backend validates file types, tracks approval states (Submitted, In-Review, Action-Required, Validated), and blocks access key allocations until all checklist stages resolve to 'Validated'.
+            </p>
+          </div>
+        </li>
+
+        <li class="implementation-item">
+          <i class="fas fa-file-pdf item-icon"></i>
+          <div>
+            <h3 class="item-title">iText5 PDF Generation Pipeline</h3>
+            <p class="item-desc">
+              I built a server-side document compiler using the iText5 library. When a compliance check completes, the system pulls student/contractor profile parameters, binds them to a custom-designed vector template, compiles a compact, secure PDF certificate, and uploads the document as an encrypted byte stream.
+            </p>
+          </div>
+        </li>
+
+        <li class="implementation-item">
+          <i class="fas fa-user-lock item-icon"></i>
+          <div>
+            <h3 class="item-title">Multi-Role Security Gateways</h3>
+            <p class="item-desc">
+              I configured user authorization boundaries utilizing Spring Security. By matching roles (Contractor, Auditor, Global Administrator) to specific class-level endpoints, I ensured that contractors can only write to their own profiles, while auditors have broad cross-auditing access.
+            </p>
+          </div>
+        </li>
+
+        <li class="implementation-item">
+          <i class="fas fa-database item-icon"></i>
+          <div>
+            <h3 class="item-title">Optimized Database Registry</h3>
+            <p class="item-desc">
+              I mapped the relational schemas for safety log registries and document checklists in MySQL. By applying indexing parameters across foreign keys (such as contractor ID and submission date), I optimized document tracking and verification queues.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Architecture Diagram Section -->
+    <section class="case-section">
+      <h2 class="section-title">Technical Architecture Diagram</h2>
+      <p class="section-text">
+        The inline architectural diagram below maps out how files transition from upload, validation, asynchronous queues, security layers, to final database ledger commits:
+      </p>
+
+      <!-- SVG Architectural Flowchart -->
+      <div class="diagram-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 280">
+          <defs>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          
+          <!-- Outer border -->
+          <rect x="5" y="5" width="840" height="270" rx="6" fill="#080c09" stroke="#00ff80" stroke-width="1.2" stroke-opacity="0.12"/>
+          
+          <!-- Step 1: Contractor Portal -->
+          <rect x="25" y="90" width="130" height="70" rx="4" fill="#101813" stroke="#00ff80" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="90" y="122" fill="#00ff80" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">CONTRACTOR PORTAL</text>
+          <text x="90" y="138" fill="#96a99e" font-family="Outfit" font-size="8.5" text-anchor="middle">Hazards &amp; Docs upload</text>
+          
+          <!-- Arrow 1 -->
+          <path d="M 155 125 L 195 125" fill="none" stroke="#00ff80" stroke-width="1.5"/>
+          <polygon points="195,125 188,121 188,129" fill="#00ff80"/>
+          
+          <!-- Step 2: Spring Security Gates -->
+          <rect x="195" y="90" width="140" height="70" rx="4" fill="#101813" stroke="#ffd700" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="265" y="117" fill="#ffd700" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">SECURITY CONTROLLER</text>
+          <text x="265" y="132" fill="#e6f5ec" font-family="Outfit" font-size="8" text-anchor="middle">Spring Security Auth</text>
+          <text x="265" y="145" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Multi-Role verification</text>
+          
+          <!-- Arrow 2 -->
+          <path d="M 335 125 L 375 125" fill="none" stroke="#00ff80" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <polygon points="375,125 368,121 368,129" fill="#00ff80"/>
+          
+          <!-- Step 3: Service Logic -->
+          <rect x="375" y="55" width="145" height="140" rx="4" fill="#101813" stroke="#00ff80" stroke-width="1.5"/>
+          <text x="447" y="80" fill="#00ff80" font-family="JetBrains Mono" font-size="9" font-weight="700" text-anchor="middle">COMPLIANCE ENGINE</text>
+          <text x="447" y="100" fill="#e6f5ec" font-family="Outfit" font-size="8.5" text-anchor="middle">Multi-Step Form Wizard</text>
+          <text x="447" y="115" fill="#e6f5ec" font-family="Outfit" font-size="8.5" text-anchor="middle">Validation Checklist</text>
+          <line x1="385" y1="130" x2="510" y2="130" stroke="#00ff80" stroke-width="0.7" stroke-opacity="0.2"/>
+          <text x="447" y="152" fill="#ffd700" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">ITEXT5 PDF HUB</text>
+          <text x="447" y="167" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle"> tampered-proof Certs</text>
+          <text x="447" y="180" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">&amp; document summaries</text>
+          
+          <!-- Arrow 3 -->
+          <path d="M 520 125 L 560 125" fill="none" stroke="#00ff80" stroke-width="1.5"/>
+          <polygon points="560,125 553,121 553,129" fill="#00ff80"/>
+          
+          <!-- Step 4: Auditor Approval Gate -->
+          <rect x="560" y="90" width="140" height="70" rx="4" fill="#101813" stroke="#00ff80" stroke-width="1.5"/>
+          <text x="630" y="120" fill="#00ff80" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">AUDITOR APPROVER</text>
+          <text x="630" y="135" fill="#96a99e" font-family="Outfit" font-size="8.5" text-anchor="middle">Verification Checklist</text>
+          
+          <!-- Arrow 4 -->
+          <path d="M 700 125 L 740 125" fill="none" stroke="#00ff80" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <polygon points="740,125 733,121 733,129" fill="#00ff80"/>
+          
+          <!-- Step 5: MySQL Database -->
+          <rect x="740" y="90" width="85" height="70" rx="4" fill="#101813" stroke="#ffd700" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="782" y="120" fill="#ffd700" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">MYSQL</text>
+          <text x="782" y="135" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Indexed Data</text>
+          <text x="782" y="146" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Query Tables</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Tech Stack Grid Section -->
+    <section class="case-section">
+      <h2 class="section-title">Case Study Tech Stack</h2>
+      
+      <div class="tech-grid">
+        <!-- Java -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fab fa-java"></i> Languages</div>
+          <ul class="tech-bullets">
+            <li>Core Java &amp; Streams</li>
+            <li>document byte streams</li>
+            <li>SQL normalization</li>
+          </ul>
+        </div>
+
+        <!-- Spring -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fas fa-leaf"></i> Frameworks</div>
+          <ul class="tech-bullets">
+            <li>Spring Boot backend</li>
+            <li>Spring Security</li>
+            <li>Hibernate / JPA ORM</li>
+          </ul>
+        </div>
+
+        <!-- Schedulers -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fas fa-file-pdf"></i> PDF Compiler</div>
+          <ul class="tech-bullets">
+            <li>iText5 PDF library</li>
+            <li>vector templates</li>
+            <li>tampered-proof signs</li>
+          </ul>
+        </div>
+
+        <!-- MySQL -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fas fa-database"></i> Database</div>
+          <ul class="tech-bullets">
+            <li>MySQL DB Server</li>
+            <li>Index optimizations</li>
+            <li>Foreign key normalization</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Outcomes Section -->
+    <section class="case-section">
+      <h2 class="section-title">Key System Outcomes</h2>
+      <p class="section-text">
+        I successfully engineered the compliance verification and programmatic document compiler backend, satisfying strict security standards:
+      </p>
+
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <div class="outcome-num">100%</div>
+          <div class="outcome-label">Compliance Validation</div>
+          <p class="outcome-desc">Automated validation checklists ensured that 100% of contractors have active insurance credentials before entering target job sites.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-num">&lt; 1.5 Sec</div>
+          <div class="outcome-label">Dynamic PDF Generation</div>
+          <p class="outcome-desc">The server compiles and renders dynamic, print-ready iText5 compliance certificates in less than one and a half seconds.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-num">Zero</div>
+          <div class="outcome-label">Security Breaches</div>
+          <p class="outcome-desc">Enforcing user-specific Spring Security boundaries successfully blocked unauthorized accesses to employee or hazard logs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proprietary Notice -->
+    <footer class="proprietary-notice">
+      <i class="fas fa-lock notice-icon"></i>
+      <div>
+        <h4 class="notice-title">Proprietary Notice &amp; Intellectual Property</h4>
+        <p class="notice-text">
+          Please note that the source code, security settings, compliance checklists, and server-side PDF configuration files represent proprietary intellectual property engineered for a <strong>Canadian Enterprise Client</strong>. No actual private source keys, API secrets, or active databases are exposed on this case study, in strict compliance with professional NDAs.
+        </p>
+      </div>
+    </footer>
+
+  </main>
+</body>
+</html>

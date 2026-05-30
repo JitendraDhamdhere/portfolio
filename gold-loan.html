@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="Jitendra Dhamdhere, Case Study, Gold Loan, Java Developer, Spring Boot, Hibernate, MySQL, NBFC Banking, SaaS">
+  <meta name="description" content="Engineering Case Study: Smart Gold Loan Management System designed by Java Backend Developer Jitendra Dhamdhere for Artcode Pvt Ltd.">
+  <meta name="author" content="Jitendra Dhamdhere">
+
+  <!-- Title -->
+  <title>Case Study: Smart Gold Loan System | Jitendra Dhamdhere</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/images/favicon1.png" type="image/png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       CASE STUDY CUSTOM CSS (Slate & Emerald)
+       ═══════════════════════════════════════════ */
+    :root {
+      --bg: #050806;
+      --bg-panel: #0a0f0c;
+      --surface: #101813;
+      --border: rgba(0, 255, 128, 0.08);
+      --border-dark: rgba(0, 255, 128, 0.16);
+      
+      --green: #00ff80;
+      --green-dark: #00b359;
+      --amber: #ffd700;
+      --amber-dark: #cc9900;
+      
+      --text: #e6f5ec;
+      --muted: #96a99e;
+      --dim: #5c7566;
+      
+      --sans: 'Outfit', sans-serif;
+      --code: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    /* Background Geometric Grid Accents */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: 
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── HEADER / ACTION BAR ─── */
+    .top-bar {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 8, 6, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-family: var(--code);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--muted);
+      transition: all 0.25s ease;
+      background: transparent;
+    }
+
+    .btn-back:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(0, 255, 128, 0.04);
+      transform: translateX(-2px);
+    }
+
+    .top-meta {
+      font-family: var(--code);
+      font-size: 0.7rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* ─── HERO HEADER ─── */
+    .hero-header {
+      padding: 50px 0 35px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      font-family: var(--code);
+      font-size: 0.75rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .hero-title h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .hero-title h1 span {
+      color: var(--green);
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    /* Grid Layout for Metadata and Core Summary */
+    .meta-overview-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .overview-text {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .overview-text p {
+      margin-bottom: 16px;
+    }
+
+    /* Metadata Panel Card */
+    .metadata-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-family: var(--code);
+      font-size: 0.65rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 500;
+    }
+
+    .meta-value {
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .meta-value span {
+      color: var(--green);
+    }
+
+    /* ─── CASE STUDY SECTIONS ─── */
+    .case-section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-family: var(--code);
+      font-size: 0.8rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .section-text {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* Key Implementation Bullets */
+    .implementation-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .implementation-item {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      transition: border-color 0.25s ease;
+    }
+
+    .implementation-item:hover {
+      border-color: rgba(0, 255, 128, 0.2);
+    }
+
+    .item-icon {
+      color: var(--green);
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    .item-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .item-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── SVG ARCHITECTURE DIAGRAM ─── */
+    .diagram-container {
+      background: #090e0b;
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 30px 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 25px 0;
+      overflow-x: auto;
+    }
+
+    .diagram-container svg {
+      max-width: 100%;
+      min-width: 800px;
+      height: auto;
+    }
+
+    /* ─── TECH STACK GRID ─── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .tech-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tech-card:hover {
+      border-color: rgba(0, 255, 128, 0.16);
+      transform: translateY(-2px);
+    }
+
+    .tech-header {
+      font-family: var(--code);
+      font-size: 0.72rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tech-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tech-bullets li {
+      font-size: 0.84rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tech-bullets li::before {
+      content: '▪';
+      color: var(--green);
+      font-size: 0.7rem;
+    }
+
+    /* ─── KEY OUTCOMES ─── */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .outcome-card {
+      background: var(--surface);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .outcome-num {
+      font-family: var(--code);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+
+    .outcome-label {
+      font-size: 0.85rem;
+      color: var(--text);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .outcome-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── PROPRIETARY NOTICE ─── */
+    .proprietary-notice {
+      background: rgba(255, 215, 0, 0.03);
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .notice-icon {
+      color: var(--amber);
+      font-size: 1.3rem;
+      margin-top: 2px;
+    }
+
+    .notice-title {
+      font-family: var(--code);
+      font-size: 0.76rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .notice-text {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── RESPONSIVE STYLING ─── */
+    @media (max-width: 860px) {
+      .meta-overview-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .metadata-card {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px 40px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero-title h1 {
+        font-size: 2rem;
+      }
+
+      .outcome-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .metadata-card {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation / Action Bar -->
+  <header class="top-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <a href="https://jitendradhamdhere.github.io/portfolio/" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+      <span class="top-meta">// Engineering Case Study</span>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Hero Title Block -->
+    <header class="hero-header">
+      <span class="eyebrow">FINANCIAL SAAS SOLUTIONS</span>
+      <div class="hero-title">
+        <h1>Smart Gold Loan<br><span>Management System.</span></h1>
+      </div>
+
+      <!-- Overview and Meta Grid -->
+      <div class="meta-overview-grid">
+        <div class="overview-text">
+          <p>
+            Gold loans represent one of the most critical and fast-moving credit assets in non-banking financial companies (NBFCs). At <strong>Artcode Private Limited</strong>, I engineered the core backend operations for a multi-branch, multi-role Gold Loan management SaaS platform designed to transition traditional offline lending activities into highly secure digital pipelines.
+          </p>
+          <p>
+            This system handles the end-to-end lifecycle of a loan, beginning with lead capture and credit approvals, transitioning to dynamic ROI scheme calculations, automated ledger allocations, real-time EMI tracking with automated alert triggers, and final loan closure workflows. Built using <strong>Spring Boot, Hibernate/JPA, and MySQL</strong>, the backend guarantees transaction isolation and auditing compliance under rapid credit processing cycles.
+          </p>
+        </div>
+
+        <aside class="metadata-card">
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">Java Backend Developer</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Client / Firm</span>
+            <span class="meta-value">Artcode Pvt Ltd</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Duration</span>
+            <span class="meta-value">Apr 2024 — Present</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Domain</span>
+            <span class="meta-value">NBFC Banking / SaaS</span>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <!-- The Problem Section -->
+    <section class="case-section">
+      <h2 class="section-title">The Engineering Challenge</h2>
+      <p class="section-text">
+        Lending operations demand absolute transaction accuracy and absolute compliance. Calculating dynamic interest structures (reducing balance, bullet repayment, or step-up interest rates) based on daily gold rate variables requires absolute precision, where a rounding error of 0.01% could lead to heavy reconciliation deficits in bulk daily audits.
+      </p>
+      <p class="section-text">
+        Furthermore, financial regulators mandate a strict audit trail to prevent collusion. Operations such as changing interest rates, granting waivers, or dispersing large credit limits cannot be processed by a single administrator. The system must enforce a secure **Maker-Checker dual authorization loop** natively in the API level to maintain financial auditing standards.
+      </p>
+    </section>
+
+    <!-- My Role Section -->
+    <section class="case-section">
+      <h2 class="section-title">My Implementation Role</h2>
+      <p class="section-text">
+        I engineered the transaction ledger algorithms, mapped database entity relationships under strict transaction isolation levels, and implemented the dynamic loan math libraries.
+      </p>
+
+      <ul class="implementation-list">
+        
+        <li class="implementation-item">
+          <i class="fas fa-calculator item-icon"></i>
+          <div>
+            <h3 class="item-title">Dynamic ROI &amp; Scheme Calculator</h3>
+            <p class="item-desc">
+              I designed a metadata-driven Scheme Configurator engine. Instead of hardcoding loan interest rules, branch managers configure rate parameters (reducing, compounding, daily accrual schedules) dynamically, which are parsed and processed by my backend math library using high-precision Java BigDecimal classes.
+            </p>
+          </div>
+        </li>
+
+        <li class="implementation-item">
+          <i class="fas fa-lock item-icon"></i>
+          <div>
+            <h3 class="item-title">Maker-Checker Authorization Core</h3>
+            <p class="item-desc">
+              I implemented a secure Maker-Checker approval workflow framework. Critical operations (loan approvals, waiver grants) are logged to a 'Pending Approval' state ledger by a 'Maker' agent. An encrypted transaction token is generated and published, which is only validated and committed upon signature from an authorized 'Checker' officer.
+            </p>
+          </div>
+        </li>
+
+        <li class="implementation-item">
+          <i class="fas fa-bell item-icon"></i>
+          <div>
+            <h3 class="item-title">Automated EMI Scheduler &amp; Alert Engine</h3>
+            <p class="item-desc">
+              I engineered an automated scheduler using Spring Batch that runs bulk daily checks across active accounts. The scheduler computes due EMI allocations, logs default alerts in MySQL indices, and triggers asynchronous communication webhooks to notify clients of upcoming or overdue bills.
+            </p>
+          </div>
+        </li>
+
+        <li class="implementation-item">
+          <i class="fas fa-history item-icon"></i>
+          <div>
+            <h3 class="item-title">Audited Transaction Ledger</h3>
+            <p class="item-desc">
+              I mapped a highly normalized ledger schema utilizing Hibernate/JPA transaction bindings. By configuring strict `@Transactional(isolation = Isolation.REPEATABLE_READ)` isolation boundaries, I guaranteed that parallel repayments and interest accruals occur without causing race conditions or dirty database reads.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Architecture Diagram Section -->
+    <section class="case-section">
+      <h2 class="section-title">Technical Architecture Diagram</h2>
+      <p class="section-text">
+        The inline architectural diagram below maps out how a loan request transitions through security filters, Maker-Checker authorization nodes, database schemas, and external scheduler loops:
+      </p>
+
+      <!-- SVG Architectural Flowchart -->
+      <div class="diagram-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 280">
+          <defs>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          
+          <!-- Outer border -->
+          <rect x="5" y="5" width="840" height="270" rx="6" fill="#080c09" stroke="#00ff80" stroke-width="1.2" stroke-opacity="0.12"/>
+          
+          <!-- Step 1: Lead capture -->
+          <rect x="25" y="90" width="130" height="70" rx="4" fill="#101813" stroke="#ffd700" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="90" y="122" fill="#ffd700" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">LEAD / GOLD INTAKE</text>
+          <text x="90" y="138" fill="#96a99e" font-family="Outfit" font-size="8.5" text-anchor="middle">Lead Capture &amp; Valuation</text>
+          
+          <!-- Arrow 1 -->
+          <path d="M 155 125 L 195 125" fill="none" stroke="#00ff80" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <polygon points="195,125 188,121 188,129" fill="#00ff80"/>
+          
+          <!-- Step 2: Maker Engine -->
+          <rect x="195" y="90" width="140" height="70" rx="4" fill="#101813" stroke="#00ff80" stroke-width="1.5"/>
+          <text x="265" y="117" fill="#00ff80" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">MAKER AGENT</text>
+          <text x="265" y="132" fill="#e6f5ec" font-family="Outfit" font-size="8" text-anchor="middle">Registers Loan Proposal</text>
+          <text x="265" y="145" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Spring Boot API Layer</text>
+          
+          <!-- Arrow 2 -->
+          <path d="M 335 125 L 375 125" fill="none" stroke="#00ff80" stroke-width="1.5"/>
+          <polygon points="375,125 368,121 368,129" fill="#00ff80"/>
+          
+          <!-- Step 3: Maker Checker core -->
+          <rect x="375" y="90" width="140" height="70" rx="4" fill="#101813" stroke="#ffd700" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="445" y="117" fill="#ffd700" font-family="JetBrains Mono" font-size="9" font-weight="700" text-anchor="middle">CHECKER VERIFIER</text>
+          <text x="445" y="132" fill="#e6f5ec" font-family="Outfit" font-size="8" text-anchor="middle">Reviews Valuation Token</text>
+          <text x="445" y="145" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Dual-Auth Ledger Hook</text>
+          
+          <!-- Arrow 3 -->
+          <path d="M 515 125 L 555 125" fill="none" stroke="#00ff80" stroke-width="1.5"/>
+          <polygon points="555,125 548,121 548,129" fill="#00ff80"/>
+          
+          <!-- Step 4: Accrual & Processing Engine -->
+          <rect x="555" y="55" width="145" height="140" rx="4" fill="#101813" stroke="#00ff80" stroke-width="1.5"/>
+          <text x="627" y="80" fill="#00ff80" font-family="JetBrains Mono" font-size="9" font-weight="700" text-anchor="middle">LOAN LEDGER ENGINE</text>
+          <text x="627" y="100" fill="#e6f5ec" font-family="Outfit" font-size="8.5" text-anchor="middle">BigDecimal Schemes</text>
+          <text x="627" y="115" fill="#e6f5ec" font-family="Outfit" font-size="8.5" text-anchor="middle">Spring Batch Alerts</text>
+          <line x1="565" y1="130" x2="690" y2="130" stroke="#00ff80" stroke-width="0.7" stroke-opacity="0.2"/>
+          <text x="627" y="152" fill="#ffd700" font-family="JetBrains Mono" font-size="9" font-weight="700" text-anchor="middle">MYSQL CLUSTER</text>
+          <text x="627" y="167" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">REPEATABLE READ</text>
+          <text x="627" y="180" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Normalized Audited Tables</text>
+          
+          <!-- Arrow 4 -->
+          <path d="M 700 125 L 740 125" fill="none" stroke="#00ff80" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <polygon points="740,125 733,121 733,129" fill="#00ff80"/>
+          
+          <!-- Step 5: Loan Closure -->
+          <rect x="740" y="90" width="85" height="70" rx="4" fill="#101813" stroke="#00ff80" stroke-width="1.5"/>
+          <text x="782" y="120" fill="#00ff80" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">CLOSURE</text>
+          <text x="782" y="135" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Pledge Release</text>
+          <text x="782" y="146" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Balance Clear</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Tech Stack Grid Section -->
+    <section class="case-section">
+      <h2 class="section-title">Case Study Tech Stack</h2>
+      
+      <div class="tech-grid">
+        <!-- Java -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fab fa-java"></i> Core System</div>
+          <ul class="tech-bullets">
+            <li>Core Java &amp; Streams</li>
+            <li>BigDecimal calculation library</li>
+            <li>SQL normalization</li>
+          </ul>
+        </div>
+
+        <!-- Spring -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fas fa-leaf"></i> Frameworks</div>
+          <ul class="tech-bullets">
+            <li>Spring Boot backend</li>
+            <li>Hibernate / JPA ORM</li>
+            <li>Spring Security filter chain</li>
+          </ul>
+        </div>
+
+        <!-- Schedulers -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fas fa-clock"></i> Schedulers</div>
+          <ul class="tech-bullets">
+            <li>Spring Batch cron tasks</li>
+            <li>Asynchronous alert tasks</li>
+            <li>SMS/Email alert webhooks</li>
+          </ul>
+        </div>
+
+        <!-- MySQL -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fas fa-database"></i> Database</div>
+          <ul class="tech-bullets">
+            <li>MySQL DB Server</li>
+            <li>REPEATABLE READ isolation</li>
+            <li>Audit schema mapping</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Outcomes Section -->
+    <section class="case-section">
+      <h2 class="section-title">Key System Outcomes</h2>
+      <p class="section-text">
+        I successfully engineered the core credit engine, resulting in highly reliable loan calculations and secure audit controls:
+      </p>
+
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <div class="outcome-num">0.00%</div>
+          <div class="outcome-label">Calculation Discrepancies</div>
+          <p class="outcome-desc">Using high-precision BigDecimal models secured the ledger computations, resulting in perfect balance checks during daily reconciliation audits.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-num">100%</div>
+          <div class="outcome-label">Maker-Checker Coverage</div>
+          <p class="outcome-desc">Enforcing mandatory dual-authorization states natively across write endpoints met 100% of financial security audit specifications.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-num">Zero</div>
+          <div class="outcome-label">Race Conditions</div>
+          <p class="outcome-desc">Applying strict isolation boundaries under JPA transactional controls eliminated race conditions on multi-role concurrently edited credit accounts.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proprietary Notice -->
+    <footer class="proprietary-notice">
+      <i class="fas fa-lock notice-icon"></i>
+      <div>
+        <h4 class="notice-title">Proprietary Notice &amp; Intellectual Property</h4>
+        <p class="notice-text">
+          Please note that the source code, transaction models, and database configurations for this gold lending platform represent proprietary intellectual property engineered for <strong>Artcode Private Limited</strong>. No actual private source keys, API secrets, or internal financial server configurations are exposed on this case study, in strict compliance with professional NDAs.
+        </p>
+      </div>
+    </footer>
+
+  </main>
+</body>
+</html>

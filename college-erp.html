@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="Jitendra Dhamdhere, Case Study, College ERP, Java Developer, Spring Boot, Angular, MySQL, RBAC, Institutional ERP">
+  <meta name="description" content="Engineering Case Study: College ERP System designed by Java Backend Developer Jitendra Dhamdhere for Artcode Pvt Ltd.">
+  <meta name="author" content="Jitendra Dhamdhere">
+
+  <!-- Title -->
+  <title>Case Study: College ERP System | Jitendra Dhamdhere</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/images/favicon1.png" type="image/png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       CASE STUDY CUSTOM CSS (Slate & Emerald)
+       ═══════════════════════════════════════════ */
+    :root {
+      --bg: #050806;
+      --bg-panel: #0a0f0c;
+      --surface: #101813;
+      --border: rgba(0, 255, 128, 0.08);
+      --border-dark: rgba(0, 255, 128, 0.16);
+      
+      --green: #00ff80;
+      --green-dark: #00b359;
+      --amber: #ffd700;
+      --amber-dark: #cc9900;
+      
+      --text: #e6f5ec;
+      --muted: #96a99e;
+      --dim: #5c7566;
+      
+      --sans: 'Outfit', sans-serif;
+      --code: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    /* Background Geometric Grid Accents */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: 
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── HEADER / ACTION BAR ─── */
+    .top-bar {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 8, 6, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-family: var(--code);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--muted);
+      transition: all 0.25s ease;
+      background: transparent;
+    }
+
+    .btn-back:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(0, 255, 128, 0.04);
+      transform: translateX(-2px);
+    }
+
+    .top-meta {
+      font-family: var(--code);
+      font-size: 0.7rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* ─── HERO HEADER ─── */
+    .hero-header {
+      padding: 50px 0 35px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      font-family: var(--code);
+      font-size: 0.75rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .hero-title h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .hero-title h1 span {
+      color: var(--green);
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    /* Grid Layout for Metadata and Core Summary */
+    .meta-overview-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .overview-text {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .overview-text p {
+      margin-bottom: 16px;
+    }
+
+    /* Metadata Panel Card */
+    .metadata-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-family: var(--code);
+      font-size: 0.65rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 500;
+    }
+
+    .meta-value {
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .meta-value span {
+      color: var(--green);
+    }
+
+    /* ─── CASE STUDY SECTIONS ─── */
+    .case-section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-family: var(--code);
+      font-size: 0.8rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .section-text {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* Key Implementation Bullets */
+    .implementation-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .implementation-item {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      transition: border-color 0.25s ease;
+    }
+
+    .implementation-item:hover {
+      border-color: rgba(0, 255, 128, 0.2);
+    }
+
+    .item-icon {
+      color: var(--green);
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    .item-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .item-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── SVG ARCHITECTURE DIAGRAM ─── */
+    .diagram-container {
+      background: #090e0b;
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 30px 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 25px 0;
+      overflow-x: auto;
+    }
+
+    .diagram-container svg {
+      max-width: 100%;
+      min-width: 800px;
+      height: auto;
+    }
+
+    /* ─── TECH STACK GRID ─── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .tech-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tech-card:hover {
+      border-color: rgba(0, 255, 128, 0.16);
+      transform: translateY(-2px);
+    }
+
+    .tech-header {
+      font-family: var(--code);
+      font-size: 0.72rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tech-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tech-bullets li {
+      font-size: 0.84rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tech-bullets li::before {
+      content: '▪';
+      color: var(--green);
+      font-size: 0.7rem;
+    }
+
+    /* ─── KEY OUTCOMES ─── */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .outcome-card {
+      background: var(--surface);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .outcome-num {
+      font-family: var(--code);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+
+    .outcome-label {
+      font-size: 0.85rem;
+      color: var(--text);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .outcome-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── PROPRIETARY NOTICE ─── */
+    .proprietary-notice {
+      background: rgba(255, 215, 0, 0.03);
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .notice-icon {
+      color: var(--amber);
+      font-size: 1.3rem;
+      margin-top: 2px;
+    }
+
+    .notice-title {
+      font-family: var(--code);
+      font-size: 0.76rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .notice-text {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── RESPONSIVE STYLING ─── */
+    @media (max-width: 860px) {
+      .meta-overview-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .metadata-card {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px 40px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero-title h1 {
+        font-size: 2rem;
+      }
+
+      .outcome-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .metadata-card {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation / Action Bar -->
+  <header class="top-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <a href="https://jitendradhamdhere.github.io/portfolio/" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+      <span class="top-meta">// Engineering Case Study</span>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Hero Title Block -->
+    <header class="hero-header">
+      <span class="eyebrow">ENTERPRISE SYSTEM AUTOMATION</span>
+      <div class="hero-title">
+        <h1>Modular College ERP<br><span>System.</span></h1>
+      </div>
+
+      <!-- Overview and Meta Grid -->
+      <div class="meta-overview-grid">
+        <div class="overview-text">
+          <p>
+            Educational institutions process a massive volume of daily administrative activities across diverse functional units—from secure employee HR tracking, admission application reviews, book index updates in extensive library databases, physical campus security logs, to automated digital student identity badge generations.
+          </p>
+          <p>
+            At <strong>Artcode Private Limited</strong>, I designed and developed a highly modular **College ERP Platform** aimed at consolidating these separate processes into a single secure hub. The application features a robust backend microservice stack written in <strong>Spring Boot and Hibernate</strong>, integrated with a clean responsive web interface developed in <strong>Angular</strong> and styled elegantly with fluid layouts.
+          </p>
+        </div>
+
+        <aside class="metadata-card">
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">Java Backend Developer</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Client / Firm</span>
+            <span class="meta-value">Artcode Pvt Ltd</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Duration</span>
+            <span class="meta-value">Apr 2024 — Present</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Domain</span>
+            <span class="meta-value">Institutional ERP</span>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <!-- The Problem Section -->
+    <section class="case-section">
+      <h2 class="section-title">The Engineering Challenge</h2>
+      <p class="section-text">
+        An educational ERP system is highly complex because of the diverse user access roles (Admins, HR Directors, Librarians, Faculty, Guard, and Students) that interact with the exact same database. If access parameters are not locked down systematically, sensitive financial profiles, student contact registries, or grading indices could leak or be edited unauthorized.
+      </p>
+      <p class="section-text">
+        Furthermore, campus administrators require fast, on-demand reporting capabilities. Converting large data sets containing hundreds of employee attendance logs or library book inventories into formatted Microsoft Excel reports programmatically without blocking main application execution threads poses a major scalability challenge.
+      </p>
+    </section>
+
+    <!-- My Role Section -->
+    <section class="case-section">
+      <h2 class="section-title">My Implementation Role</h2>
+      <p class="section-text">
+        I engineered the security routing architecture, mapped the core database model structures, and built the dynamic reporting and automated badge generation engines.
+      </p>
+
+      <ul class="implementation-list">
+        
+        <li class="implementation-item">
+          <i class="fas fa-user-shield item-icon"></i>
+          <div>
+            <h3 class="item-title">Custom Role-Based Access Control (RBAC)</h3>
+            <p class="item-desc">
+              I designed a robust, annotation-driven RBAC layer utilizing Spring Security and JWT. I mapped granular authorization gates to specific endpoint classes, guaranteeing that only authenticated security guards can log gate entries, and only authorized HR directors can access salary variables.
+            </p>
+          </div>
+        </li>
+
+        <li class="implementation-item">
+          <i class="fas fa-file-excel item-icon"></i>
+          <div>
+            <h3 class="item-title">Asynchronous Excel Reporting Engine</h3>
+            <p class="item-desc">
+              I built a high-performance export module using Apache POI. To prevent main server thread blocks during large data runs, I implemented asynchronous execution parameters. The backend compiles the spreadsheet data in separate threads, returning a cached downloadable URL link to the Angular frontend on complete.
+            </p>
+          </div>
+        </li>
+
+        <li class="implementation-item">
+          <i class="fas fa-id-card item-icon"></i>
+          <div>
+            <h3 class="item-title">Student ID Badge Generator</h3>
+            <p class="item-desc">
+              I programmed an automated ID card rendering loop. When a new student profile is verified by the registrar, my backend captures the photo byte array, parses the student details, and generates a formatted, print-ready PDF card directly using the iText5 rendering engine.
+            </p>
+          </div>
+        </li>
+
+        <li class="implementation-item">
+          <i class="fas fa-boxes item-icon"></i>
+          <div>
+            <h3 class="item-title">Modular Library &amp; Security Database Mapping</h3>
+            <p class="item-desc">
+              I designed the logical database structure for our security gate logs and inventory indexes. By indexing key query columns in MySQL (such as student badge numbers and book ISBNs), I optimized lookup search durations under high read volumes.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Architecture Diagram Section -->
+    <section class="case-section">
+      <h2 class="section-title">Technical Architecture Diagram</h2>
+      <p class="section-text">
+        The inline architectural diagram below maps out how requests transition from the Angular client through the RBAC gate, custom service controllers, reporting engines, to the database:
+      </p>
+
+      <!-- SVG Architectural Flowchart -->
+      <div class="diagram-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 280">
+          <defs>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          
+          <!-- Outer border -->
+          <rect x="5" y="5" width="840" height="270" rx="6" fill="#080c09" stroke="#00ff80" stroke-width="1.2" stroke-opacity="0.12"/>
+          
+          <!-- Step 1: Angular Client -->
+          <rect x="25" y="90" width="130" height="70" rx="4" fill="#101813" stroke="#00ff80" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="90" y="122" fill="#00ff80" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">ANGULAR WEB CLIENT</text>
+          <text x="90" y="138" fill="#96a99e" font-family="Outfit" font-size="8.5" text-anchor="middle">Client Portal Interface</text>
+          
+          <!-- Arrow 1 -->
+          <path d="M 155 125 L 195 125" fill="none" stroke="#00ff80" stroke-width="1.5"/>
+          <polygon points="195,125 188,121 188,129" fill="#00ff80"/>
+          
+          <!-- Step 2: RBAC Security Gate -->
+          <rect x="195" y="90" width="140" height="70" rx="4" fill="#101813" stroke="#ffd700" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="265" y="117" fill="#ffd700" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">SECURITY CONTROLLER</text>
+          <text x="265" y="132" fill="#e6f5ec" font-family="Outfit" font-size="8" text-anchor="middle">Spring Security &amp; JWT</text>
+          <text x="265" y="145" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">RBAC Access Boundary</text>
+          
+          <!-- Arrow 2 -->
+          <path d="M 335 125 L 375 125" fill="none" stroke="#00ff80" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <polygon points="375,125 368,121 368,129" fill="#00ff80"/>
+          
+          <!-- Step 3: Modules Routing -->
+          <rect x="375" y="55" width="145" height="140" rx="4" fill="#101813" stroke="#00ff80" stroke-width="1.5"/>
+          <text x="447" y="80" fill="#00ff80" font-family="JetBrains Mono" font-size="9" font-weight="700" text-anchor="middle">MODULAR SERVICES</text>
+          <text x="447" y="100" fill="#e6f5ec" font-family="Outfit" font-size="8" text-anchor="middle">HR Registry / Admissions</text>
+          <text x="447" y="118" fill="#e6f5ec" font-family="Outfit" font-size="8" text-anchor="middle">Library System Indexer</text>
+          <text x="447" y="136" fill="#e6f5ec" font-family="Outfit" font-size="8" text-anchor="middle">Parking &amp; Gate Logs</text>
+          <line x1="385" y1="148" x2="510" y2="148" stroke="#00ff80" stroke-width="0.7" stroke-opacity="0.2"/>
+          <text x="447" y="165" fill="#ffd700" font-family="JetBrains Mono" font-size="9" font-weight="700" text-anchor="middle">ID GENERATOR</text>
+          <text x="447" y="180" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">iText5 PDF Card Engine</text>
+          
+          <!-- Arrow 3 -->
+          <path d="M 520 125 L 560 125" fill="none" stroke="#00ff80" stroke-width="1.5"/>
+          <polygon points="560,125 553,121 553,129" fill="#00ff80"/>
+          
+          <!-- Step 4: Export Engine -->
+          <rect x="560" y="90" width="140" height="70" rx="4" fill="#101813" stroke="#00ff80" stroke-width="1.5"/>
+          <text x="630" y="117" fill="#00ff80" font-family="JetBrains Mono" font-size="9" font-weight="700" text-anchor="middle">POI EXPORT HUB</text>
+          <text x="630" y="132" fill="#e6f5ec" font-family="Outfit" font-size="8" text-anchor="middle">Async Excel Compiler</text>
+          <text x="630" y="145" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Thread Pool Executor</text>
+          
+          <!-- Arrow 4 -->
+          <path d="M 700 125 L 740 125" fill="none" stroke="#00ff80" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <polygon points="740,125 733,121 733,129" fill="#00ff80"/>
+          
+          <!-- Step 5: MySQL Database -->
+          <rect x="740" y="90" width="85" height="70" rx="4" fill="#101813" stroke="#ffd700" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="782" y="120" fill="#ffd700" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">MYSQL</text>
+          <text x="782" y="135" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Indexed Data</text>
+          <text x="782" y="146" fill="#96a99e" font-family="Outfit" font-size="8" text-anchor="middle">Query Tables</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Tech Stack Grid Section -->
+    <section class="case-section">
+      <h2 class="section-title">Case Study Tech Stack</h2>
+      
+      <div class="tech-grid">
+        <!-- Java -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fab fa-java"></i> Languages</div>
+          <ul class="tech-bullets">
+            <li>Core Java &amp; Streams</li>
+            <li>TypeScript (Angular)</li>
+            <li>HTML5 / CSS3</li>
+          </ul>
+        </div>
+
+        <!-- Spring -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fas fa-leaf"></i> Frameworks</div>
+          <ul class="tech-bullets">
+            <li>Spring Boot microservices</li>
+            <li>Angular (Frontend)</li>
+            <li>Hibernate / JPA</li>
+          </ul>
+        </div>
+
+        <!-- Security -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fas fa-shield-alt"></i> Access Gate</div>
+          <ul class="tech-bullets">
+            <li>Spring Security</li>
+            <li>JSON Web Tokens (JWT)</li>
+            <li>Custom RBAC boundaries</li>
+          </ul>
+        </div>
+
+        <!-- Compilers -->
+        <div class="tech-card">
+          <div class="tech-header"><i class="fas fa-file-invoice"></i> Reporting</div>
+          <ul class="tech-bullets">
+            <li>Apache POI Excel engine</li>
+            <li>iText5 PDF Card compiler</li>
+            <li>MySQL Query optimization</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Outcomes Section -->
+    <section class="case-section">
+      <h2 class="section-title">Key System Outcomes</h2>
+      <p class="section-text">
+        I successfully engineered the modular ERP core backend, satisfying strict security standards and admin workflow requirements:
+      </p>
+
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <div class="outcome-num">100%</div>
+          <div class="outcome-label">RBAC Endpoint Security</div>
+          <p class="outcome-desc">Enforcing Spring Security JWT boundaries secured all write endpoints, completely eliminating unauthorized access across administrative zones.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-num">0 Sec</div>
+          <div class="outcome-label">UI Thread Blocking</div>
+          <p class="outcome-desc">Processing POI Excel exports asynchronously in separate thread pools ensured zero lag on student or professor UI sessions during massive runs.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-num">&lt; 2 Sec</div>
+          <div class="outcome-label">ID Badge PDF Generation</div>
+          <p class="outcome-desc">Integrating iText5 natively compiled and formatted student profiles into print-ready PDF badges in less than two seconds.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proprietary Notice -->
+    <footer class="proprietary-notice">
+      <i class="fas fa-lock notice-icon"></i>
+      <div>
+        <h4 class="notice-title">Proprietary Notice &amp; Intellectual Property</h4>
+        <p class="notice-text">
+          Please note that the source code, security matrices, database models, and operational assets for this modular ERP platform represent proprietary intellectual property engineered for <strong>Artcode Private Limited</strong>. No actual private keys, authentication hashes, or live administrative accounts are exposed on this case study, in strict compliance with professional NDAs.
+        </p>
+      </div>
+    </footer>
+
+  </main>
+</body>
+</html>
