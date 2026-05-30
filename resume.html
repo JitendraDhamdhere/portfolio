@@ -494,31 +494,7 @@
       font-weight: 600;
     }
 
-    /* Fixed Theme Toggle Button Floating */
-    .theme-toggle-fixed {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 9999;
-      background: var(--bg1);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-family: var(--code);
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .theme-toggle-fixed:hover {
-      border-color: var(--green);
-      color: var(--green);
-      background: var(--surface);
-    }
+
 
     /* Theme Transition Rule */
     body, .resume-wrapper, .action-bar, .action-btn, .section-title, .proj-tech, .cert-item, .contact-details a, h1, p, span, li, strong, i {
@@ -557,8 +533,8 @@
         display: none !important; /* Hide background grid */
       }
 
-      .action-bar, .theme-toggle-fixed {
-        display: none !important; /* Hide floating bar and toggle */
+      .action-bar {
+        display: none !important; /* Hide floating bar */
       }
 
       .resume-wrapper {
@@ -738,8 +714,6 @@
   </style>
 </head>
 <body>
-  <!-- Fixed Theme Toggle Button Floating -->
-  <button id="theme-toggle" class="theme-toggle-fixed" aria-label="Toggle Theme">☀ Light</button>
 
   <!-- Floating / Sticky Action Bar -->
   <div class="action-bar">
@@ -753,6 +727,7 @@
     </div>
 
     <div style="display: flex; gap: 12px; align-items: center;">
+      <button id="theme-toggle" class="action-btn btn-secondary" aria-label="Toggle Theme">☀ Light</button>
       <a href="./assets/jitendra_dhamdhere_resume_java_developer_2_yrs_exp.pdf" download="Jitendra_Dhamdhere_Resume.pdf" class="action-btn btn-primary">
         <i class="fas fa-download"></i> Download PDF
       </a>
