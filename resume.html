@@ -328,17 +328,21 @@
 
     /* Projects Subsection */
     .proj-item {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px dashed rgba(0, 255, 128, 0.05);
+      padding-bottom: 18px;
     }
     .proj-item:last-child {
       margin-bottom: 0;
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .proj-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .proj-name {
@@ -418,6 +422,28 @@
       text-align: right;
     }
 
+    /* Achievements section */
+    .achievements-bullets {
+      list-style: none;
+      padding-left: 12px;
+    }
+    .achievements-bullets li {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 14px;
+    }
+    .achievements-bullets li::before {
+      content: '⚡';
+      color: var(--amber);
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 0.75rem;
+    }
+
     /* Languages Grid */
     .languages-wrap {
       display: flex;
@@ -454,8 +480,8 @@
         background: #ffffff;
         color: #000000;
         padding-bottom: 0;
-        font-size: 11pt; /* Professional print font scale */
-        line-height: 1.5;
+        font-size: 10pt; /* Professional print font scale */
+        line-height: 1.4;
       }
 
       body::before {
@@ -478,25 +504,25 @@
       /* Formatting for standard paper page sizes */
       @page {
         size: letter;
-        margin: 0.5in 0.6in; /* Industry standard boundaries */
+        margin: 0.4in 0.5in; /* Industry standard boundaries */
       }
 
       /* Typography adjustments */
       .name-title h1 {
-        font-size: 24pt;
+        font-size: 20pt;
         color: #000000;
       }
       .name-title h1 span {
         color: #008040; /* Darker ink-friendly green */
       }
       .name-title p {
-        font-size: 10pt;
+        font-size: 9pt;
         color: #008040;
         letter-spacing: 1.5px;
       }
 
       .contact-details {
-        font-size: 8.5pt;
+        font-size: 8pt;
         color: #333333;
       }
       .contact-details li i {
@@ -504,69 +530,71 @@
       }
 
       .section-title {
-        font-size: 9pt;
+        font-size: 8.5pt;
         color: #008040;
         border-bottom: 1.5px solid #008040;
         padding-bottom: 2px;
-        margin-bottom: 10px;
-        margin-top: 20px;
+        margin-bottom: 8px;
+        margin-top: 14px;
       }
 
       .summary-text {
-        font-size: 9.5pt;
+        font-size: 9pt;
         color: #222222;
       }
 
       .skills-grid {
-        gap: 8px 30px;
+        gap: 6px 30px;
       }
       .skill-cat strong {
-        font-size: 8pt;
+        font-size: 7.5pt;
         color: #000000;
-        width: 110px;
+        width: 100px;
       }
       .skill-cat {
-        font-size: 9pt;
+        font-size: 8.5pt;
       }
 
       /* Timeline & Spacing */
       .exp-item {
-        margin-bottom: 14px;
+        margin-bottom: 10px;
         page-break-inside: avoid; /* Prevent orphans */
       }
       .exp-header {
         margin-bottom: 2px;
       }
       .exp-company-role {
-        font-size: 10pt;
+        font-size: 9.5pt;
         color: #000000;
       }
       .exp-time-place {
-        font-size: 8pt;
+        font-size: 7.5pt;
         color: #444444;
       }
       .exp-bullets li {
-        font-size: 9pt;
+        font-size: 8.5pt;
         color: #222222;
-        margin-bottom: 3px;
-        line-height: 1.4;
+        margin-bottom: 2px;
+        line-height: 1.35;
       }
       .exp-bullets li::before {
         color: #008040;
       }
 
       .proj-item {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+        border-bottom: none;
+        padding-bottom: 0;
         page-break-inside: avoid;
       }
       .proj-header {
         margin-bottom: 2px;
       }
       .proj-name {
-        font-size: 10pt;
+        font-size: 9.5pt;
       }
       .proj-tech {
-        font-size: 7.5pt;
+        font-size: 7pt;
         color: #008040;
         border: 1px solid #008040;
         background: none;
@@ -574,31 +602,37 @@
       }
 
       .split-grid {
-        grid-template-columns: 1.05fr 0.95fr;
-        gap: 24px;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
       }
 
       .edu-item {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         page-break-inside: avoid;
       }
       .edu-degree {
-        font-size: 9.5pt;
+        font-size: 9pt;
       }
       .edu-meta {
-        font-size: 8.5pt;
+        font-size: 8pt;
       }
       .edu-date-gpa {
-        font-size: 8pt;
+        font-size: 7.5pt;
       }
 
       .cert-item {
-        font-size: 9pt;
-        margin-bottom: 6px;
+        font-size: 8.5pt;
+        margin-bottom: 4px;
         page-break-inside: avoid;
       }
       .cert-issuer {
-        font-size: 7.5pt;
+        font-size: 7pt;
+      }
+
+      .achievements-bullets li {
+        font-size: 8.5pt;
+        margin-bottom: 4px;
+        line-height: 1.35;
       }
 
       /* Force page breaks cleanly if it leaks */
@@ -636,7 +670,7 @@
 </head>
 <body>
 
-  <!-- Floating / Sticky Print Action Bar -->
+  <!-- Floating / Sticky Action Bar -->
   <div class="action-bar">
     <a href="./index.html" class="action-btn btn-secondary">
       <i class="fas fa-arrow-left"></i> Back to Portfolio
@@ -644,12 +678,12 @@
     
     <div class="action-info">
       <i class="fas fa-info-circle"></i>
-      <span>Press Save &rarr; Select "Save to PDF"</span>
+      <span>Click Download to get the official PDF resume!</span>
     </div>
 
-    <button onclick="window.print()" class="action-btn btn-primary">
-      <i class="fas fa-print"></i> Print / Save PDF
-    </button>
+    <a href="./assets/jitendra_dhamdhere_resume_java_developer_2_yrs_exp.pdf" download="Jitendra_Dhamdhere_Resume.pdf" class="action-btn btn-primary">
+      <i class="fas fa-download"></i> Download PDF
+    </a>
   </div>
 
   <!-- Main Resume Content Canvas -->
@@ -689,7 +723,7 @@
     <div class="resume-section">
       <h2 class="section-title">Professional Summary</h2>
       <p class="summary-text">
-        Result-driven Java Backend Developer with 2+ years of enterprise experience architecting and delivering high-volume financial clearing and robust ERP solutions across banking domains. Specialized in Spring Boot, Hibernate, MySQL, and RESTful API structures, with solid expertise engineering event-driven streaming queues via Apache Kafka. Proven history designing multi-role Spring Security integrations, secure loan lifecycle calculators, and integrating Angular frontend operations. ActiveMCA student at Savitribai Phule Pune University.
+        Java Backend Developer with 2+ years of experience architecting and delivering scalable enterprise applications across ERP and BANKING domains. Proficient in Spring Boot, Hibernate, MySQL, and RESTful API design, with hands-on experience building production-grade systems involving loan lifecycle management, file-based transaction processing, and event-driven architectures using Kafka. Demonstrated ability to deliver full-stack features integrating Angular frontends with secure Spring Security backends in Agile team environments.
       </p>
     </div>
 
@@ -698,22 +732,28 @@
       <h2 class="section-title">Technical Skills</h2>
       <div class="skills-grid">
         <div class="skill-cat">
-          <strong>Languages:</strong> Core Java, Advanced Java, JavaScript, TypeScript, SQL
+          <strong>Languages:</strong> Core Java, Advanced Java, SQL
         </div>
         <div class="skill-cat">
-          <strong>Frameworks:</strong> Spring Boot, Spring Security, Hibernate / JPA, Angular, MVC
+          <strong>Frameworks:</strong> Spring Boot, Spring Security, Hibernate / JPA
         </div>
         <div class="skill-cat">
-          <strong>Middleware/Tools:</strong> Apache Kafka, Git, Bitbucket, GitHub, Postman, Swagger
+          <strong>Frontend:</strong> Angular, HTML5, CSS3, JavaScript
         </div>
         <div class="skill-cat">
-          <strong>Databases:</strong> MySQL (Indexing, Query Optimization, Schema Normalization)
+          <strong>Databases:</strong> MySQL — query optimization, schema design, indexing
         </div>
         <div class="skill-cat">
-          <strong>Domain Concepts:</strong> NACH Processing (XML/TXT 306), Maker-Checker authorization
+          <strong>Architecture:</strong> RESTful Web Services, MVC, Event-Driven Architecture (Kafka), RBAC
         </div>
         <div class="skill-cat">
-          <strong>Data Operations:</strong> Excel Data Parsing, iText5 PDF generation, CRUD workflows
+          <strong>Tools:</strong> Git, Bitbucket, GitHub, iText5 (PDF generation)
+        </div>
+        <div class="skill-cat">
+          <strong>Concepts:</strong> Loan Lifecycle, EMI Calculation, NACH Processing (XML/TXT 306), Maker-Checker
+        </div>
+        <div class="skill-cat">
+          <strong>Soft Skills:</strong> Analytical Thinking, Leadership, Agile / Scrum, Problem Solving
         </div>
       </div>
     </div>
@@ -733,29 +773,14 @@
           </div>
         </div>
         <ul class="exp-bullets">
-          <li>Designed and delivered scalable **RESTful APIs** for core banking and ERP modules using **Spring Boot and Hibernate**, supporting highly concurrent workflows in production.</li>
-          <li>Engineered a high-security role-based authentication layer (Admin, Maker, Checker, Agent) using **Spring Security** and JSON Web Tokens (JWT) for fine-grained authorization.</li>
-          <li>Integrated **Angular frontends** with secure microservices, implementing form bindings, state validation checks, and real-time administrative dashboards.</li>
-          <li>Developed modular gold loan lifecycle workflows covering Lead capture, Credit Scoring, Loan Disbursement, automated **EMI Schedules**, and Account Closures.</li>
-          <li>Architected **Kafka-based asynchronous transaction queues** for NACH file uploads, increasing processing decoupling and safeguarding high data throughput.</li>
-          <li>Optimized complex **MySQL database query plans** through specialized indexing structures, achieving a noticeable performance uplift under massive daily log data volumes.</li>
-          <li>Cooperated directly with QA and UI teams in **Agile/Scrum cycles** to ship sprint-committed features on schedule with minimal post-release issues.</li>
-        </ul>
-      </div>
-
-      <!-- Symbiosis SSPU Intern -->
-      <div class="exp-item" style="margin-top: 18px;">
-        <div class="exp-header">
-          <div class="exp-company-role">
-            Full Stack Java Developer Intern · <span>Symbiosis International University</span>
-          </div>
-          <div class="exp-time-place">
-            Sep 2023 — Mar 2024 · 6 Months<br>Pune, India
-          </div>
-        </div>
-        <ul class="exp-bullets">
-          <li>Completed a selective, **Capgemini-sponsored** 6-month intensive Full Stack course, graduating with comprehensive Java Enterprise core credentials.</li>
-          <li>Collaborated in group settings to implement a prototype online retail banking workflow complete with secure user login states, transaction ledgers, and database storage mappings.</li>
+          <li>Designed and delivered **RESTful APIs** for enterprise ERP and banking applications using **Spring Boot and Hibernate**, supporting concurrent multi-user workflows across production environments.</li>
+          <li>Engineered a role-based authentication system (Admin, Maker, Checker, Agent) using **Spring Security**, enforcing fine-grained access control across all application modules.</li>
+          <li>Integrated **Angular frontend** with secure backend services, building end-to-end features spanning UI interactions, API contracts, and database persistence.</li>
+          <li>Developed a comprehensive **loan lifecycle management** module covering Lead capture, Credit Approval, Disbursement, EMI Scheduling, and Loan Closure for a gold loan management platform.</li>
+          <li>Implemented file-based transaction processing for **NACH Credit & Debit** workflows, handling XML and TXT (306 format) files with banking-standard validations and error codes.</li>
+          <li>Architected **Kafka-based event-driven processing** for system event publishing and asynchronous handling, improving decoupling and throughput in the NACH processing pipeline.</li>
+          <li>Optimized **MySQL database queries and schema design**, reducing query execution time and improving application scalability under high data volumes.</li>
+          <li>Collaborated cross-functionally with QA and UI teams across **Agile sprint cycles**, consistently delivering features on schedule with minimal post-release defects.</li>
         </ul>
       </div>
     </div>
@@ -767,39 +792,66 @@
       <!-- Project 1 -->
       <div class="proj-item">
         <div class="proj-header">
-          <div class="proj-name">Smart Gold Loan Management System</div>
-          <span class="proj-tech">Spring Boot · Hibernate · MySQL</span>
+          <div class="proj-name">College ERP System</div>
+          <span class="proj-tech">Java · Spring Boot · Angular · Hibernate · MySQL</span>
         </div>
         <ul class="exp-bullets">
-          <li>Delivered a multi-branch loan tracker managing complete credit lifecycles (Lead &rarr; Disbursement &rarr; Closure).</li>
-          <li>Programmed custom rate of interest (ROI) parameters and configurations, minimizing code-level release modifications.</li>
-          <li>Implemented a compliant **Maker-Checker double approval workflow**, satisfying strict financial compliance auditing rules.</li>
+          <li>Built a modular ERP platform with dedicated modules for HR, Admissions, Parking Security, Library, and ID Card Management, enabling end-to-end institutional workflow automation.</li>
+          <li>Designed and implemented a role-based access control (**RBAC**) layer with distinct permission sets per user role, securing sensitive academic and HR data.</li>
+          <li>Developed RESTful CRUD APIs and an Excel-based reporting module to streamline administrative data exports and reduce manual reporting effort.</li>
         </ul>
       </div>
 
       <!-- Project 2 -->
       <div class="proj-item">
         <div class="proj-header">
-          <div class="proj-name">NACH Credit &amp; Debit Processing Engine</div>
-          <span class="proj-tech">Spring Boot · Apache Kafka · MySQL</span>
+          <div class="proj-name">Smart Gold Loan Management System</div>
+          <span class="proj-tech">Spring Boot · Hibernate · MySQL</span>
         </div>
         <ul class="exp-bullets">
-          <li>Engineered a processing parser that processes file-based banking transactions adhering to RBI schemas.</li>
-          <li>Validated and parsed standard clearing format **XML and TXT (306 format)** files with strict validation schemas.</li>
-          <li>Integrated **Kafka queues** to decouple transaction logging, creating an async, fault-tolerant ingestion pipeline.</li>
+          <li>Delivered a multi-branch gold loan platform with end-to-end lifecycle management: Lead &rarr; Approval &rarr; Disbursement &rarr; EMI Tracking &rarr; Closure.</li>
+          <li>Designed a dynamic ROI and scheme configuration module, enabling branch managers to define custom interest rates and repayment structures without code changes.</li>
+          <li>Built an automated EMI tracking and notification system, reducing manual follow-up overhead and improving repayment monitoring accuracy.</li>
+          <li>Implemented a **Maker-Checker approval workflow** to enforce dual-control authorization, meeting compliance and audit requirements for financial operations.</li>
         </ul>
       </div>
 
       <!-- Project 3 -->
       <div class="proj-item">
         <div class="proj-header">
-          <div class="proj-name">College ERP System</div>
-          <span class="proj-tech">Java · Spring Boot · Angular · MySQL</span>
+          <div class="proj-name">NACH Credit &amp; Debit Processing System</div>
+          <span class="proj-tech">Spring Boot · Kafka · MySQL</span>
         </div>
         <ul class="exp-bullets">
-          <li>Built structural automation modules handling institutional HR records, admissions, libraries, and gate security logs.</li>
-          <li>Constructed dynamic administration reporting engines that parse and export clean Excel spreadsheet reports.</li>
-          <li>Secured personal record modules utilizing a robust role-based access control (**RBAC**) authorization boundary.</li>
+          <li>Engineered a file-based transaction processing engine for NACH workflows, parsing and validating XML and TXT (306 format) files against banking-standard schemas.</li>
+          <li>Developed INW, RTN, and RTN-ACK handling modules, implementing RBI-compliant error codes and response generation logic for failed transaction scenarios.</li>
+          <li>Integrated **Kafka event publishing** to decouple transaction processing from downstream notification and reconciliation services, enabling asynchronous and fault-tolerant processing.</li>
+        </ul>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="proj-item">
+        <div class="proj-header">
+          <div class="proj-name">InstaFuel — On-Demand Diesel Delivery Platform</div>
+          <span class="proj-tech">Spring Boot · Angular · React Native · MySQL</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built backend APIs powering mobile apps (user and driver) and an admin web panel, supporting real-time order placement, assignment, and tracking workflows.</li>
+          <li>Implemented **JWT-based authentication** and a full order management module handling order creation, driver dispatch, status transitions, and delivery confirmation.</li>
+          <li>Designed a normalized MySQL database schema for logistics operations, modeling relationships between customers, drivers, fuel orders, and delivery zones.</li>
+        </ul>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="proj-item">
+        <div class="proj-header">
+          <div class="proj-name">Contractor Management System</div>
+          <span class="proj-tech">Spring Boot · MySQL (Canada Client)</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Developed hazard documentation and contract management modules, enabling contractors to submit, track, and manage compliance documentation through a structured workflow.</li>
+          <li>Implemented secure multi-role authentication with a multi-step form submission system and admin dashboard for real-time monitoring of contractor submissions.</li>
+          <li>Generated dynamic PDFs programmatically using **iText5**, producing formatted compliance certificates and contract summaries on demand.</li>
         </ul>
       </div>
     </div>
@@ -814,43 +866,53 @@
           
           <div class="edu-item">
             <div class="edu-degree">Master of Computer Applications (MCA)</div>
-            <div class="edu-meta">Savitribai Phule Pune University (SPPU)</div>
+            <div class="edu-meta">Savitribai Phule Pune University</div>
             <div class="edu-date-gpa">2024 — 2026 · <span class="edu-gpa-highlight">Pursuing</span> | Pune, India</div>
           </div>
 
           <div class="edu-item">
             <div class="edu-degree">Bachelor of Computer Applications (BCA)</div>
-            <div class="edu-meta">PES Modern College of Engineering, Pune | SPPU</div>
-            <div class="edu-date-gpa">2021 — 2024 · <span class="edu-gpa-highlight">CGPA: 9.55+ (Batch Top Rank)</span></div>
+            <div class="edu-meta">Savitribai Phule Pune University</div>
+            <div class="edu-date-gpa">2021 — 2024 · <span class="edu-gpa-highlight">CGPA: 9.5+ (Top Rank)</span></div>
           </div>
         </div>
 
         <!-- Right half: Certs -->
         <div>
-          <h2 class="section-title">Certifications</h2>
+          <h2 class="section-title">Certifications &amp; Training</h2>
           
-          <a href="./assets/images/educat/NptlCertificateCloudComputingDistributedSystems.pdf" target="_blank" class="cert-item" style="text-decoration: none; display: flex; justify-content: space-between;">
-            <span class="cert-name" style="color: var(--text);">Cloud Computing &amp; Distributed Systems <i class="fas fa-external-link-alt" style="font-size: 0.65rem; color: var(--green); margin-left: 4px;"></i></span>
+          <a href="./assets/images/educat/NptlCertificateCloudComputingDistributedSystems.pdf" target="_blank" class="cert-item" style="text-decoration: none;">
+            <span class="cert-name">Cloud Computing &amp; Distributed Systems <i class="fas fa-external-link-alt" style="font-size: 0.65rem; color: var(--green); margin-left: 4px;"></i></span>
             <span class="cert-issuer">Elite · IIT Kanpur (2026)</span>
           </a>
 
-          <a href="./assets/images/educat/NptlCertificateCloudComputing.pdf" target="_blank" class="cert-item" style="text-decoration: none; display: flex; justify-content: space-between;">
-            <span class="cert-name" style="color: var(--text);">Cloud Computing (Core) <i class="fas fa-external-link-alt" style="font-size: 0.65rem; color: var(--green); margin-left: 4px;"></i></span>
+          <a href="./assets/images/educat/NptlCertificateCloudComputing.pdf" target="_blank" class="cert-item" style="text-decoration: none;">
+            <span class="cert-name">Cloud Computing (Core) <i class="fas fa-external-link-alt" style="font-size: 0.65rem; color: var(--green); margin-left: 4px;"></i></span>
             <span class="cert-issuer">Elite · IIT Kharagpur (2026)</span>
           </a>
 
           <div class="cert-item">
             <span class="cert-name">Java Full Stack Development</span>
-            <span class="cert-issuer">Symbiosis SIU / Capgemini</span>
+            <span class="cert-issuer">SIU (Capgemini Sponsored) · 6 Months</span>
           </div>
 
-          <a href="./assets/images/oracle_mysql_impl_associate_cert.pdf" target="_blank" class="cert-item" style="text-decoration: none; display: flex; justify-content: space-between;">
-            <span class="cert-name" style="color: var(--text);">MySQL Implementation Certified Associate <i class="fas fa-external-link-alt" style="font-size: 0.65rem; color: var(--green); margin-left: 4px;"></i></span>
+          <a href="./assets/images/oracle_mysql_impl_associate_cert.pdf" target="_blank" class="cert-item" style="text-decoration: none;">
+            <span class="cert-name">MySQL Implementation Certified Associate <i class="fas fa-external-link-alt" style="font-size: 0.65rem; color: var(--green); margin-left: 4px;"></i></span>
             <span class="cert-issuer">Oracle Corporation</span>
           </a>
         </div>
 
       </div>
+    </div>
+
+    <!-- ─── ACHIEVEMENTS & LEADERSHIP SECTION ─── -->
+    <div class="resume-section">
+      <h2 class="section-title">Achievements &amp; Leadership</h2>
+      <ul class="achievements-bullets">
+        <li>**Top Performer in BCA**: Achieved a stellar CGPA of **9.5+** from Savitribai Phule Pune University, ranking among the top performers of the batch.</li>
+        <li>**College Event Organizer &amp; Coordinator**: Led and organized multiple college-level technical events, successfully coordinating logistics, speaker arrangements, and team tasks to build strong leadership capabilities.</li>
+        <li>**Capgemini Sponsored Full-Stack Scholar**: Completed a highly selective, Capgemini-sponsored intensive Full Stack Java certification at Symbiosis International University, taking proactive initiative to upskill beyond the standard academic curriculum.</li>
+      </ul>
     </div>
 
     <!-- ─── LANGUAGES BLOCK ─── -->
