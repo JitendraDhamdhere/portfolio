@@ -29,22 +29,42 @@
        DIGITAL RESUME CSS (Slate & Emerald Theme)
        ═══════════════════════════════════════════ */
     :root {
-      --bg: #070a08;
-      --bg1: #0c0f0d;
-      --surface: #121b15;
+      --bg: #0a0a0a;
+      --bg1: #111111;
+      --surface: #1a1a1a;
       --border: rgba(0, 255, 128, 0.08);
       --border-dark: rgba(0, 255, 128, 0.16);
       
-      --green: #00ff80;
-      --green-dark: #00b359;
+      --green: #00ff88;
+      --green-dark: #00dd77;
       --amber: #ffd700;
       
-      --text: #e6f5ec;
-      --muted: #96a99e;
-      --dim: #5c7566;
+      --text: #e0e0e0;
+      --muted: #888888;
+      --dim: #444444;
       
       --sans: 'Outfit', sans-serif;
       --code: 'JetBrains Mono', monospace;
+    }
+
+    [data-theme="light"] {
+      --bg:              #f8f7f4;   /* warm off-white, not stark white */
+      --bg1:             #ffffff;   /* pure white cards */
+      --surface:         #e8f5ee;   /* very light green tint for bg/tech badges */
+      
+      /* Borders */
+      --border:          #e2e0d8;   /* visible warm gray border */
+      --border-dark:     #c8c5bb;   /* stronger border for emphasis */
+
+      /* Colors */
+      --green:           #0d6e3f;   /* deep forest green — readable on white */
+      --green-dark:      #0a5a33;   /* darker on hover */
+      --amber:           #0d6e3f;   /* deep green accent on light mode */
+
+      /* Text */
+      --text:            #1a1918;   /* near black, warm tone */
+      --muted:           #6b6860;   /* medium gray for body */
+      --dim:             #9e9b93;   /* light gray for metadata */
     }
 
     * {
@@ -81,9 +101,12 @@
       background: var(--bg1);
       border: 1px solid var(--border-dark);
       border-radius: 12px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
       overflow: hidden;
       padding: 50px;
+    }
+    [data-theme="light"] .resume-wrapper {
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
     }
 
     /* Float / Sticky Top Action Utility Bar */
@@ -102,6 +125,9 @@
       top: 20px;
       z-index: 100;
     }
+    [data-theme="light"] .action-bar {
+      background: rgba(248, 247, 244, 0.95);
+    }
 
     .action-btn {
       display: inline-flex;
@@ -116,7 +142,6 @@
       border-radius: 6px;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.25s ease;
       border: 1px solid transparent;
     }
 
@@ -125,9 +150,15 @@
       color: var(--bg);
     }
     .btn-primary:hover {
-      background: #33ffaa;
+      background: var(--green-dark);
       transform: translateY(-1px);
       box-shadow: 0 4px 15px rgba(0, 255, 128, 0.25);
+    }
+    [data-theme="light"] .btn-primary {
+      color: #ffffff;
+    }
+    [data-theme="light"] .btn-primary:hover {
+      box-shadow: 0 4px 15px rgba(13, 110, 63, 0.2);
     }
 
     .btn-secondary {
@@ -138,7 +169,7 @@
     .btn-secondary:hover {
       border-color: var(--green);
       color: var(--green);
-      background: rgba(0, 255, 128, 0.04);
+      background: var(--surface);
     }
 
     .action-info {
@@ -210,6 +241,7 @@
 
     .contact-details a {
       color: inherit;
+      text-decoration: none;
     }
     .contact-details a:hover {
       color: var(--green);
@@ -313,12 +345,12 @@
     }
 
     .exp-bullets li::before {
-      content: '▪';
+      content: '▸';
       color: var(--green);
       position: absolute;
       left: 0;
       top: 0;
-      font-size: 0.7rem;
+      font-size: 0.8rem;
     }
 
     .exp-bullets li strong {
@@ -329,7 +361,7 @@
     /* Projects Subsection */
     .proj-item {
       margin-bottom: 24px;
-      border-bottom: 1px dashed rgba(0, 255, 128, 0.05);
+      border-bottom: 1px dashed var(--border);
       padding-bottom: 18px;
     }
     .proj-item:last-child {
@@ -456,6 +488,37 @@
       font-weight: 600;
     }
 
+    /* Fixed Theme Toggle Button Floating */
+    .theme-toggle-fixed {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      background: var(--bg1);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: var(--code);
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .theme-toggle-fixed:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: var(--surface);
+    }
+
+    /* Theme Transition Rule */
+    body, .resume-wrapper, .action-bar, .action-btn, .section-title, .proj-tech, .cert-item, .contact-details a, h1, p, span, li, strong, i {
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
     /* ═══════════════════════════════════════════
        PRINT OPTIMIZATIONS (CSS @media print)
        ═══════════════════════════════════════════ */
@@ -488,8 +551,8 @@
         display: none !important; /* Hide background grid */
       }
 
-      .action-bar {
-        display: none !important; /* Hide floating bar */
+      .action-bar, .theme-toggle-fixed {
+        display: none !important; /* Hide floating bar and toggle */
       }
 
       .resume-wrapper {
@@ -669,6 +732,8 @@
   </style>
 </head>
 <body>
+  <!-- Fixed Theme Toggle Button Floating -->
+  <button id="theme-toggle" class="theme-toggle-fixed" aria-label="Toggle Theme">☀ Light</button>
 
   <!-- Floating / Sticky Action Bar -->
   <div class="action-bar">
@@ -682,10 +747,6 @@
     </div>
 
     <div style="display: flex; gap: 12px; align-items: center;">
-      <button class="action-btn btn-secondary theme-toggle" id="themeBtn" aria-label="Toggle Theme" style="padding: 10px; width: 38px; height: 38px; display: inline-flex; justify-content: center; align-items: center; border-radius: 6px;">
-        <i class="fas fa-sun" id="themeIcon"></i>
-      </button>
-
       <a href="./assets/jitendra_dhamdhere_resume_java_developer_2_yrs_exp.pdf" download="Jitendra_Dhamdhere_Resume.pdf" class="action-btn btn-primary">
         <i class="fas fa-download"></i> Download PDF
       </a>
@@ -933,30 +994,30 @@
 
   </div>
   <script>
-    const themeBtn = document.getElementById('themeBtn');
-    const themeIcon = document.getElementById('themeIcon');
-    const html = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
 
-    // Local Storage Check
-    const savedTheme = localStorage.getItem('jd-theme') || 'dark';
-    html.setAttribute('data-theme', savedTheme);
-    updateThemeIcon(savedTheme);
+    // On load — check saved preference or system preference
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    root.setAttribute('data-theme', initial);
+    updateToggleLabel(initial);
 
-    themeBtn.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-theme');
-      const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', targetTheme);
-      localStorage.setItem('jd-theme', targetTheme);
-      updateThemeIcon(targetTheme);
+    toggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateToggleLabel(next);
     });
 
-    function updateThemeIcon(theme) {
-      if (theme === 'dark') {
-        themeIcon.className = 'fas fa-sun';
-      } else {
-        themeIcon.className = 'fas fa-moon';
-      }
+    function updateToggleLabel(theme) {
+      toggle.textContent = theme === 'dark' ? '☀ Light' : '☾ Dark';
     }
+
+    // Smooth transitions on theme change
+    document.body.style.transition = 'background 0.3s ease, color 0.3s ease';
   </script>
 </body>
 </html>
