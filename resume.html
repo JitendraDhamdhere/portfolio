@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="Jitendra Dhamdhere, Resume, CV, Java Backend Developer, Spring Boot, Kafka, MySQL, Pune Software Engineer, PDF Resume">
+  <meta name="description" content="Professional Resume of Jitendra Dhamdhere — Java Backend Developer with 2+ years of experience building enterprise ERP and banking applications.">
+  <meta name="author" content="Jitendra Dhamdhere">
+
+  <!-- Title -->
+  <title>Resume | Jitendra Dhamdhere | Java Developer</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/images/favicon1.png" type="image/png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       DIGITAL RESUME CSS (Slate & Emerald Theme)
+       ═══════════════════════════════════════════ */
+    :root {
+      --bg: #070a08;
+      --bg1: #0c0f0d;
+      --surface: #121b15;
+      --border: rgba(0, 255, 128, 0.08);
+      --border-dark: rgba(0, 255, 128, 0.16);
+      
+      --green: #00ff80;
+      --green-dark: #00b359;
+      --amber: #ffd700;
+      
+      --text: #e6f5ec;
+      --muted: #96a99e;
+      --dim: #5c7566;
+      
+      --sans: 'Outfit', sans-serif;
+      --code: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* Background Geometric Accents */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: 
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .resume-wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+      background: var(--bg1);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      overflow: hidden;
+      padding: 50px;
+    }
+
+    /* Float / Sticky Top Action Utility Bar */
+    .action-bar {
+      max-width: 900px;
+      margin: 20px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(12, 15, 13, 0.85);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      backdrop-filter: blur(15px);
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-family: var(--code);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: var(--bg);
+    }
+    .btn-primary:hover {
+      background: #33ffaa;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(0, 255, 128, 0.25);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-dark);
+    }
+    .btn-secondary:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(0, 255, 128, 0.04);
+    }
+
+    .action-info {
+      font-family: var(--code);
+      font-size: 0.68rem;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── RESUME STRUCTURE ─── */
+    /* Header Block */
+    .resume-header {
+      border-bottom: 2px solid var(--green);
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .name-title h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+    .name-title h1 span {
+      color: var(--green);
+    }
+    
+    .name-title p {
+      font-family: var(--code);
+      font-size: 0.88rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .contact-details {
+      list-style: none;
+      text-align: right;
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .contact-details li {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .contact-details li i {
+      color: var(--green);
+      font-size: 0.85rem;
+      width: 14px;
+      text-align: center;
+    }
+
+    .contact-details a {
+      color: inherit;
+    }
+    .contact-details a:hover {
+      color: var(--green);
+    }
+
+    /* Section Structure */
+    .resume-section {
+      margin-bottom: 36px;
+    }
+    
+    .resume-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-family: var(--code);
+      font-size: 0.8rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 6px;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .summary-text {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 30px;
+    }
+
+    .skill-cat {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .skill-cat strong {
+      color: var(--text);
+      font-family: var(--code);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      width: 130px;
+    }
+
+    /* Timeline Work / Projects */
+    .exp-item {
+      margin-bottom: 24px;
+    }
+    .exp-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .exp-company-role {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .exp-company-role span {
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    .exp-time-place {
+      font-family: var(--code);
+      font-size: 0.72rem;
+      color: var(--dim);
+      text-align: right;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      padding-left: 12px;
+    }
+
+    .exp-bullets li {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 14px;
+    }
+
+    .exp-bullets li::before {
+      content: '▪';
+      color: var(--green);
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 0.7rem;
+    }
+
+    .exp-bullets li strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Projects Subsection */
+    .proj-item {
+      margin-bottom: 20px;
+    }
+    .proj-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .proj-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .proj-tech {
+      font-family: var(--code);
+      font-size: 0.68rem;
+      color: var(--green);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    /* Education & Certs Split Layout */
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 30px;
+    }
+
+    .edu-item {
+      margin-bottom: 16px;
+    }
+    .edu-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .edu-degree {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .edu-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .edu-date-gpa {
+      font-family: var(--code);
+      font-size: 0.7rem;
+      color: var(--dim);
+    }
+    
+    .edu-gpa-highlight {
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    .cert-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    
+    .cert-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .cert-name {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .cert-issuer {
+      font-family: var(--code);
+      font-size: 0.68rem;
+      color: var(--dim);
+      text-align: right;
+    }
+
+    /* Languages Grid */
+    .languages-wrap {
+      display: flex;
+      gap: 30px;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+    .lang-item strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════
+       PRINT OPTIMIZATIONS (CSS @media print)
+       ═══════════════════════════════════════════ */
+    @media print {
+      /* Reset standard styling variables for paper-perfect black/white output */
+      :root {
+        --bg: #ffffff;
+        --bg1: #ffffff;
+        --text: #000000;
+        --muted: #333333;
+        --dim: #555555;
+        --surface: #f4f4f4;
+        --border: #dddddd;
+        --border-dark: #aaaaaa;
+        --green: #008040; /* High contrast dark green for headers */
+        --green-dark: #006633;
+        --amber: #885500;
+      }
+
+      /* Base overrides */
+      body {
+        background: #ffffff;
+        color: #000000;
+        padding-bottom: 0;
+        font-size: 11pt; /* Professional print font scale */
+        line-height: 1.5;
+      }
+
+      body::before {
+        display: none !important; /* Hide background grid */
+      }
+
+      .action-bar {
+        display: none !important; /* Hide floating bar */
+      }
+
+      .resume-wrapper {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        background: #ffffff !important;
+      }
+
+      /* Formatting for standard paper page sizes */
+      @page {
+        size: letter;
+        margin: 0.5in 0.6in; /* Industry standard boundaries */
+      }
+
+      /* Typography adjustments */
+      .name-title h1 {
+        font-size: 24pt;
+        color: #000000;
+      }
+      .name-title h1 span {
+        color: #008040; /* Darker ink-friendly green */
+      }
+      .name-title p {
+        font-size: 10pt;
+        color: #008040;
+        letter-spacing: 1.5px;
+      }
+
+      .contact-details {
+        font-size: 8.5pt;
+        color: #333333;
+      }
+      .contact-details li i {
+        color: #008040;
+      }
+
+      .section-title {
+        font-size: 9pt;
+        color: #008040;
+        border-bottom: 1.5px solid #008040;
+        padding-bottom: 2px;
+        margin-bottom: 10px;
+        margin-top: 20px;
+      }
+
+      .summary-text {
+        font-size: 9.5pt;
+        color: #222222;
+      }
+
+      .skills-grid {
+        gap: 8px 30px;
+      }
+      .skill-cat strong {
+        font-size: 8pt;
+        color: #000000;
+        width: 110px;
+      }
+      .skill-cat {
+        font-size: 9pt;
+      }
+
+      /* Timeline & Spacing */
+      .exp-item {
+        margin-bottom: 14px;
+        page-break-inside: avoid; /* Prevent orphans */
+      }
+      .exp-header {
+        margin-bottom: 2px;
+      }
+      .exp-company-role {
+        font-size: 10pt;
+        color: #000000;
+      }
+      .exp-time-place {
+        font-size: 8pt;
+        color: #444444;
+      }
+      .exp-bullets li {
+        font-size: 9pt;
+        color: #222222;
+        margin-bottom: 3px;
+        line-height: 1.4;
+      }
+      .exp-bullets li::before {
+        color: #008040;
+      }
+
+      .proj-item {
+        margin-bottom: 12px;
+        page-break-inside: avoid;
+      }
+      .proj-header {
+        margin-bottom: 2px;
+      }
+      .proj-name {
+        font-size: 10pt;
+      }
+      .proj-tech {
+        font-size: 7.5pt;
+        color: #008040;
+        border: 1px solid #008040;
+        background: none;
+        padding: 1px 6px;
+      }
+
+      .split-grid {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 24px;
+      }
+
+      .edu-item {
+        margin-bottom: 10px;
+        page-break-inside: avoid;
+      }
+      .edu-degree {
+        font-size: 9.5pt;
+      }
+      .edu-meta {
+        font-size: 8.5pt;
+      }
+      .edu-date-gpa {
+        font-size: 8pt;
+      }
+
+      .cert-item {
+        font-size: 9pt;
+        margin-bottom: 6px;
+        page-break-inside: avoid;
+      }
+      .cert-issuer {
+        font-size: 7.5pt;
+      }
+
+      /* Force page breaks cleanly if it leaks */
+      .force-page-break {
+        page-break-before: always;
+      }
+    }
+
+    /* Screen adjustment for tablet viewports */
+    @media (max-width: 768px) {
+      .resume-wrapper {
+        padding: 30px;
+        margin: 20px 10px;
+      }
+      .resume-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .contact-details {
+        text-align: left;
+      }
+      .contact-details li {
+        justify-content: flex-start;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .split-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating / Sticky Print Action Bar -->
+  <div class="action-bar">
+    <a href="./index.html" class="action-btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
+    
+    <div class="action-info">
+      <i class="fas fa-info-circle"></i>
+      <span>Press Save &rarr; Select "Save to PDF"</span>
+    </div>
+
+    <button onclick="window.print()" class="action-btn btn-primary">
+      <i class="fas fa-print"></i> Print / Save PDF
+    </button>
+  </div>
+
+  <!-- Main Resume Content Canvas -->
+  <div class="resume-wrapper">
+    
+    <!-- ─── HEADER BLOCK ─── -->
+    <div class="resume-header">
+      <div class="name-title">
+        <h1>Jitendra <span>Dhamdhere</span></h1>
+        <p>Java Backend Developer</p>
+      </div>
+      <ul class="contact-details">
+        <li>
+          <a href="mailto:jitendradhamdhere333@gmail.com">jitendradhamdhere333@gmail.com</a>
+          <i class="fas fa-envelope"></i>
+        </li>
+        <li>
+          <a href="tel:+919657795194">+91 96577 95194</a>
+          <i class="fas fa-phone"></i>
+        </li>
+        <li>
+          Pune, Maharashtra, India
+          <i class="fas fa-map-marker-alt"></i>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/jitendra-dhamdhere-0941ba235/" target="_blank">linkedin.com/in/jitendra</a>
+          <i class="fab fa-linkedin"></i>
+        </li>
+        <li>
+          <a href="https://github.com/JitendraDhamdhere" target="_blank">github.com/JitendraDhamdhere</a>
+          <i class="fab fa-github"></i>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ─── SUMMARY BLOCK ─── -->
+    <div class="resume-section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary-text">
+        Result-driven Java Backend Developer with 2+ years of enterprise experience architecting and delivering high-volume financial clearing and robust ERP solutions across banking domains. Specialized in Spring Boot, Hibernate, MySQL, and RESTful API structures, with solid expertise engineering event-driven streaming queues via Apache Kafka. Proven history designing multi-role Spring Security integrations, secure loan lifecycle calculators, and integrating Angular frontend operations. ActiveMCA student at Savitribai Phule Pune University.
+      </p>
+    </div>
+
+    <!-- ─── SKILLS MATRIX BLOCK ─── -->
+    <div class="resume-section">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-cat">
+          <strong>Languages:</strong> Core Java, Advanced Java, JavaScript, TypeScript, SQL
+        </div>
+        <div class="skill-cat">
+          <strong>Frameworks:</strong> Spring Boot, Spring Security, Hibernate / JPA, Angular, MVC
+        </div>
+        <div class="skill-cat">
+          <strong>Middleware/Tools:</strong> Apache Kafka, Git, Bitbucket, GitHub, Postman, Swagger
+        </div>
+        <div class="skill-cat">
+          <strong>Databases:</strong> MySQL (Indexing, Query Optimization, Schema Normalization)
+        </div>
+        <div class="skill-cat">
+          <strong>Domain Concepts:</strong> NACH Processing (XML/TXT 306), Maker-Checker authorization
+        </div>
+        <div class="skill-cat">
+          <strong>Data Operations:</strong> Excel Data Parsing, iText5 PDF generation, CRUD workflows
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PROFESSIONAL TIMELINE BLOCK ─── -->
+    <div class="resume-section">
+      <h2 class="section-title">Professional Experience</h2>
+      
+      <!-- Artcode -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <div class="exp-company-role">
+            Java Backend Developer · <span>Artcode Private Limited</span>
+          </div>
+          <div class="exp-time-place">
+            Apr 2024 — Present<br>Pune, India
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Designed and delivered scalable **RESTful APIs** for core banking and ERP modules using **Spring Boot and Hibernate**, supporting highly concurrent workflows in production.</li>
+          <li>Engineered a high-security role-based authentication layer (Admin, Maker, Checker, Agent) using **Spring Security** and JSON Web Tokens (JWT) for fine-grained authorization.</li>
+          <li>Integrated **Angular frontends** with secure microservices, implementing form bindings, state validation checks, and real-time administrative dashboards.</li>
+          <li>Developed modular gold loan lifecycle workflows covering Lead capture, Credit Scoring, Loan Disbursement, automated **EMI Schedules**, and Account Closures.</li>
+          <li>Architected **Kafka-based asynchronous transaction queues** for NACH file uploads, increasing processing decoupling and safeguarding high data throughput.</li>
+          <li>Optimized complex **MySQL database query plans** through specialized indexing structures, achieving a noticeable performance uplift under massive daily log data volumes.</li>
+          <li>Cooperated directly with QA and UI teams in **Agile/Scrum cycles** to ship sprint-committed features on schedule with minimal post-release issues.</li>
+        </ul>
+      </div>
+
+      <!-- Symbiosis SSPU Intern -->
+      <div class="exp-item" style="margin-top: 18px;">
+        <div class="exp-header">
+          <div class="exp-company-role">
+            Full Stack Java Developer Intern · <span>Symbiosis International University</span>
+          </div>
+          <div class="exp-time-place">
+            Sep 2023 — Mar 2024 · 6 Months<br>Pune, India
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Completed a selective, **Capgemini-sponsored** 6-month intensive Full Stack course, graduating with comprehensive Java Enterprise core credentials.</li>
+          <li>Collaborated in group settings to implement a prototype online retail banking workflow complete with secure user login states, transaction ledgers, and database storage mappings.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ─── KEY PROJECTS BLOCK ─── -->
+    <div class="resume-section">
+      <h2 class="section-title">Key Projects</h2>
+      
+      <!-- Project 1 -->
+      <div class="proj-item">
+        <div class="proj-header">
+          <div class="proj-name">Smart Gold Loan Management System</div>
+          <span class="proj-tech">Spring Boot · Hibernate · MySQL</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Delivered a multi-branch loan tracker managing complete credit lifecycles (Lead &rarr; Disbursement &rarr; Closure).</li>
+          <li>Programmed custom rate of interest (ROI) parameters and configurations, minimizing code-level release modifications.</li>
+          <li>Implemented a compliant **Maker-Checker double approval workflow**, satisfying strict financial compliance auditing rules.</li>
+        </ul>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="proj-item">
+        <div class="proj-header">
+          <div class="proj-name">NACH Credit &amp; Debit Processing Engine</div>
+          <span class="proj-tech">Spring Boot · Apache Kafka · MySQL</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Engineered a processing parser that processes file-based banking transactions adhering to RBI schemas.</li>
+          <li>Validated and parsed standard clearing format **XML and TXT (306 format)** files with strict validation schemas.</li>
+          <li>Integrated **Kafka queues** to decouple transaction logging, creating an async, fault-tolerant ingestion pipeline.</li>
+        </ul>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="proj-item">
+        <div class="proj-header">
+          <div class="proj-name">College ERP System</div>
+          <span class="proj-tech">Java · Spring Boot · Angular · MySQL</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built structural automation modules handling institutional HR records, admissions, libraries, and gate security logs.</li>
+          <li>Constructed dynamic administration reporting engines that parse and export clean Excel spreadsheet reports.</li>
+          <li>Secured personal record modules utilizing a robust role-based access control (**RBAC**) authorization boundary.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ─── EDUCATION & CREDENTIALS SECTION ─── -->
+    <div class="resume-section">
+      <div class="split-grid">
+        
+        <!-- Left half: Education -->
+        <div>
+          <h2 class="section-title">Education</h2>
+          
+          <div class="edu-item">
+            <div class="edu-degree">Master of Computer Applications (MCA)</div>
+            <div class="edu-meta">Savitribai Phule Pune University (SPPU)</div>
+            <div class="edu-date-gpa">2024 — 2026 · <span class="edu-gpa-highlight">Pursuing</span> | Pune, India</div>
+          </div>
+
+          <div class="edu-item">
+            <div class="edu-degree">Bachelor of Computer Applications (BCA)</div>
+            <div class="edu-meta">PES Modern College of Engineering, Pune | SPPU</div>
+            <div class="edu-date-gpa">2021 — 2024 · <span class="edu-gpa-highlight">CGPA: 9.55+ (Batch Top Rank)</span></div>
+          </div>
+        </div>
+
+        <!-- Right half: Certs -->
+        <div>
+          <h2 class="section-title">Certifications</h2>
+          
+          <a href="./assets/images/educat/NptlCertificateCloudComputingDistributedSystems.pdf" target="_blank" class="cert-item" style="text-decoration: none; display: flex; justify-content: space-between;">
+            <span class="cert-name" style="color: var(--text);">Cloud Computing &amp; Distributed Systems <i class="fas fa-external-link-alt" style="font-size: 0.65rem; color: var(--green); margin-left: 4px;"></i></span>
+            <span class="cert-issuer">Elite · IIT Kanpur (2026)</span>
+          </a>
+
+          <a href="./assets/images/educat/NptlCertificateCloudComputing.pdf" target="_blank" class="cert-item" style="text-decoration: none; display: flex; justify-content: space-between;">
+            <span class="cert-name" style="color: var(--text);">Cloud Computing (Core) <i class="fas fa-external-link-alt" style="font-size: 0.65rem; color: var(--green); margin-left: 4px;"></i></span>
+            <span class="cert-issuer">Elite · IIT Kharagpur (2026)</span>
+          </a>
+
+          <div class="cert-item">
+            <span class="cert-name">Java Full Stack Development</span>
+            <span class="cert-issuer">Symbiosis SIU / Capgemini</span>
+          </div>
+
+          <a href="./assets/images/oracle_mysql_impl_associate_cert.pdf" target="_blank" class="cert-item" style="text-decoration: none; display: flex; justify-content: space-between;">
+            <span class="cert-name" style="color: var(--text);">MySQL Implementation Certified Associate <i class="fas fa-external-link-alt" style="font-size: 0.65rem; color: var(--green); margin-left: 4px;"></i></span>
+            <span class="cert-issuer">Oracle Corporation</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── LANGUAGES BLOCK ─── -->
+    <div class="resume-section">
+      <h2 class="section-title">Languages</h2>
+      <div class="languages-wrap">
+        <div class="lang-item"><strong>Marathi:</strong> Native / Bilingual</div>
+        <div class="lang-item"><strong>Hindi:</strong> Fluent / Bilingual</div>
+        <div class="lang-item"><strong>English:</strong> Professional Working Proficiency</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
