@@ -1131,6 +1131,10 @@
         box-shadow: none;
       }
 
+      .project-card.hide {
+        display: none !important;
+      }
+
       .project-card:hover {
         border-color: var(--accent-border);
         box-shadow: 0 8px 24px rgba(13,110,63,0.1);
@@ -1216,7 +1220,7 @@
         color: var(--accent);
       }
 
-      .case-study-btn {
+      .project-view-btn {
         display: inline-flex;
         align-items: center;
         gap: 6px;
@@ -1234,19 +1238,15 @@
         transition: background 0.2s, border-color 0.2s, color 0.2s;
       }
 
-      .case-study-btn:hover {
+      .project-view-btn:hover {
         background: var(--accent);
         color: #ffffff;
         border-color: var(--accent);
       }
-      [data-theme="dark"] .case-study-btn:hover {
+      [data-theme="dark"] .project-view-btn:hover {
         background: var(--accent-dim);
         border-color: var(--accent);
         color: var(--accent);
-      }
-
-      .case-study-btn::after {
-        content: ' →';
       }
 
       .projects-footer-link-wrap {
@@ -1512,6 +1512,11 @@
       @keyframes modalFadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       .modal-content-wrap {
