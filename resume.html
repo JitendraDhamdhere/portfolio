@@ -240,11 +240,12 @@
     }
 
     .contact-details a {
-      color: inherit;
+      color: var(--text);
       text-decoration: none;
     }
     .contact-details a:hover {
       color: var(--green);
+      text-decoration: underline;
     }
 
     /* Section Structure */
@@ -445,6 +446,11 @@
     .cert-name {
       color: var(--text);
       font-weight: 500;
+    }
+
+    .cert-item:hover .cert-name {
+      color: var(--green);
+      text-decoration: underline;
     }
 
     .cert-issuer {
