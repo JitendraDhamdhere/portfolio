@@ -574,95 +574,223 @@
     }
 
     /* ═══════════════════════════════════════════
-       HERO PROFILE PHOTO STYLING (OPTION B)
+       NEW HERO LAYOUT & PROFILE PHOTO STYLING
        ═══════════════════════════════════════════ */
-    .hero-avatar-wrapper {
-      position: relative;
-      width: 130px;
-      height: 130px;
-      margin-bottom: 25px;
-      border-radius: 50%;
-      padding: 3px;
-      background: linear-gradient(135deg, var(--green) 0%, rgba(0, 255, 128, 0.1) 100%);
-      box-shadow: 0 0 20px rgba(0, 255, 128, 0.15);
-      display: inline-block;
-      animation: avatarPulse 4s infinite alternate;
+    
+    /* 1. Layout Overrides for Grid */
+    .hero-grid {
+      display: grid !important;
+      grid-template-columns: 1.2fr 1fr !important;
+      grid-template-rows: auto auto !important;
+      grid-template-areas:
+        "text photo"
+        "text terminal" !important;
+      gap: 60px !important;
+      align-items: center !important;
     }
 
+    .reveal-left {
+      grid-area: text;
+    }
+
+    .hero-avatar-wrapper {
+      grid-area: photo;
+      justify-self: center;
+      position: relative;
+      width: 260px;
+      height: 260px;
+      z-index: 10;
+      animation: avatarFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+
+    .terminal-container {
+      grid-area: terminal;
+      width: 100%;
+    }
+
+    /* 2. Photo Shape, Sizing, and Styling */
     .hero-avatar-inner {
       position: relative;
       width: 100%;
       height: 100%;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid var(--bg);
+      border: 3px solid rgba(0, 255, 136, 0.4);
       background: var(--bg2);
+      box-sizing: border-box;
     }
 
     .hero-avatar-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center top;
       display: block;
-      filter: grayscale(15%) contrast(105%) brightness(95%);
-      transition: filter 0.3s ease, transform 0.3s ease;
+      filter: grayscale(15%) contrast(1.05);
+      transition: filter 0.4s ease, transform 0.4s ease;
     }
 
     .hero-avatar-wrapper:hover .hero-avatar-img {
-      filter: grayscale(0%) contrast(110%) brightness(100%);
-      transform: scale(1.05);
+      filter: grayscale(0%) contrast(1.05);
+      transform: scale(1.03);
     }
 
-    /* scanline scan grid CRT overlay effect */
+    /* Subtle scanline overlay using CSS only */
     .hero-avatar-inner::after {
-      content: " ";
-      display: block;
+      content: "";
       position: absolute;
-      top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 128, 0.12) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
-      background-size: 100% 4px, 6px 100%;
+      inset: 0;
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 255, 136, 0.08) 50%
+      );
+      background-size: 100% 4px;
       z-index: 2;
       pointer-events: none;
-      opacity: 0.8;
     }
 
-    /* High-tech pulsing scan loop border */
-    .hero-avatar-wrapper::before {
+    /* 3. Pulsing Glow Rings (Two Rings) */
+    .hero-avatar-wrapper::before,
+    .hero-avatar-wrapper::after {
       content: '';
       position: absolute;
-      inset: -4px;
+      inset: 0;
       border-radius: 50%;
-      border: 1px solid var(--green);
-      opacity: 0.4;
-      animation: radarScan 3s linear infinite;
+      border: 2px solid #00ff88;
       pointer-events: none;
+      z-index: -1;
     }
 
-    @keyframes radarScan {
-      0% { transform: scale(1); opacity: 0.6; }
-      50% { opacity: 0.3; }
-      100% { transform: scale(1.1); opacity: 0; }
+    .hero-avatar-wrapper::before {
+      animation: ringPulse 3s ease infinite;
     }
 
-    @keyframes avatarPulse {
-      0% { 
-        box-shadow: 0 0 15px rgba(0, 255, 128, 0.15); 
-        border-color: rgba(0, 255, 128, 0.4);
+    .hero-avatar-wrapper::after {
+      animation: ringPulse 3s ease infinite;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes ringPulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.5;
+        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
       }
-      100% { 
-        box-shadow: 0 0 25px rgba(0, 255, 128, 0.35);
-        border-color: rgba(0, 255, 128, 0.8);
+      100% {
+        transform: scale(1.15);
+        opacity: 0;
+        box-shadow: 0 0 20px 10px rgba(0, 255, 136, 0);
       }
     }
 
-    /* Mobile Alignment Override */
-    @media (max-width: 991px) {
+    /* 4. Status Badge styling */
+    .hero-status-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: #0a0a0a;
+      border: 1px solid #00ff88;
+      color: #00ff88;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-family: var(--code), monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .status-dot {
+      color: #00ff88;
+      animation: statusBlink 1.5s infinite;
+    }
+
+    @keyframes statusBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes avatarFadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 5. Tablet Responsiveness (max-width: 1024px) */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        gap: 30px !important;
+      }
+      
       .hero-avatar-wrapper {
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        width: 140px;
-        height: 140px;
+        width: 180px;
+        height: 180px;
+      }
+      
+      .hero-status-badge {
+        bottom: 4px;
+        right: 4px;
+        padding: 4px 8px;
+        font-size: 0.65rem;
+      }
+    }
+
+    /* 6. Mobile Responsiveness (max-width: 768px) */
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: auto auto auto !important;
+        grid-template-areas:
+          "photo"
+          "text"
+          "terminal" !important;
+        gap: 30px !important;
+        text-align: center !important;
+      }
+
+      .reveal-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .hero-avatar-wrapper {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+      }
+      
+      .hero-status-badge {
+        bottom: 2px;
+        right: 2px;
+        padding: 3px 6px;
+        font-size: 0.6rem;
+      }
+
+      .hero-quote {
+        margin: 0 auto 30px !important;
+        border-left: none !important;
+        border-bottom: 2px solid var(--green) !important;
+        padding-left: 0 !important;
+        padding-bottom: 12px !important;
+        text-align: center;
+      }
+
+      .btn-group {
+        justify-content: center !important;
+      }
+
+      .hero-contact-info {
+        justify-content: center !important;
       }
     }
 
@@ -2022,12 +2150,6 @@
         <div class="hero-grid">
 
           <div class="reveal-left">
-            <!-- Profile Avatar with terminal glowing scans -->
-            <div class="hero-avatar-wrapper">
-              <div class="hero-avatar-inner">
-                <img src="./assets/images/jitendra.jpg" alt="Jitendra Dhamdhere" class="hero-avatar-img">
-              </div>
-            </div>
             <div class="hero-sub">// portfolio — software engineer</div>
             <h1 class="hero-title">Jitendra<br><span>Dhamdhere.</span></h1>
 
@@ -2068,6 +2190,17 @@
                 <a href="https://github.com/JitendraDhamdhere"
                   target="_blank">github.com/JitendraDhamdhere</a>
               </div>
+            </div>
+          </div>
+
+          <!-- Profile Avatar with terminal glowing scans & status badge -->
+          <div class="hero-avatar-wrapper">
+            <div class="hero-avatar-inner">
+              <img src="./assets/images/jitendra.jpg" alt="Jitendra Dhamdhere" class="hero-avatar-img">
+            </div>
+            <!-- Status Badge -->
+            <div class="hero-status-badge">
+              <span class="status-dot">●</span> Open to roles
             </div>
           </div>
 
