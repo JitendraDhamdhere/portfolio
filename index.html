@@ -190,6 +190,26 @@
         max-width: var(--container-width);
         margin: 0 auto;
         padding: 0 24px;
+        position: relative;
+        z-index: 2;
+      }
+
+      #home, #skills, #projects {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .section-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        display: block;
+        opacity: 0.08;
+        transition: opacity 0.3s ease;
       }
 
       .section-container {
@@ -2010,11 +2030,383 @@
           grid-template-columns: repeat(2, 1fr);
         }
       }
+
+      /* Glow effect during statistics counting animation */
+      .stat-number.counting {
+        color: #00ffff !important;
+        text-shadow: 0 0 15px #00ffff, 0 0 5px var(--accent);
+        transition: color 0.15s ease, text-shadow 0.15s ease;
+      }
+
+      /* Custom Blinking Terminal Cursor */
+      * {
+        cursor: none !important;
+      }
+      
+      #terminal-cursor {
+        position: fixed;
+        top: -100px;
+        left: -100px;
+        width: 10px;
+        height: 18px;
+        background-color: var(--accent);
+        pointer-events: none;
+        z-index: 100000;
+        transform: translate(-50%, -50%);
+        opacity: 0.9;
+        display: block;
+        transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease, border-radius 0.15s ease;
+        box-shadow: 0 0 8px var(--accent);
+        animation: terminalCursorBlink 1.0s step-end infinite;
+      }
+
+      @keyframes terminalCursorBlink {
+        0%, 100% { background-color: var(--accent); box-shadow: 0 0 8px var(--accent); }
+        50% { background-color: transparent; box-shadow: none; }
+      }
+
+      #terminal-cursor.active-hover {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #00ffff !important;
+        box-shadow: 0 0 15px #00ffff;
+        animation: none;
+      }
+
+      /* Fixed Full Screen Overlay for fingertip leakage particles */
+      #code-explosion-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 99999;
+        display: block;
+      }
+
+      /* ===== PERSONAL TERMINAL CHATBOT WIDGET ===== */
+      #jd-chat-toggle {
+        position: fixed;
+        right: 24px;
+        bottom: 84px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--bg-card);
+        border: 1px solid var(--accent-border);
+        color: var(--accent);
+        font-family: var(--font-mono);
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 99990;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 8px var(--accent-dim);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      #jd-chat-toggle:hover {
+        transform: scale(1.1) rotate(5deg);
+        border-color: var(--accent);
+        box-shadow: 0 8px 24px var(--accent-dim), 0 0 15px var(--accent);
+      }
+      [data-theme="light"] #jd-chat-toggle {
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      #jd-chat-window {
+        position: fixed;
+        right: 24px;
+        bottom: 146px;
+        width: 360px;
+        height: 480px;
+        max-width: calc(100vw - 48px);
+        background: #0d120f; /* Fixed Obsidian dark theme for chatbot HUD */
+        border: 1px solid rgba(0, 255, 128, 0.18);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        z-index: 99990;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 255, 136, 0.05);
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+        pointer-events: none;
+        transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: var(--font-mono);
+      }
+      #jd-chat-window.open {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: all;
+      }
+      [data-theme="light"] #jd-chat-window {
+        border-color: #2d2d3e;
+        background-color: #1e1e2e; /* Slate terminal style in light theme */
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      }
+
+      .chat-header {
+        background: #141c17;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(0, 255, 128, 0.08);
+      }
+      [data-theme="light"] .chat-header {
+        background: #181825;
+        border-bottom: 1px solid #2d2d3e;
+      }
+
+      .chat-header-dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .chat-header-title {
+        font-size: 11px;
+        color: #547562;
+        letter-spacing: 1px;
+        font-weight: bold;
+      }
+      [data-theme="light"] .chat-header-title {
+        color: #6c7086;
+      }
+
+      .chat-close-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 14px;
+        font-family: monospace;
+        transition: color 0.2s;
+      }
+      .chat-close-btn:hover {
+        color: var(--accent);
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        font-size: 12px;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
+      .chat-messages::-webkit-scrollbar {
+        width: 4px;
+      }
+      .chat-messages::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .chat-messages::-webkit-scrollbar-thumb {
+        background: rgba(0, 255, 128, 0.15);
+        border-radius: 2px;
+      }
+
+      .chat-msg-row {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .chat-msg-prompt {
+        font-weight: bold;
+        margin-bottom: 2px;
+        font-size: 11px;
+      }
+      .chat-msg-prompt.bot {
+        color: #00ff80;
+      }
+      .chat-msg-prompt.visitor {
+        color: #00ffff;
+      }
+      [data-theme="light"] .chat-msg-prompt.bot {
+        color: #a8ff78;
+      }
+      [data-theme="light"] .chat-msg-prompt.visitor {
+        color: #74c7ec;
+      }
+
+      .chat-msg-body {
+        color: #e6f5ec;
+        white-space: pre-wrap;
+      }
+      [data-theme="light"] .chat-msg-body {
+        color: #cdd6f4;
+      }
+
+      .chat-quick-replies {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 8px 16px 12px;
+        border-top: 1px solid rgba(0, 255, 128, 0.05);
+        justify-content: flex-start;
+      }
+      [data-theme="light"] .chat-quick-replies {
+        border-top: 1px solid #2d2d3e;
+      }
+
+      .chat-pill {
+        background: #141c17;
+        border: 1px solid rgba(0, 255, 128, 0.16);
+        color: #8fa899;
+        font-size: 10px;
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: var(--font-mono);
+        transition: all 0.2s ease;
+      }
+      .chat-pill:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: rgba(0, 255, 128, 0.05);
+      }
+      [data-theme="light"] .chat-pill {
+        background: #1e1e2e;
+        border-color: #2d2d3e;
+        color: #bac2de;
+      }
+      [data-theme="light"] .chat-pill:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: rgba(168, 255, 120, 0.05);
+      }
+
+      .chat-input-form {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: #141c17;
+        border-top: 1px solid rgba(0, 255, 128, 0.08);
+      }
+      [data-theme="light"] .chat-input-form {
+        background: #181825;
+        border-top: 1px solid #2d2d3e;
+      }
+
+      .chat-input-prompt {
+        color: #00ff80;
+        font-weight: bold;
+        font-size: 13px;
+        user-select: none;
+      }
+      [data-theme="light"] .chat-input-prompt {
+        color: #a8ff78;
+      }
+
+      .chat-input-box {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        outline: none;
+      }
+      .chat-input-box::placeholder {
+        color: #547562;
+      }
+      [data-theme="light"] .chat-input-box {
+        color: #cdd6f4;
+      }
+      [data-theme="light"] .chat-input-box::placeholder {
+        color: #6c7086;
+      }
+
+      .chat-submit-btn {
+        background: transparent;
+        border: none;
+        color: var(--accent);
+        cursor: pointer;
+        font-size: 13px;
+        padding: 2px 4px;
+        transition: transform 0.2s, color 0.2s;
+      }
+      .chat-submit-btn:hover {
+        transform: translateX(2px);
+        color: var(--accent-hover);
+      }
+
+      .typing-indicator {
+        display: inline-flex;
+        gap: 3px;
+        vertical-align: middle;
+      }
+      .typing-dot {
+        width: 4px;
+        height: 4px;
+        background-color: var(--accent);
+        border-radius: 50%;
+        animation: typingBlink 1.4s infinite both;
+      }
+      .typing-dot:nth-child(2) { animation-delay: .2s; }
+      .typing-dot:nth-child(3) { animation-delay: .4s; }
+
+      @keyframes typingBlink {
+        0%, 80%, 100% { opacity: 0.2; }
+        40% { opacity: 1; }
+      }
     </style>
   </head>
   <body>
+    <!-- Custom Terminal Blinking Cursor -->
+    <div id="terminal-cursor"></div>
+
+    <!-- Java Code Leak Explosion Canvas -->
+    <canvas id="code-explosion-canvas"></canvas>
+
     <!-- Fixed Theme Toggle Button Floating -->
     <button id="theme-toggle" class="theme-toggle-fixed" aria-label="Toggle Theme">☀ Light</button>
+
+    <!-- Terminal Chatbot Bubble Toggle -->
+    <button id="jd-chat-toggle" aria-label="Toggle Chatbot">
+      <i class="fas fa-terminal" style="font-size:12px; margin-right:2px;"></i>_
+    </button>
+
+    <!-- Terminal Chatbot Window HUD -->
+    <div id="jd-chat-window">
+      <div class="chat-header">
+        <div class="chat-header-dots">
+          <span class="dot dot-red" style="width:9px; height:9px;"></span>
+          <span class="dot dot-yellow" style="width:9px; height:9px;"></span>
+          <span class="dot dot-green" style="width:9px; height:9px;"></span>
+        </div>
+        <span class="chat-header-title">jd.bot@terminal</span>
+        <button class="chat-close-btn" id="jd-chat-close" aria-label="Minimize Chat">&times;</button>
+      </div>
+
+      <div class="chat-messages" id="jd-chat-messages">
+        <!-- Message list populated dynamically via script -->
+      </div>
+
+      <div class="chat-quick-replies" id="jd-chat-quick-replies">
+        <button class="chat-pill" onclick="triggerQuickReply('🔧 Skills')">🔧 Skills</button>
+        <button class="chat-pill" onclick="triggerQuickReply('💼 Projects')">💼 Projects</button>
+        <button class="chat-pill" onclick="triggerQuickReply('📩 Contact')">📩 Contact</button>
+        <button class="chat-pill" onclick="triggerQuickReply('💰 Open to work?')">💰 Open to work?</button>
+      </div>
+
+      <form class="chat-input-form" id="jd-chat-form">
+        <span class="chat-input-prompt">$</span>
+        <input type="text" class="chat-input-box" id="jd-chat-input" placeholder="Type command/question..." autocomplete="off" required>
+        <button type="submit" class="chat-submit-btn" aria-label="Send Message">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </form>
+    </div>
 
 
     <!-- Geometric elements -->
@@ -2066,6 +2458,7 @@
      HERO SECTION
      ═══════════════════════════════════════════ -->
     <section id="home">
+      <canvas id="hero-canvas" class="section-canvas"></canvas>
       <div class="container">
         <div class="hero-grid">
 
@@ -2214,6 +2607,7 @@
      TECHNICAL SKILLS SECTION
      ═══════════════════════════════════════════ -->
     <section id="skills" class="section-container">
+      <canvas id="skills-canvas" class="section-canvas"></canvas>
       <div class="container">
         <p class="section-label">// technical matrix</p>
         <h2 class="section-heading">Stack &amp; <em>Core Proficiency.</em></h2>
@@ -2369,6 +2763,7 @@
      PROJECTS SECTION
      ═══════════════════════════════════════════ -->
     <section id="projects" class="section-container">
+      <canvas id="projects-canvas" class="section-canvas"></canvas>
       <div class="container">
         <p class="section-label">// selected portfolio</p>
         <h2 class="section-heading">Production-grade <em>Architecture.</em></h2>
@@ -3042,6 +3437,829 @@
       }
     });
 
+    /* ─── DYNAMIC BACKGROUND & INTERACTIVE ANIMATIONS ─── */
+    (function() {
+      // Dynamic color parser helpers
+      function hexToRgba(hex, alpha) {
+        hex = hex.replace('#', '');
+        if (hex.length === 3) {
+          hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        }
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+
+      function parseToRgba(colorStr, alpha) {
+        colorStr = colorStr.trim();
+        if (colorStr.startsWith('#')) {
+          return hexToRgba(colorStr, alpha);
+        } else if (colorStr.startsWith('rgb')) {
+          const match = colorStr.match(/\d+/g);
+          if (match && match.length >= 3) {
+            return `rgba(${match[0]}, ${match[1]}, ${match[2]}, ${alpha})`;
+          }
+        }
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        return isLight ? `rgba(13, 110, 63, ${alpha})` : `rgba(0, 255, 136, ${alpha})`;
+      }
+
+      function getThemeColors() {
+        const computedStyle = getComputedStyle(document.documentElement);
+        const accent = computedStyle.getPropertyValue('--accent').trim() || '#00ff88';
+        const border = computedStyle.getPropertyValue('--border').trim() || '#1a1a1a';
+        return { accent, border };
+      }
+
+      // --- HERO JAVA MATRIX RAIN ---
+      const heroCanvas = document.getElementById('hero-canvas');
+      const heroCtx = heroCanvas.getContext('2d');
+      const matrixFontSize = 14;
+      let droplets = [];
+      let matrixActive = false;
+
+      const javaKeywords = [
+        "class", "void", "int", "new", "public", 
+        "static", "return", "extends", "interface", 
+        "@Override", "null", "true", "false", 
+        "import", "throws"
+      ];
+
+      function initHeroMatrix() {
+        if (!heroCanvas) return;
+        
+        // Dynamic opacity override to 0.10 (as requested in rule)
+        heroCanvas.style.opacity = '0.10';
+        
+        const rect = heroCanvas.parentElement.getBoundingClientRect();
+        heroCanvas.width = rect.width;
+        heroCanvas.height = rect.height;
+        
+        const columns = Math.floor(heroCanvas.width / matrixFontSize);
+        droplets = [];
+        for (let i = 0; i < columns; i++) {
+          droplets.push({
+            x: i * matrixFontSize,
+            y: Math.random() * -100, // start above view
+            speed: Math.random() * 0.08 + 0.04, // varied rows per frame speed
+            word: javaKeywords[Math.floor(Math.random() * javaKeywords.length)],
+            wordIndex: 0,
+            opacity: Math.random() * 0.4 + 0.6 // varied character brightness
+          });
+        }
+      }
+
+      function drawHeroMatrix() {
+        if (!matrixActive || document.visibilityState === 'hidden') return;
+        const colors = getThemeColors();
+        
+        // Transparent trail wipe
+        heroCtx.globalCompositeOperation = 'destination-out';
+        heroCtx.fillStyle = 'rgba(0, 0, 0, 0.07)';
+        heroCtx.fillRect(0, 0, heroCanvas.width, heroCanvas.height);
+        
+        heroCtx.globalCompositeOperation = 'source-over';
+        heroCtx.font = `bold ${matrixFontSize}px monospace`;
+        
+        droplets.forEach(d => {
+          const prevRow = Math.floor(d.y);
+          d.y += d.speed;
+          const currRow = Math.floor(d.y);
+          
+          // Only draw a character when we cross into a new grid cell row
+          if (currRow > prevRow) {
+            const char = d.word[d.wordIndex];
+            const x = d.x;
+            const y = currRow * matrixFontSize;
+            
+            heroCtx.fillStyle = parseToRgba(colors.accent, d.opacity);
+            heroCtx.fillText(char, x, y);
+            
+            d.wordIndex++;
+            if (d.wordIndex >= d.word.length) {
+              // Word completed, cycle to next word
+              d.word = javaKeywords[Math.floor(Math.random() * javaKeywords.length)];
+              d.wordIndex = 0;
+              
+              // Recycle drop if off-screen
+              if (y > heroCanvas.height && Math.random() > 0.25) {
+                d.y = Math.random() * -10;
+                d.speed = Math.random() * 0.08 + 0.04;
+              }
+            }
+          }
+        });
+        
+        requestAnimationFrame(drawHeroMatrix);
+      }
+
+      // --- SKILLS PARTICLE NETWORK ---
+      const skillsCanvas = document.getElementById('skills-canvas');
+      const skillsCtx = skillsCanvas.getContext('2d');
+      let particles = [];
+      let skillsActive = false;
+
+      class Particle {
+        constructor(w, h) {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.vx = (Math.random() - 0.5) * 0.45;
+          this.vy = (Math.random() - 0.5) * 0.45;
+          this.radius = Math.random() * 1.5 + 1;
+        }
+        update(w, h) {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > w) this.vx *= -1;
+          if (this.y < 0 || this.y > h) this.vy *= -1;
+        }
+        draw(ctx, color) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = color;
+          ctx.fill();
+        }
+      }
+
+      function initSkillsParticles() {
+        if (!skillsCanvas) return;
+        const rect = skillsCanvas.parentElement.getBoundingClientRect();
+        const w = rect.width;
+        const h = rect.height;
+        skillsCanvas.width = w;
+        skillsCanvas.height = h;
+        const count = Math.min(60, Math.floor((w * h) / 18000));
+        particles = [];
+        for (let i = 0; i < count; i++) {
+          particles.push(new Particle(w, h));
+        }
+      }
+
+      function drawSkillsParticles() {
+        if (!skillsActive || document.visibilityState === 'hidden') return;
+        skillsCtx.clearRect(0, 0, skillsCanvas.width, skillsCanvas.height);
+        const colors = getThemeColors();
+        const w = skillsCanvas.width;
+        const h = skillsCanvas.height;
+        
+        particles.forEach(p => {
+          p.update(w, h);
+          p.draw(skillsCtx, colors.accent);
+        });
+        
+        skillsCtx.lineWidth = 0.5;
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+              const alpha = (1 - dist / 100) * 0.15;
+              skillsCtx.strokeStyle = parseToRgba(colors.accent, alpha);
+              skillsCtx.beginPath();
+              skillsCtx.moveTo(particles[i].x, particles[i].y);
+              skillsCtx.lineTo(particles[j].x, particles[j].y);
+              skillsCtx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(drawSkillsParticles);
+      }
+
+      // --- PROJECTS GRID & SCANLINE ---
+      const projectsCanvas = document.getElementById('projects-canvas');
+      const projectsCtx = projectsCanvas.getContext('2d');
+      let projectsActive = false;
+      let scanlineY = 0;
+      const scanlineHeight = 120;
+
+      function initProjectsGrid() {
+        if (!projectsCanvas) return;
+        const rect = projectsCanvas.parentElement.getBoundingClientRect();
+        projectsCanvas.width = rect.width;
+        projectsCanvas.height = rect.height;
+      }
+
+      function drawProjectsGrid() {
+        if (!projectsActive || document.visibilityState === 'hidden') return;
+        const w = projectsCanvas.width;
+        const h = projectsCanvas.height;
+        projectsCtx.clearRect(0, 0, w, h);
+        const colors = getThemeColors();
+        
+        // Draw coordinate grid lines
+        projectsCtx.lineWidth = 0.5;
+        projectsCtx.strokeStyle = parseToRgba(colors.accent, 0.03);
+        const gridSize = 50;
+        
+        for (let x = 0; x < w; x += gridSize) {
+          projectsCtx.beginPath();
+          projectsCtx.moveTo(x, 0);
+          projectsCtx.lineTo(x, h);
+          projectsCtx.stroke();
+        }
+        for (let y = 0; y < h; y += gridSize) {
+          projectsCtx.beginPath();
+          projectsCtx.moveTo(0, y);
+          projectsCtx.lineTo(w, y);
+          projectsCtx.stroke();
+        }
+        
+        // Draw intersection dots
+        projectsCtx.fillStyle = colors.accent;
+        for (let x = gridSize; x < w; x += gridSize) {
+          for (let y = gridSize; y < h; y += gridSize) {
+            projectsCtx.globalAlpha = 0.08;
+            projectsCtx.fillRect(x - 1, y - 1, 2, 2);
+          }
+        }
+        projectsCtx.globalAlpha = 1.0;
+        
+        // Solid leading scanline
+        projectsCtx.fillStyle = parseToRgba(colors.accent, 0.15);
+        projectsCtx.fillRect(0, scanlineY, w, 1);
+        
+        // Scanline glow trail
+        const gradient = projectsCtx.createLinearGradient(0, scanlineY - scanlineHeight, 0, scanlineY);
+        gradient.addColorStop(0, parseToRgba(colors.accent, 0));
+        gradient.addColorStop(0.5, parseToRgba(colors.accent, 0.01));
+        gradient.addColorStop(0.9, parseToRgba(colors.accent, 0.08));
+        gradient.addColorStop(1, parseToRgba(colors.accent, 0.15));
+        
+        projectsCtx.fillStyle = gradient;
+        projectsCtx.fillRect(0, scanlineY - scanlineHeight, w, scanlineHeight);
+        
+        scanlineY += 0.85; // Sweeping speed
+        if (scanlineY > h + scanlineHeight) {
+          scanlineY = 0;
+        }
+        requestAnimationFrame(drawProjectsGrid);
+      }
+
+      // --- MOUSE CODE EXPLOSION (FINGERTIP LEAK) ---
+      const explosionCanvas = document.getElementById('code-explosion-canvas');
+      const explosionCtx = explosionCanvas.getContext('2d');
+      let explosionParticles = [];
+      let lastMouseX = 0;
+      let lastMouseY = 0;
+      let explosionActive = false;
+
+      const javaSnippets = [
+        "System.out.println()",
+        "@SpringBootApplication",
+        "new Thread()",
+        "Kafka.send()",
+        "@RestController",
+        "SELECT * FROM",
+        "Optional.of()",
+        ".stream().filter()"
+      ];
+
+      class CodeParticle {
+        constructor(x, y, text) {
+          this.x = x;
+          this.y = y;
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 0.8 + 0.4;
+          this.vx = Math.cos(angle) * speed;
+          this.vy = Math.sin(angle) * speed - 0.25; // float slightly upward
+          this.text = text;
+          this.alpha = 1.0;
+          this.fontSize = Math.floor(Math.random() * 3) + 11; // 11px to 13px
+          const isCyan = Math.random() > 0.5;
+          this.colorBase = isCyan ? '0, 255, 255' : '0, 255, 136'; // cyan vs terminal green
+        }
+
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          // Fade over 1.5 seconds (90 frames at 60 FPS)
+          this.alpha -= 1 / 90;
+        }
+
+        draw(ctx) {
+          if (this.alpha <= 0) return;
+          ctx.font = `bold ${this.fontSize}px monospace`;
+          ctx.fillStyle = `rgba(${this.colorBase}, ${this.alpha})`;
+          ctx.fillText(this.text, this.x, this.y);
+        }
+      }
+
+      function initExplosionCanvas() {
+        if (!explosionCanvas) return;
+        explosionCanvas.width = window.innerWidth;
+        explosionCanvas.height = window.innerHeight;
+      }
+
+      function drawCodeExplosion() {
+        if (!explosionActive || document.visibilityState === 'hidden') return;
+        explosionCtx.clearRect(0, 0, explosionCanvas.width, explosionCanvas.height);
+        
+        // Update and render particles
+        explosionParticles = explosionParticles.filter(p => {
+          p.update();
+          p.draw(explosionCtx);
+          return p.alpha > 0;
+        });
+
+        requestAnimationFrame(drawCodeExplosion);
+      }
+
+      // --- CUSTOM TERMINAL BLINKING CURSOR ---
+      const devCursor = document.getElementById('terminal-cursor');
+      let cursorX = -100;
+      let cursorY = -100;
+      let targetX = -100;
+      let targetY = -100;
+
+      function updateCursorPhysics() {
+        const dx = targetX - cursorX;
+        const dy = targetY - cursorY;
+        // Damping follow lerp loop
+        cursorX += dx * 0.22;
+        cursorY += dy * 0.22;
+
+        if (devCursor) {
+          devCursor.style.left = `${cursorX}px`;
+          devCursor.style.top = `${cursorY}px`;
+        }
+        requestAnimationFrame(updateCursorPhysics);
+      }
+
+      // Track cursor position and emit snippets organically
+      window.addEventListener('mousemove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+
+        // Emit particle on mouse move if cursor has moved at least 25 pixels
+        const dist = Math.sqrt(Math.pow(targetX - lastMouseX, 2) + Math.pow(targetY - lastMouseY, 2));
+        if (dist > 35) {
+          const text = javaSnippets[Math.floor(Math.random() * javaSnippets.length)];
+          explosionParticles.push(new CodeParticle(targetX, targetY, text));
+          lastMouseX = targetX;
+          lastMouseY = targetY;
+        }
+      });
+
+      // Event delegation for cursor hover state scaling
+      document.addEventListener('mouseover', (e) => {
+        const interactive = e.target.closest('a, button, select, input, textarea, .cert-img-card, .cert-text-list-item, .filter-btn, .project-card, .project-view-btn');
+        if (interactive) {
+          if (devCursor) devCursor.classList.add('active-hover');
+        } else {
+          if (devCursor) devCursor.classList.remove('active-hover');
+        }
+      });
+
+      // Hide cursor on leaving window boundaries
+      document.addEventListener('mouseleave', () => {
+        if (devCursor) devCursor.style.display = 'none';
+      });
+      document.addEventListener('mouseenter', () => {
+        if (devCursor) devCursor.style.display = 'block';
+      });
+
+
+      // --- GLOBAL CONTROLLER ---
+      function initAll() {
+        initHeroMatrix();
+        initSkillsParticles();
+        initProjectsGrid();
+        initExplosionCanvas();
+      }
+
+      function startAll() {
+        if (!matrixActive) {
+          matrixActive = true;
+          drawHeroMatrix();
+        }
+        if (!skillsActive) {
+          skillsActive = true;
+          drawSkillsParticles();
+        }
+        if (!projectsActive) {
+          projectsActive = true;
+          drawProjectsGrid();
+        }
+        if (!explosionActive) {
+          explosionActive = true;
+          drawCodeExplosion();
+        }
+      }
+
+      function stopAll() {
+        matrixActive = false;
+        skillsActive = false;
+        projectsActive = false;
+        explosionActive = false;
+      }
+
+      // Initialize on load
+      window.addEventListener('load', () => {
+        initAll();
+        startAll();
+        updateCursorPhysics();
+      });
+
+      // Handle resize with debouncing
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          initAll();
+        }, 150);
+      });
+
+      // Page Visibility API Integration
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          stopAll();
+        } else {
+          startAll();
+        }
+      });
+
+      // Monitor theme change toggles to reset canvas contents immediately
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+          setTimeout(() => {
+            initAll();
+          }, 50);
+        });
+      }
+    })();
+
+    /* ─── PERSONAL OFFLINE TERMINAL CHATBOT (jd.bot) ─── */
+    (function() {
+      const chatDb = {
+        bio: `👤 About Jitendra Dhamdhere:
+- Role: Specialized Java Backend Developer with 2+ years of enterprise experience.
+- Current Node: Artcode Private Limited (Apr 2024 – Present).
+- Core Expertise: Spring Boot microservices, Kafka event-driven pipelines, MySQL query optimization, role-based security layers, and Angular client integrations.
+- Current Academics: Pursuing MCA at Savitribai Phule Pune University (SPPU); graduated BCA with a stellar 9.55+ CGPA.
+- Key Achievements: Successfully delivered Smart Gold Loan lifecycle, high-volume banking NACH clearing pipelines, and decoupled architectures.`,
+
+        skills: `🔧 Core Technical Matrix:
+- Languages: Java (Core/Advanced), JavaScript, TypeScript, SQL, HTML5/CSS3
+- Frameworks & Architecture: Spring Boot, Spring Security, Hibernate/JPA, Angular, RESTful Web Services, MVC Architecture, RBAC Layering
+- Middleware & Tools: Apache Kafka, Git/GitHub, Bitbucket, Postman, Swagger/OpenAPI, iText5 (PDF Generation), Maven
+- Databases: MySQL (Query Optimization, Indexing, Schema Design, Excel Data Processing)
+- Domain Concepts: NACH standard 306, Maker-Checker Dual Auth, Gold Loan Lifecycle, EMI Calculations, Agile/Scrum`,
+
+        projects: `💼 Selected Architectural Projects:
+1. Smart Gold Loan System — Multi-branch lifecycle tracking, ROI rules engines, Maker-Checker authorization.
+2. NACH Credit & Debit Engine — Fast clearing pipelines parsing NPCI XML/TXT 306 documents, decoupled via Kafka.
+3. College ERP System — Academic ERP with modular HR profiles and fine-grained RBAC roles.
+4. InstaFuel — Logistics dispatch routing panel and mobile backend secure JWT APIs.
+5. Contractor Management System — Canadian industrial safety wizards programmatically generating PDFs.
+
+👉 Ask me details about any project! (e.g. "tell me about the Gold Loan project" or "tell me about NACH")`,
+
+        gold_loan: `💰 Smart Gold Loan Management System:
+- Role: Java Backend Developer
+- Description: Built an end-to-end multi-branch gold loan lifecycle tracking engine (Lead Capture → Credit Approval → Disbursement → EMI Schedules → Closure).
+- Core Features: Integrated secure dual-authorization (Maker-Checker rules), dynamic scheme calculations, and custom EMI email notifications.
+- Tech: Spring Boot, Hibernate, MySQL, dynamic ROI calculator.`,
+
+        nach: `🔄 NACH Credit & Debit Clearing Pipeline:
+- Role: Java Backend Developer
+- Description: Engineered an automated file clearing transaction system processing high-volume banking exchanges.
+- Core Features: Parses and validates standard NPCI-compliant XML and TXT (306 format) documents, integrates RBI fail error codes, and decouples transactional pipelines utilizing Apache Kafka.
+- Tech: Spring Boot, Apache Kafka, XML/TXT Parsers, MySQL.`,
+
+        erp: `🏫 Modular College ERP System:
+- Description: Automated critical campus administrative workflows (Admissions, HR data profiles, Library index, Gate security) for an academic institution.
+- Core Features: Incorporated RBAC roles and programmatically designed custom administrative data exports using Excel sheet processors (Apache POI).
+- Tech: Spring Boot, Angular, Hibernate, MySQL, Apache POI.`,
+
+        instafuel: `⛽ InstaFuel On-Demand Fuel Logistics:
+- Description: Programmed backend APIs powering driver delivery dispatch triggers and central administrator operations.
+- Core Features: Secured routing channels using JWT authorization and decoupled real-time delivery state updates.
+- Tech: Spring Boot, Angular, React Native APIs, MySQL.`,
+
+        contractor: `📋 Contractor Management & Compliance System:
+- Description: Programmed hazard validation processes and multi-step verification wizards for a Canadian compliance system.
+- Core Features: Automated safety reports exports compiling verified credentials into secure compliance PDF certificates using the iText5 generator.
+- Tech: Spring Boot, iText5 PDF Engine, MySQL, Spring Security.`,
+
+        contact: `📩 Contact & Node Coordinates:
+- Email: jitendradhamdhere333@gmail.com
+- Mobile: +91 96577 95194
+- LinkedIn: linkedin.com/in/jitendra-dhamdhere-0941ba235
+- GitHub: github.com/JitendraDhamdhere
+- Location: Pune, Maharashtra, India
+
+Feel free to send a message directly using the Contact Form on the page, or email me!`,
+
+        open_to_work: `💰 Career Availability Status:
+- Status: Active & Open to Work
+- Targeted Roles: Backend Java Developer, Spring Boot Engineer, Backend Microservices Developer
+- Node Location: Pune (Open to remote / on-site opportunities)
+- Focus: Highly scalable APIs, event-driven pipelines (Kafka), relational database optimizations, and secure enterprise layers.
+
+Let's collaborate! You can reach me at jitendradhamdhere333@gmail.com.`,
+
+        education: `🎓 Academic Credentials:
+1. Master of Computer Applications (MCA) — Savitribai Phule Pune University (SPPU) | 2024 — 2026 (Pursuing)
+2. Bachelor of Computer Applications (BCA) — PES Modern College of Engineering | SPPU | 2021 — 2024 | ★ CGPA: 9.55/10.0 (Top Performers)
+3. Higher Secondary Certificate (HSC) — CSR Junior College, Pune | Maharashtra Board | Score: 74.62%`,
+
+        experience: `💼 Professional Timeline:
+1. Java Backend Developer | Artcode Pvt Ltd (Apr 2024 — Present)
+   - Architected Spring Boot backend APIs and security layers.
+   - Built NACH file parser pipeline and Kafka asynchronous decouplers.
+   - Restructured high-volume MySQL indexes decreasing transaction bottle-necks.
+2. Full Stack Java Developer Intern | SSPU (Sep 2023 — Mar 2024)
+   - Mastered Capgemini-sponsored Java full stack program.`,
+
+        certifications: `🏆 Professional Accreditations & Certifications:
+1. Oracle Certified Associate (OCA) — MySQL Implementation Certified Associate
+2. Capgemini Full Stack Java Certification — SSPU Capgemini Developer Training Program
+3. Cloud Computing & Distributed Systems — NPTEL Elite Certification, IIT Kanpur (2026)
+4. Cloud Computing Core — NPTEL Elite Certification, IIT Kharagpur (2026)
+5. Accenture Virtual Experience Program — Software Engineering program
+6. Microsoft Cloud Hostclone Program — Scalable Hostclone Engineering
+7. Data Structures & Algorithms in Java — SSPU DSA Coding Program
+8. Devton Hackathon Certificate — System Design Hackathon`,
+
+        greeting: `🤖 Hello! I am jd.bot, Jitendra's personal assistant terminal.
+I am running offline and can answer questions about Jitendra's backend engineering expertise, projects, and career options.
+
+💡 Type a command or select a quick option below to compile a profile!`,
+
+        fallback: `⚠️ Command unrecognized. 
+Please inquire about my core competencies, professional timeline, projects, or credentials.
+
+Try searching keywords like:
+👉 "skills", "experience", "projects", "contact", "education", "Gold Loan", "NACH" or click one of the quick replies below!`
+      };
+
+      const chatToggle = document.getElementById('jd-chat-toggle');
+      const chatWindow = document.getElementById('jd-chat-window');
+      const chatClose = document.getElementById('jd-chat-close');
+      const chatMessages = document.getElementById('jd-chat-messages');
+      const chatForm = document.getElementById('jd-chat-form');
+      const chatInput = document.getElementById('jd-chat-input');
+      let chatInitialized = false;
+
+      function toggleChatWindow() {
+        if (!chatWindow) return;
+        const isOpen = chatWindow.classList.toggle('open');
+        
+        if (isOpen) {
+          if (!chatInitialized) {
+            printMessage('bot', chatDb.greeting);
+            chatInitialized = true;
+          }
+          setTimeout(() => chatInput.focus(), 150);
+        }
+      }
+
+      function printMessage(sender, text) {
+        if (!chatMessages) return;
+        
+        const row = document.createElement('div');
+        row.className = 'chat-msg-row';
+        
+        const prompt = document.createElement('span');
+        prompt.className = `chat-msg-prompt ${sender}`;
+        prompt.textContent = sender === 'bot' ? '[jd.bot]: ' : '[visitor@portfolio]$ ';
+        
+        const body = document.createElement('div');
+        body.className = 'chat-msg-body';
+        body.textContent = text;
+        
+        row.appendChild(prompt);
+        row.appendChild(body);
+        chatMessages.appendChild(row);
+        
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function showTypingIndicator() {
+        if (!chatMessages) return null;
+        
+        const row = document.createElement('div');
+        row.className = 'chat-msg-row';
+        
+        const prompt = document.createElement('span');
+        prompt.className = 'chat-msg-prompt bot';
+        prompt.textContent = '[jd.bot]: compiling... ';
+        
+        const body = document.createElement('div');
+        body.className = 'chat-msg-body';
+        
+        const dots = document.createElement('div');
+        dots.className = 'typing-indicator';
+        dots.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+        
+        body.appendChild(dots);
+        row.appendChild(prompt);
+        row.appendChild(body);
+        chatMessages.appendChild(row);
+        
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return row;
+      }
+
+      function processBotReply(userInput) {
+        const text = userInput.toLowerCase().trim();
+        let reply = chatDb.fallback;
+        
+        // Priority project matching to avoid clashing with skill keywords
+        if ((text.includes('project') || text.includes('system') || text.includes('build') || text.includes('made')) && (text.includes('gold') || text.includes('loan'))) {
+          reply = chatDb.gold_loan;
+        } else if ((text.includes('project') || text.includes('system') || text.includes('build') || text.includes('made')) && (text.includes('nach') || text.includes('clearing') || text.includes(' npci '))) {
+          reply = chatDb.nach;
+        } else if ((text.includes('project') || text.includes('system') || text.includes('build') || text.includes('made')) && (text.includes('erp') || text.includes('college') || text.includes('university'))) {
+          reply = chatDb.erp;
+        } else if ((text.includes('project') || text.includes('system') || text.includes('build') || text.includes('made')) && (text.includes('fuel') || text.includes('instafuel') || text.includes('logistics'))) {
+          reply = chatDb.instafuel;
+        } else if ((text.includes('project') || text.includes('system') || text.includes('build') || text.includes('made')) && (text.includes('contractor') || text.includes('compliance') || text.includes('hazard'))) {
+          reply = chatDb.contractor;
+        }
+        // General project overview
+        else if (text.includes('project') || text.includes('systems') || text.includes('case study') || text.includes('case studies') || text.includes('work done')) {
+          reply = chatDb.projects;
+        }
+        // Specific project tags
+        else if (text.includes('gold loan') || text.includes('lead capture') || text.includes('disbursement') || text.includes('emi scheduling') || text.includes('roi scheme')) {
+          reply = chatDb.gold_loan;
+        } else if (text.includes('nach') || text.includes('clearing pipeline') || text.includes('xml standard') || text.includes('txt 306') || text.includes('rbi fail')) {
+          reply = chatDb.nach;
+        } else if (text.includes('erp') || text.includes('college erp') || text.includes('poi excel') || text.includes('library book') || text.includes('admissions cycle')) {
+          reply = chatDb.erp;
+        } else if (text.includes('fuel') || text.includes('instafuel') || text.includes('logistics dispatch')) {
+          reply = chatDb.instafuel;
+        } else if (text.includes('contractor') || text.includes('compliance verification') || text.includes('itext5') || text.includes('hazard safety')) {
+          reply = chatDb.contractor;
+        }
+        // Profile bio matches
+        else if (text.includes('who are you') || text.includes('whoami') || text.includes('about') || text.includes('bio') || text.includes('profile') || text.includes('jitendra') || text.includes('summary') || text.includes('who is')) {
+          reply = chatDb.bio;
+        }
+        // Skills matches
+        else if (text.includes('skill') || text.includes('matrix') || text.includes('proficiency') || text.includes('languages') || text.includes('framework') || text.includes('technolog') || text.includes('stack') || text.includes('tools') || text.includes('java') || text.includes('kafka') || text.includes('database') || text.includes('spring')) {
+          reply = chatDb.skills;
+        }
+        // Timeline & Experience matches
+        else if (text.includes('experience') || text.includes('timeline') || text.includes('artcode') || text.includes('work history') || text.includes('employer') || text.includes('career') || text.includes('years') || text.includes('timeline')) {
+          reply = chatDb.experience;
+        }
+        // Certification matches
+        else if (text.includes('certif') || text.includes('accreditation') || text.includes('nptel') || text.includes('capgemini') || text.includes('oracle') || text.includes('accenture') || text.includes('devton') || text.includes('hackathon') || text.includes('dsa') || text.includes('credential')) {
+          reply = chatDb.certifications;
+        }
+        // Work availability
+        else if (text.includes('open to work') || text.includes('available') || text.includes('hiring') || text.includes('job') || text.includes('role') || text.includes('recruit') || text.includes('hire')) {
+          reply = chatDb.open_to_work;
+        }
+        // Contact details
+        else if (text.includes('contact') || text.includes('email') || text.includes('phone') || text.includes('mobile') || text.includes('reach') || text.includes('linkedin') || text.includes('github') || text.includes('social') || text.includes('address')) {
+          reply = chatDb.contact;
+        }
+        // Education matches
+        else if (text.includes('education') || text.includes('degree') || text.includes('mca') || text.includes('bca') || text.includes('college') || text.includes('school') || text.includes('sppu') || text.includes('gpa')) {
+          reply = chatDb.education;
+        }
+        // Location matches
+        else if (text.includes('location') || text.includes('pune') || text.includes('live')) {
+          reply = "📍 Jitendra Dhamdhere is located in Pune, Maharashtra, India. He operates out of Artcode Pvt Ltd's Pune office and is open to local, hybrid, or remote Java developer roles.";
+        }
+        // Greeting matches
+        else if (text.includes('hello') || text.includes('hi') || text.includes('hey') || text.includes('start') || text.includes('welcome')) {
+          reply = chatDb.greeting;
+        }
+        
+        const typingIndicator = showTypingIndicator();
+        
+        setTimeout(() => {
+          if (typingIndicator) typingIndicator.remove();
+          printMessage('bot', reply);
+        }, 750);
+      }
+
+      window.triggerQuickReply = function(text) {
+        printMessage('visitor', text);
+        processBotReply(text);
+      };
+
+      if (chatToggle) chatToggle.addEventListener('click', toggleChatWindow);
+      if (chatClose) chatClose.addEventListener('click', toggleChatWindow);
+
+      if (chatForm) {
+        chatForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const val = chatInput.value.trim();
+          if (!val) return;
+          
+          printMessage('visitor', val);
+          chatInput.value = '';
+          processBotReply(val);
+        });
+      }
+    })();
+
+    /* ─── DYNAMIC STATISTICS NUMBER COUNTER ANIMATION ─── */
+    (function() {
+      const statsSection = document.getElementById('about');
+      const statNumbers = document.querySelectorAll('.stat-metric-card .stat-number');
+      if (!statsSection || statNumbers.length === 0) return;
+
+      // cubic ease-out function
+      function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function runCounter(el, targetVal, suffix, decimals, delay) {
+        // Initial setup to start counting from 0
+        el.textContent = (0).toFixed(decimals) + suffix;
+
+        setTimeout(() => {
+          el.classList.add('counting');
+          const startTime = performance.now();
+          const duration = 2000; // 2 seconds per counter
+
+          function update(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOutCubic(progress);
+
+            const currentVal = easedProgress * targetVal;
+            el.textContent = currentVal.toFixed(decimals) + suffix;
+
+            if (progress < 1) {
+              requestAnimationFrame(update);
+            } else {
+              el.classList.remove('counting');
+              el.textContent = targetVal.toFixed(decimals) + suffix; // Ensure final exact value
+            }
+          }
+          requestAnimationFrame(update);
+        }, delay);
+      }
+
+      function initStatsCounter() {
+        const parsedStats = [];
+        let animated = false;
+
+        // Parse each stat metric value dynamically
+        statNumbers.forEach((el, index) => {
+          const rawText = el.textContent.trim();
+          const numMatch = rawText.match(/[\d\.]+/);
+          if (!numMatch) return;
+
+          const targetVal = parseFloat(numMatch[0]);
+          const suffix = rawText.replace(numMatch[0], '');
+          const hasDecimal = numMatch[0].includes('.');
+          const decimals = hasDecimal ? 1 : 0;
+          const delay = index * 200; // Staggered delays: 0ms, 200ms, 400ms, 600ms
+
+          parsedStats.push({ el, targetVal, suffix, decimals, delay });
+        });
+
+        function triggerAnimations() {
+          if (animated) return;
+          animated = true;
+          parsedStats.forEach(stat => {
+            runCounter(stat.el, stat.targetVal, stat.suffix, stat.decimals, stat.delay);
+          });
+          observer.unobserve(statsSection);
+        }
+
+        // Set up Intersection Observer to trigger when section enters viewport and page is visible
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (document.visibilityState === 'hidden') {
+                return; // Wait until the tab becomes active
+              }
+              triggerAnimations();
+            }
+          });
+        }, {
+          threshold: 0.15 // trigger when at least 15% of section is visible
+        });
+
+        observer.observe(statsSection);
+
+        // Visibility Change listener to trigger standby counters when user active-focuses the page
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible' && !animated) {
+            const rect = statsSection.getBoundingClientRect();
+            const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
+            if (inViewport) {
+              triggerAnimations();
+            }
+          }
+        });
+      }
+
+      // Initialize counter sequence
+      initStatsCounter();
+    })();
   </script>
-  </body>
+</body>
 </html>
