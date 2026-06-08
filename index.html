@@ -171,18 +171,18 @@
 
       .bg-glow {
         position: fixed;
-        top: -10%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60vw;
-        height: 60vw;
-        background: radial-gradient(circle, rgba(0, 255, 136, 0.04) 0%, transparent 70%);
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(0, 255, 136, 0.08) 0%, transparent 70%);
         z-index: -9;
         pointer-events: none;
         transition: background 0.3s ease;
       }
       [data-theme="light"] .bg-glow {
-        background: radial-gradient(circle, rgba(13, 110, 63, 0.03) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(13, 110, 63, 0.06) 0%, transparent 70%);
       }
 
       /* Core Layout Wrappers */
@@ -2038,53 +2038,9 @@
         transition: color 0.15s ease, text-shadow 0.15s ease;
       }
 
-      /* Custom Blinking Terminal Cursor */
-      * {
-        cursor: none !important;
-      }
-      
-      #terminal-cursor {
-        position: fixed;
-        top: -100px;
-        left: -100px;
-        width: 10px;
-        height: 18px;
-        background-color: var(--accent);
-        pointer-events: none;
-        z-index: 100000;
-        transform: translate(-50%, -50%);
-        opacity: 0.9;
-        display: block;
-        transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease, border-radius 0.15s ease;
-        box-shadow: 0 0 8px var(--accent);
-        animation: terminalCursorBlink 1.0s step-end infinite;
-      }
 
-      @keyframes terminalCursorBlink {
-        0%, 100% { background-color: var(--accent); box-shadow: 0 0 8px var(--accent); }
-        50% { background-color: transparent; box-shadow: none; }
-      }
 
-      #terminal-cursor.active-hover {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: #00ffff !important;
-        box-shadow: 0 0 15px #00ffff;
-        animation: none;
-      }
 
-      /* Fixed Full Screen Overlay for fingertip leakage particles */
-      #code-explosion-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        pointer-events: none;
-        z-index: 99999;
-        display: block;
-      }
 
       /* ===== PERSONAL TERMINAL CHATBOT WIDGET ===== */
       #jd-chat-toggle {
@@ -2362,11 +2318,9 @@
     </style>
   </head>
   <body>
-    <!-- Custom Terminal Blinking Cursor -->
-    <div id="terminal-cursor"></div>
 
-    <!-- Java Code Leak Explosion Canvas -->
-    <canvas id="code-explosion-canvas"></canvas>
+
+
 
     <!-- Fixed Theme Toggle Button Floating -->
     <button id="theme-toggle" class="theme-toggle-fixed" aria-label="Toggle Theme">☀ Light</button>
@@ -3489,8 +3443,9 @@
       function initHeroMatrix() {
         if (!heroCanvas) return;
         
-        // Dynamic opacity override to 0.10 (as requested in rule)
-        heroCanvas.style.opacity = '0.10';
+        // Set opacity so background drops are clearly visible
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        heroCanvas.style.opacity = isLight ? '0.38' : '0.30';
         
         const rect = heroCanvas.parentElement.getBoundingClientRect();
         heroCanvas.width = rect.width;
@@ -3502,7 +3457,7 @@
           droplets.push({
             x: i * matrixFontSize,
             y: Math.random() * -100, // start above view
-            speed: Math.random() * 0.08 + 0.04, // varied rows per frame speed
+            speed: Math.random() * 0.05 + 0.02, // varied rows per frame speed
             word: javaKeywords[Math.floor(Math.random() * javaKeywords.length)],
             wordIndex: 0,
             opacity: Math.random() * 0.4 + 0.6 // varied character brightness
@@ -3545,7 +3500,7 @@
               // Recycle drop if off-screen
               if (y > heroCanvas.height && Math.random() > 0.25) {
                 d.y = Math.random() * -10;
-                d.speed = Math.random() * 0.08 + 0.04;
+                d.speed = Math.random() * 0.05 + 0.02;
               }
             }
           }
@@ -3697,128 +3652,55 @@
         requestAnimationFrame(drawProjectsGrid);
       }
 
-      // --- MOUSE CODE EXPLOSION (FINGERTIP LEAK) ---
-      const explosionCanvas = document.getElementById('code-explosion-canvas');
-      const explosionCtx = explosionCanvas.getContext('2d');
-      let explosionParticles = [];
-      let lastMouseX = 0;
-      let lastMouseY = 0;
-      let explosionActive = false;
 
-      const javaSnippets = [
-        "System.out.println()",
-        "@SpringBootApplication",
-        "new Thread()",
-        "Kafka.send()",
-        "@RestController",
-        "SELECT * FROM",
-        "Optional.of()",
-        ".stream().filter()"
-      ];
 
-      class CodeParticle {
-        constructor(x, y, text) {
-          this.x = x;
-          this.y = y;
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 0.8 + 0.4;
-          this.vx = Math.cos(angle) * speed;
-          this.vy = Math.sin(angle) * speed - 0.25; // float slightly upward
-          this.text = text;
-          this.alpha = 1.0;
-          this.fontSize = Math.floor(Math.random() * 3) + 11; // 11px to 13px
-          const isCyan = Math.random() > 0.5;
-          this.colorBase = isCyan ? '0, 255, 255' : '0, 255, 136'; // cyan vs terminal green
+
+
+      // --- BACKGROUND MOUSE-FOLLOW GLOW EFFECT ---
+      const bgGlow = document.querySelector('.bg-glow');
+      let glowX = window.innerWidth / 2;
+      let glowY = window.innerHeight / 2;
+      let targetGlowX = glowX;
+      let targetGlowY = glowY;
+      let lastGlowUpdate = 0;
+      let glowActive = false;
+      const isMobileGlow = window.matchMedia('(hover: none)').matches;
+
+      function initGlow() {
+        if (!bgGlow) return;
+        if (isMobileGlow) {
+          bgGlow.style.display = 'none';
+          return;
         }
-
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
-          // Fade over 1.5 seconds (90 frames at 60 FPS)
-          this.alpha -= 1 / 90;
-        }
-
-        draw(ctx) {
-          if (this.alpha <= 0) return;
-          ctx.font = `bold ${this.fontSize}px monospace`;
-          ctx.fillStyle = `rgba(${this.colorBase}, ${this.alpha})`;
-          ctx.fillText(this.text, this.x, this.y);
-        }
+        glowX = window.innerWidth / 2;
+        glowY = window.innerHeight / 2;
+        targetGlowX = glowX;
+        targetGlowY = glowY;
       }
 
-      function initExplosionCanvas() {
-        if (!explosionCanvas) return;
-        explosionCanvas.width = window.innerWidth;
-        explosionCanvas.height = window.innerHeight;
+      function updateGlowPhysics() {
+        if (!glowActive || isMobileGlow) return;
+        const dx = targetGlowX - glowX;
+        const dy = targetGlowY - glowY;
+        glowX += dx * 0.05;
+        glowY += dy * 0.05;
+
+        if (bgGlow) {
+          bgGlow.style.left = `${glowX}px`;
+          bgGlow.style.top = `${glowY}px`;
+        }
+        requestAnimationFrame(updateGlowPhysics);
       }
 
-      function drawCodeExplosion() {
-        if (!explosionActive || document.visibilityState === 'hidden') return;
-        explosionCtx.clearRect(0, 0, explosionCanvas.width, explosionCanvas.height);
-        
-        // Update and render particles
-        explosionParticles = explosionParticles.filter(p => {
-          p.update();
-          p.draw(explosionCtx);
-          return p.alpha > 0;
+      if (!isMobileGlow) {
+        window.addEventListener('mousemove', (e) => {
+          const now = performance.now();
+          if (now - lastGlowUpdate < 16) return; // limit to ~60fps (16.67ms)
+          lastGlowUpdate = now;
+          targetGlowX = e.clientX;
+          targetGlowY = e.clientY;
         });
-
-        requestAnimationFrame(drawCodeExplosion);
       }
-
-      // --- CUSTOM TERMINAL BLINKING CURSOR ---
-      const devCursor = document.getElementById('terminal-cursor');
-      let cursorX = -100;
-      let cursorY = -100;
-      let targetX = -100;
-      let targetY = -100;
-
-      function updateCursorPhysics() {
-        const dx = targetX - cursorX;
-        const dy = targetY - cursorY;
-        // Damping follow lerp loop
-        cursorX += dx * 0.22;
-        cursorY += dy * 0.22;
-
-        if (devCursor) {
-          devCursor.style.left = `${cursorX}px`;
-          devCursor.style.top = `${cursorY}px`;
-        }
-        requestAnimationFrame(updateCursorPhysics);
-      }
-
-      // Track cursor position and emit snippets organically
-      window.addEventListener('mousemove', (e) => {
-        targetX = e.clientX;
-        targetY = e.clientY;
-
-        // Emit particle on mouse move if cursor has moved at least 25 pixels
-        const dist = Math.sqrt(Math.pow(targetX - lastMouseX, 2) + Math.pow(targetY - lastMouseY, 2));
-        if (dist > 35) {
-          const text = javaSnippets[Math.floor(Math.random() * javaSnippets.length)];
-          explosionParticles.push(new CodeParticle(targetX, targetY, text));
-          lastMouseX = targetX;
-          lastMouseY = targetY;
-        }
-      });
-
-      // Event delegation for cursor hover state scaling
-      document.addEventListener('mouseover', (e) => {
-        const interactive = e.target.closest('a, button, select, input, textarea, .cert-img-card, .cert-text-list-item, .filter-btn, .project-card, .project-view-btn');
-        if (interactive) {
-          if (devCursor) devCursor.classList.add('active-hover');
-        } else {
-          if (devCursor) devCursor.classList.remove('active-hover');
-        }
-      });
-
-      // Hide cursor on leaving window boundaries
-      document.addEventListener('mouseleave', () => {
-        if (devCursor) devCursor.style.display = 'none';
-      });
-      document.addEventListener('mouseenter', () => {
-        if (devCursor) devCursor.style.display = 'block';
-      });
 
 
       // --- GLOBAL CONTROLLER ---
@@ -3826,7 +3708,7 @@
         initHeroMatrix();
         initSkillsParticles();
         initProjectsGrid();
-        initExplosionCanvas();
+        initGlow();
       }
 
       function startAll() {
@@ -3842,9 +3724,9 @@
           projectsActive = true;
           drawProjectsGrid();
         }
-        if (!explosionActive) {
-          explosionActive = true;
-          drawCodeExplosion();
+        if (!glowActive && !isMobileGlow) {
+          glowActive = true;
+          updateGlowPhysics();
         }
       }
 
@@ -3852,15 +3734,12 @@
         matrixActive = false;
         skillsActive = false;
         projectsActive = false;
-        explosionActive = false;
+        glowActive = false;
       }
 
-      // Initialize on load
-      window.addEventListener('load', () => {
-        initAll();
-        startAll();
-        updateCursorPhysics();
-      });
+      // Initialize immediately (DOM is already fully parsed at this point)
+      initAll();
+      startAll();
 
       // Handle resize with debouncing
       let resizeTimeout;
