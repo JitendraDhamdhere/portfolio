@@ -31,7 +31,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=Outfit:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
       rel="stylesheet">
 
     <!-- Font Awesome Icons -->
@@ -39,79 +39,86 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
         <style>
-      /* ===== CORE VARIABLES & THEMING (Obsidian Dark & Warm Light Mode) ===== */
+      /* ===== CORE VARIABLES & THEMING (Glassmorphism Dark & Light Mode) ===== */
       :root {
-        /* Backgrounds */
-        --bg-primary:      #0a0a0a;
-        --bg-card:         #111111;
-        --bg-hover:        #1a1a1a;
-        --bg-terminal:     #0d120f;
-        --bg-navbar:       rgba(10, 10, 10, 0.95);
+        /* Glassmorphism Dark Mode Base Colors */
+        --bg-primary:      #080b11;   /* deep navy / near-black */
+        --bg-card:         rgba(255, 255, 255, 0.04);
+        --bg-hover:        rgba(255, 255, 255, 0.08);
+        --bg-terminal:     #070a0f;
+        --bg-navbar:       rgba(8, 11, 17, 0.65); /* transparent to let blur show content */
 
-        /* Borders */
-        --border:          #1a1a1a;
-        --border-strong:   #2a2a2a;
+        /* Glassmorphic Borders & Blur & Shadow */
+        --border:          rgba(255, 255, 255, 0.1);
+        --border-strong:   rgba(255, 255, 255, 0.18);
+        --border-glass:    rgba(255, 255, 255, 0.12);
+        --backdrop-blur:   blur(20px);
+        --box-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
 
         /* Text */
-        --text-primary:    #e0e0e0;
-        --text-secondary:  #aaaaaa;
-        --text-muted:      #888888;
-        --text-dim:        #444444;
-        --text-terminal:   #00ff80;
+        --text-primary:    #f1f5f9;   /* crisp light slate */
+        --text-secondary:  #cbd5e1;   /* secondary slate */
+        --text-muted:      #94a3b8;   /* muted slate */
+        --text-dim:        #64748b;   /* dim slate */
+        --text-terminal:   #00ffc4;
 
-        /* Accent */
-        --accent:          #00ff88;
-        --accent-hover:    #00dd77;
-        --accent-light:    rgba(0, 255, 136, 0.08);
-        --accent-dim:      rgba(0, 255, 136, 0.15);
-        --accent-border:   rgba(0, 255, 136, 0.25);
+        /* Primary Accent: Electric Cyan / Blue (#00d4ff) */
+        --accent:          #00d4ff;
+        --accent-hover:    #7c3aed;   /* Violet for highlights / hover states */
+        --accent-light:    rgba(0, 212, 255, 0.06);
+        --accent-dim:      rgba(0, 212, 255, 0.15);
+        --accent-border:   rgba(0, 212, 255, 0.25);
 
         /* Status colors */
-        --live-bg:         rgba(0, 255, 136, 0.1);
-        --live-text:       #00ff88;
-        --live-border:     #00ff8830;
-        --done-bg:         #2a2a2a;
-        --done-text:       #888888;
-        --done-border:     #3a3a3a;
+        --live-bg:         rgba(0, 212, 255, 0.15);
+        --live-text:       #00d4ff;
+        --live-border:     rgba(0, 212, 255, 0.3);
+        --done-bg:         rgba(255, 255, 255, 0.05);
+        --done-text:       #94a3b8;
+        --done-border:     rgba(255, 255, 255, 0.1);
 
-        --font-mono: 'Courier New', Courier, monospace;
-        --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+        --font-body: 'Poppins', 'Outfit', -apple-system, sans-serif;
+        --font-display: 'Space Grotesk', 'Outfit', sans-serif;
         --container-width: 1100px;
       }
 
       [data-theme="light"] {
-        /* Backgrounds */
-        --bg-primary:      #f8f7f4;   /* warm off-white, not stark white */
-        --bg-card:         #ffffff;   /* pure white cards */
-        --bg-hover:        #f0efe9;   /* warm hover state */
-        --bg-terminal:     #1e1e2e;   /* keep terminal blocks dark in light mode */
-        --bg-navbar:       rgba(248, 247, 244, 0.95);
+        /* Glassmorphism Light Mode Base Colors */
+        --bg-primary:      #e5e9f2;   /* warm light blue-gray background */
+        --bg-card:         rgba(255, 255, 255, 0.45); /* light frosted glass */
+        --bg-hover:        rgba(255, 255, 255, 0.65);
+        --bg-terminal:     #0f172a;   /* keep terminal blocks dark in light mode */
+        --bg-navbar:       rgba(229, 233, 242, 0.65);
 
         /* Borders */
-        --border:          #e2e0d8;   /* visible warm gray border */
-        --border-strong:   #c8c5bb;   /* stronger border for emphasis */
+        --border:          rgba(255, 255, 255, 0.4);
+        --border-strong:   rgba(255, 255, 255, 0.6);
+        --border-glass:    rgba(255, 255, 255, 0.4);
+        --backdrop-blur:   blur(20px);
+        --box-shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
 
         /* Text */
-        --text-primary:    #1a1918;   /* near black, warm tone */
-        --text-secondary:  #3d3c38;   /* dark gray for subheadings */
-        --text-muted:      #6b6860;   /* medium gray for body */
-        --text-dim:        #9e9b93;   /* light gray for metadata */
-        --text-terminal:   #a8ff78;   /* keep terminal text green */
+        --text-primary:    #0f172a;   /* dark slate text */
+        --text-secondary:  #334155;   /* medium slate text */
+        --text-muted:      #475569;   /* slate text */
+        --text-dim:        #94a3b8;   /* dim text */
+        --text-terminal:   #34d399;   /* keep green terminal text */
 
-        /* Accent */
-        --accent:          #0d6e3f;   /* deep forest green — readable on white */
-        --accent-hover:    #0a5a33;   /* darker on hover */
-        --accent-light:    #e8f5ee;   /* very light green tint for bg */
-        --accent-dim:      #0d6e3f18; /* transparent green for card tints */
-        --accent-border:   #0d6e3f30; /* green border, subtle */
+        /* Accents */
+        --accent:          #7c3aed;   /* Violet accent in light mode for contrast */
+        --accent-hover:    #00d4ff;   /* Cyan hover */
+        --accent-light:    rgba(124, 58, 237, 0.06);
+        --accent-dim:      rgba(124, 58, 237, 0.12);
+        --accent-border:   rgba(124, 58, 237, 0.25);
 
         /* Status colors */
-        --live-bg:         #e8f5ee;
-        --live-text:       #0d6e3f;
-        --live-border:     #0d6e3f40;
-        --done-bg:         #f0efe9;
-        --done-text:       #6b6860;
-        --done-border:     #e2e0d8;
+        --live-bg:         rgba(124, 58, 237, 0.08);
+        --live-text:       #7c3aed;
+        --live-border:     rgba(124, 58, 237, 0.2);
+        --done-bg:         rgba(0, 0, 0, 0.04);
+        --done-text:       #475569;
+        --done-border:     rgba(0, 0, 0, 0.08);
       }
 
       /* Global Reset */
@@ -128,6 +135,90 @@
         line-height: 1.6;
         overflow-x: hidden;
         transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      /* Typography Heading override */
+      h1, h2, h3, h4, h5, h6, .hero-title, .section-heading, .logo, .footer-logo, .project-title {
+        font-family: var(--font-display);
+      }
+
+      /* Unified Glassmorphism Card styling */
+      .stat-metric-card, .skills-cat-card, .job-card-content, .edu-degree-card, .cert-img-card, .contact-info-card, .contact-form-wrap, .github-cta-card, #jd-chat-window {
+        background: var(--bg-card) !important;
+        backdrop-filter: var(--backdrop-blur) !important;
+        -webkit-backdrop-filter: var(--backdrop-blur) !important;
+        border: 1px solid var(--border-glass) !important;
+        border-radius: 16px !important;
+        box-shadow: var(--box-shadow-glass) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      .stat-metric-card:hover, .skills-cat-card:hover, .job-card-content:hover, .edu-degree-card:hover, .cert-img-card:hover, .contact-info-card:hover, .contact-form-wrap:hover, .github-cta-card:hover {
+        background: var(--bg-hover) !important;
+        border-color: var(--accent) !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 212, 255, 0.15) !important;
+        transform: translateY(-4px) scale(1.01) !important;
+      }
+      [data-theme="light"] .stat-metric-card:hover, [data-theme="light"] .skills-cat-card:hover, [data-theme="light"] .job-card-content:hover, [data-theme="light"] .edu-degree-card:hover, [data-theme="light"] .cert-img-card:hover, [data-theme="light"] .contact-info-card:hover, [data-theme="light"] .contact-form-wrap:hover, [data-theme="light"] .github-cta-card:hover {
+        box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.12) !important;
+      }
+
+      /* Glassmorphism Background Glowing Orbs styles */
+      .glowing-orbs-container {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        z-index: -5;
+        pointer-events: none;
+      }
+      .glow-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(140px);
+        opacity: 0.15;
+        mix-blend-mode: screen;
+        animation: floatOrb 25s infinite alternate ease-in-out;
+      }
+      [data-theme="light"] .glow-orb {
+        opacity: 0.08;
+        mix-blend-mode: multiply;
+        filter: blur(110px);
+      }
+      .orb-1 {
+        width: 450px;
+        height: 450px;
+        background: var(--accent);
+        top: 15%;
+        left: -10%;
+        animation-duration: 28s;
+      }
+      .orb-2 {
+        width: 500px;
+        height: 500px;
+        background: var(--accent-hover);
+        bottom: 10%;
+        right: -10%;
+        animation-duration: 35s;
+        animation-delay: -7s;
+      }
+      .orb-3 {
+        width: 350px;
+        height: 350px;
+        background: #00e5ff;
+        top: 50%;
+        left: 45%;
+        animation-duration: 42s;
+        animation-delay: -14s;
+      }
+      @keyframes floatOrb {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(80px, -50px) scale(1.15);
+        }
+        100% {
+          transform: translate(-50px, 70px) scale(0.9);
+        }
       }
 
       /* Scrollbar */
@@ -157,16 +248,16 @@
         inset: 0;
         z-index: -10;
         background-image: 
-          linear-gradient(rgba(0, 255, 136, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 255, 136, 0.02) 1px, transparent 1px);
+          linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
         background-size: 50px 50px;
         pointer-events: none;
         transition: background-image 0.3s ease;
       }
       [data-theme="light"] .bg-grid {
         background-image: 
-          linear-gradient(rgba(13, 110, 63, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(13, 110, 63, 0.02) 1px, transparent 1px);
+          linear-gradient(rgba(124, 58, 237, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(124, 58, 237, 0.02) 1px, transparent 1px);
       }
 
       .bg-glow {
@@ -176,13 +267,13 @@
         transform: translate(-50%, -50%);
         width: 500px;
         height: 500px;
-        background: radial-gradient(circle, rgba(0, 255, 136, 0.08) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
         z-index: -9;
         pointer-events: none;
         transition: background 0.3s ease;
       }
       [data-theme="light"] .bg-glow {
-        background: radial-gradient(circle, rgba(13, 110, 63, 0.06) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%);
       }
 
       /* Core Layout Wrappers */
@@ -264,57 +355,43 @@
         gap: 8px;
         font-size: 13px;
         font-weight: 600;
-        padding: 12px 24px;
-        border-radius: 6px;
+        padding: 12px 28px;
+        border-radius: 50px; /* Rounded pill shape */
         text-decoration: none;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-family: var(--font-mono);
         text-transform: uppercase;
         letter-spacing: 1px;
       }
 
       .btn-green {
-        background: var(--accent);
-        color: #ffffff;
-        border: 1px solid var(--accent);
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+        color: #ffffff !important;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.25);
       }
       [data-theme="dark"] .btn-green {
-        color: var(--bg-primary);
+        color: #ffffff !important;
       }
       .btn-green:hover {
-        background: var(--accent-hover);
-        border-color: var(--accent-hover);
-        color: #ffffff;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px var(--accent-dim);
-      }
-      [data-theme="dark"] .btn-green:hover {
-        background: #00dd77;
-        border-color: #00dd77;
-        color: var(--bg-primary);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 10px 25px rgba(0, 212, 255, 0.45);
       }
 
       .btn-ghost {
-        background: transparent;
-        color: var(--accent);
-        border: 1px solid var(--accent-border);
-        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-primary);
+        border: 1px solid var(--border-glass);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
       }
       .btn-ghost:hover {
         border-color: var(--accent);
         color: #ffffff;
         background: var(--accent);
-        transform: translateY(-2px);
-      }
-      [data-theme="dark"] .btn-ghost {
-        color: var(--text-primary);
-        border: 1px solid var(--border);
-      }
-      [data-theme="dark"] .btn-ghost:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-        background: var(--accent-dim);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 10px 25px var(--accent-dim);
       }
 
       /* ===== HEADER & NAVBAR ===== */
@@ -323,11 +400,11 @@
         top: 0;
         width: 100%;
         background-color: var(--bg-navbar);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border);
+        backdrop-filter: var(--backdrop-blur);
+        -webkit-backdrop-filter: var(--backdrop-blur);
+        border-bottom: 1px solid var(--border-glass);
         z-index: 1000;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
+        transition: all 0.3s ease;
       }
 
       .nav-container {
@@ -341,7 +418,7 @@
       }
 
       .logo {
-        font-family: var(--font-mono);
+        font-family: var(--font-display);
         font-size: 16px;
         color: var(--accent);
         text-decoration: none;
@@ -372,6 +449,21 @@
         font-family: var(--font-mono);
         text-transform: uppercase;
         letter-spacing: 1px;
+        position: relative;
+      }
+      .navbar-menu a::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+        box-shadow: 0 0 8px var(--accent);
+        transition: width 0.3s ease;
+      }
+      .navbar-menu a:hover::after, .navbar-menu a.active::after {
+        width: 100%;
       }
       .navbar-menu a:hover, .navbar-menu a.active {
         color: var(--accent);
@@ -511,7 +603,9 @@
       }
 
       .hero-title span {
-        color: var(--accent);
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         font-style: italic;
         transition: color 0.3s ease;
       }
@@ -694,36 +788,37 @@
         50% { opacity: 0; }
       }
 
-      /* Terminal Emulator CLI Widget - Statically Dark & High Contrast in Both Themes */
+      /* Terminal Emulator CLI Widget - Adapts to Theme Colors properly */
       .terminal-container {
         grid-area: terminal;
         width: 100%;
-        background: var(--bg-terminal);
-        border: 1px solid rgba(0, 255, 128, 0.16);
-        border-radius: 12px;
+        background: var(--bg-card);
+        backdrop-filter: var(--backdrop-blur);
+        -webkit-backdrop-filter: var(--backdrop-blur);
+        border: 1px solid var(--border-glass);
+        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        box-shadow: var(--box-shadow-glass);
         font-family: var(--font-mono);
-        backdrop-filter: blur(20px);
         transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
       }
       [data-theme="light"] .terminal-container {
-        border-color: #2d2d3e;
-        background-color: #1e1e2e;
+        background: rgba(15, 23, 42, 0.04);
+        border-color: var(--border-glass);
       }
 
       .terminal-header {
-        background: #141c17;
+        background: rgba(0, 0, 0, 0.2);
         padding: 12px 18px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid rgba(0, 255, 128, 0.08);
+        border-bottom: 1px solid var(--border-glass);
         transition: background-color 0.3s ease, border-color 0.3s ease;
       }
       [data-theme="light"] .terminal-header {
-        background: #181825;
-        border-bottom: 1px solid #2d2d3e;
+        background: rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid var(--border-glass);
       }
 
       .terminal-dots {
@@ -743,24 +838,24 @@
 
       .terminal-title {
         font-size: 11px;
-        color: #547562;
+        color: var(--text-muted);
         letter-spacing: 1px;
         transition: color 0.3s;
       }
       [data-theme="light"] .terminal-title {
-        color: #6c7086;
+        color: var(--text-dim);
       }
 
       .terminal-body {
         padding: 24px;
         font-size: 12px;
         line-height: 2;
-        color: #e6f5ec;
+        color: var(--text-primary);
         text-align: left;
         transition: color 0.3s;
       }
       [data-theme="light"] .terminal-body {
-        color: #cdd6f4;
+        color: var(--text-primary);
       }
 
       .term-line {
@@ -769,38 +864,39 @@
       }
 
       .term-prompt {
-        color: #00ff80;
+        color: var(--accent);
         margin-right: 12px;
         user-select: none;
         transition: color 0.3s;
       }
       [data-theme="light"] .term-prompt {
-        color: #a8ff78;
+        color: var(--accent);
       }
 
       .term-cmd {
-        color: #ffffff;
+        color: var(--text-primary);
         transition: color 0.3s;
       }
       [data-theme="light"] .term-cmd {
-        color: #cdd6f4;
+        color: var(--text-primary);
       }
 
       .term-output {
         padding-left: 24px;
-        color: #8fa899;
+        color: var(--text-muted);
         transition: color 0.3s;
       }
       [data-theme="light"] .term-output {
-        color: #bac2de;
+        color: var(--text-secondary);
       }
 
       .term-output.success {
-        color: #00ff80;
+        color: var(--accent);
+        font-weight: 500;
         transition: color 0.3s;
       }
       [data-theme="light"] .term-output.success {
-        color: #a8ff78;
+        color: var(--accent);
       }
 
       /* ===== ABOUT ME SECTION ===== */
@@ -912,31 +1008,24 @@
       }
 
       .skill-badge-pill {
-        background: var(--accent-light);
-        border: 1px solid var(--accent-border);
-        color: var(--accent);
-        font-size: 11px;
-        font-family: var(--font-mono);
-        padding: 4px 10px;
-        border-radius: 4px;
-        transition: border-color 0.2s, color 0.2s, background 0.2s;
-        cursor: default;
-      }
-      [data-theme="dark"] .skill-badge-pill {
-        background: var(--bg-hover);
-        border: 1px solid var(--border);
-        color: var(--text-muted);
-        font-size: 12px;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid var(--border-glass) !important;
+        color: var(--text-secondary) !important;
+        font-size: 12px !important;
+        font-family: var(--font-mono) !important;
+        padding: 6px 14px !important;
+        border-radius: 50px !important; /* Pill shape */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        cursor: default !important;
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
       }
       .skill-badge-pill:hover {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: #ffffff;
-      }
-      [data-theme="dark"] .skill-badge-pill:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-        background: var(--bg-hover);
+        background: var(--accent-dim) !important;
+        border-color: var(--accent) !important;
+        color: var(--accent) !important;
+        transform: translateY(-2px) scale(1.05) !important;
+        box-shadow: 0 0 12px var(--accent-dim) !important;
       }
 
       /* ===== EXPERIENCE SECTION ===== */
@@ -1135,20 +1224,20 @@
 
       .project-card {
         background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 24px;
+        border: 1px solid var(--border-glass);
+        border-radius: 16px;
+        padding: 0 !important; /* Clear padding for top image */
         display: flex;
         flex-direction: column;
-        gap: 14px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        box-shadow: var(--box-shadow-glass);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         cursor: pointer;
         text-decoration: none;
         text-align: left;
       }
       [data-theme="dark"] .project-card {
-        box-shadow: none;
+        box-shadow: var(--box-shadow-glass);
       }
 
       .project-card.hide {
@@ -1156,13 +1245,41 @@
       }
 
       .project-card:hover {
-        border-color: var(--accent-border);
-        box-shadow: 0 8px 24px rgba(13,110,63,0.1);
-        transform: translateY(-4px);
+        background: var(--bg-hover);
+        border-color: var(--accent);
+        box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+        transform: translateY(-4px) scale(1.01);
       }
       [data-theme="dark"] .project-card:hover {
         border-color: var(--accent);
-        box-shadow: none;
+        box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+      }
+
+      .project-preview {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        border-bottom: 1px solid var(--border-glass);
+        position: relative;
+      }
+      
+      .project-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      .project-card:hover .project-img {
+        transform: scale(1.08);
+      }
+
+      .project-card-content {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        flex-grow: 1;
       }
 
       .project-meta {
@@ -1220,9 +1337,9 @@
       }
 
       .tech-badge {
-        background: var(--accent-light);
-        border: 1px solid var(--accent-border);
-        color: var(--accent);
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--border-glass);
+        color: var(--text-secondary);
         font-size: 11px;
         font-family: var(--font-mono);
         padding: 3px 9px;
@@ -1230,9 +1347,9 @@
         transition: border-color 0.2s, color 0.2s, background 0.2s;
       }
       [data-theme="dark"] .tech-badge {
-        background: var(--bg-hover);
-        border: 1px solid var(--border);
-        color: var(--text-muted);
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--border-glass);
+        color: var(--text-secondary);
       }
 
       .tech-badge:hover {
@@ -1241,32 +1358,70 @@
       }
 
       .project-view-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: auto;
-        align-self: flex-end;
-        border: 1px solid var(--accent-border);
-        color: var(--accent);
-        background: transparent;
-        font-family: var(--font-mono);
-        font-size: 12px;
-        padding: 8px 16px;
-        border-radius: 4px;
-        text-decoration: none;
-        letter-spacing: 1px;
-        transition: background 0.2s, border-color 0.2s, color 0.2s;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        margin-top: auto !important;
+        align-self: flex-start !important;
+        border: 1px solid var(--border-glass) !important;
+        color: var(--text-primary) !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        font-family: var(--font-mono) !important;
+        font-size: 11px !important;
+        padding: 10px 20px !important;
+        border-radius: 50px !important;
+        text-decoration: none !important;
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+        font-weight: 600 !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
       }
 
       .project-view-btn:hover {
-        background: var(--accent);
-        color: #ffffff;
-        border-color: var(--accent);
+        background: var(--accent) !important;
+        color: #ffffff !important;
+        border-color: var(--accent) !important;
+        transform: translateY(-2px) scale(1.03) !important;
+        box-shadow: 0 0 15px var(--accent-dim) !important;
       }
-      [data-theme="dark"] .project-view-btn:hover {
-        background: var(--accent-dim);
-        border-color: var(--accent);
+      }
+
+      /* GitHub CTA Card Specific Styles */
+      .github-cta-card .project-card-content {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 100%;
+        min-height: 320px; /* Match height of standard grid cards */
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        flex-grow: 1;
+        padding: 30px 24px;
+      }
+      .github-cta-card .cta-git-icon {
+        font-size: 3.5rem;
         color: var(--accent);
+        margin-bottom: 8px;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+      }
+      .github-cta-card:hover .cta-git-icon {
+        transform: scale(1.15) rotate(8deg);
+        color: var(--accent-hover);
+      }
+      .github-cta-card .cta-git-label {
+        font-family: var(--font-display);
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+      }
+      .github-cta-card .project-view-btn {
+        align-self: center !important;
+        margin-top: 0 !important;
       }
 
       /* Featured Project Card Styles */
@@ -1725,12 +1880,17 @@
       /* ═══════════════════════════════════════════
          SCROLL REVEAL ANIMATIONS
          ═══════════════════════════════════════════ */
-      .reveal, .reveal-left, .reveal-right, .stagger, .in-view-card {
+      .reveal, .reveal-left, .reveal-right, .stagger, .in-view-card, section {
         opacity: 0;
-        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       }
-      .reveal {
+      .reveal, section {
         transform: translateY(30px);
+      }
+      #home {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
       }
       .reveal-left {
         transform: translateX(-30px);
@@ -1741,7 +1901,7 @@
       .in-view-card {
         transform: translateY(24px);
       }
-      .reveal.vis, .reveal-left.vis, .reveal-right.vis, .in-view-card.in-view {
+      .reveal.vis, .reveal-left.vis, .reveal-right.vis, .in-view-card.in-view, section.in-view {
         opacity: 1;
         transform: none;
       }
@@ -2189,14 +2349,16 @@
         width: 360px;
         height: 480px;
         max-width: calc(100vw - 48px);
-        background: #0d120f; /* Fixed Obsidian dark theme for chatbot HUD */
-        border: 1px solid rgba(0, 255, 128, 0.18);
-        border-radius: 12px;
+        background: var(--bg-card);
+        backdrop-filter: var(--backdrop-blur);
+        -webkit-backdrop-filter: var(--backdrop-blur);
+        border: 1px solid var(--border-glass);
+        border-radius: 16px;
         display: flex;
         flex-direction: column;
         z-index: 99990;
         overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 255, 136, 0.05);
+        box-shadow: var(--box-shadow-glass);
         opacity: 0;
         transform: translateY(20px) scale(0.95);
         pointer-events: none;
@@ -2209,22 +2371,21 @@
         pointer-events: all;
       }
       [data-theme="light"] #jd-chat-window {
-        border-color: #2d2d3e;
-        background-color: #1e1e2e; /* Slate terminal style in light theme */
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        background: rgba(15, 23, 42, 0.06);
+        border-color: var(--border-glass);
       }
 
       .chat-header {
-        background: #141c17;
+        background: rgba(0, 0, 0, 0.2);
         padding: 12px 16px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid rgba(0, 255, 128, 0.08);
+        border-bottom: 1px solid var(--border-glass);
       }
       [data-theme="light"] .chat-header {
-        background: #181825;
-        border-bottom: 1px solid #2d2d3e;
+        background: rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid var(--border-glass);
       }
 
       .chat-header-dots {
@@ -2234,12 +2395,12 @@
 
       .chat-header-title {
         font-size: 11px;
-        color: #547562;
+        color: var(--text-muted);
         letter-spacing: 1px;
         font-weight: bold;
       }
       [data-theme="light"] .chat-header-title {
-        color: #6c7086;
+        color: var(--text-dim);
       }
 
       .chat-close-btn {
@@ -2273,7 +2434,7 @@
         background: transparent;
       }
       .chat-messages::-webkit-scrollbar-thumb {
-        background: rgba(0, 255, 128, 0.15);
+        background: var(--border-strong);
         border-radius: 2px;
       }
 
@@ -2289,24 +2450,15 @@
         font-size: 11px;
       }
       .chat-msg-prompt.bot {
-        color: #00ff80;
+        color: var(--accent);
       }
       .chat-msg-prompt.visitor {
-        color: #00ffff;
-      }
-      [data-theme="light"] .chat-msg-prompt.bot {
-        color: #a8ff78;
-      }
-      [data-theme="light"] .chat-msg-prompt.visitor {
-        color: #74c7ec;
+        color: var(--accent-hover);
       }
 
       .chat-msg-body {
-        color: #e6f5ec;
+        color: var(--text-primary);
         white-space: pre-wrap;
-      }
-      [data-theme="light"] .chat-msg-body {
-        color: #cdd6f4;
       }
 
       .chat-quick-replies {
@@ -2314,20 +2466,17 @@
         flex-wrap: wrap;
         gap: 6px;
         padding: 8px 16px 12px;
-        border-top: 1px solid rgba(0, 255, 128, 0.05);
+        border-top: 1px solid var(--border-glass);
         justify-content: flex-start;
-      }
-      [data-theme="light"] .chat-quick-replies {
-        border-top: 1px solid #2d2d3e;
       }
 
       .chat-pill {
-        background: #141c17;
-        border: 1px solid rgba(0, 255, 128, 0.16);
-        color: #8fa899;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-glass);
+        color: var(--text-secondary);
         font-size: 10px;
         padding: 4px 10px;
-        border-radius: 4px;
+        border-radius: 50px;
         cursor: pointer;
         font-family: var(--font-mono);
         transition: all 0.2s ease;
@@ -2335,17 +2484,17 @@
       .chat-pill:hover {
         border-color: var(--accent);
         color: var(--accent);
-        background: rgba(0, 255, 128, 0.05);
+        background: var(--accent-light);
       }
       [data-theme="light"] .chat-pill {
-        background: #1e1e2e;
-        border-color: #2d2d3e;
-        color: #bac2de;
+        background: rgba(0, 0, 0, 0.03);
+        border-color: var(--border-glass);
+        color: var(--text-secondary);
       }
       [data-theme="light"] .chat-pill:hover {
         border-color: var(--accent);
         color: var(--accent);
-        background: rgba(168, 255, 120, 0.05);
+        background: var(--accent-light);
       }
 
       .chat-input-form {
@@ -2353,41 +2502,32 @@
         align-items: center;
         gap: 8px;
         padding: 12px 16px;
-        background: #141c17;
-        border-top: 1px solid rgba(0, 255, 128, 0.08);
+        background: rgba(0, 0, 0, 0.1);
+        border-top: 1px solid var(--border-glass);
       }
       [data-theme="light"] .chat-input-form {
-        background: #181825;
-        border-top: 1px solid #2d2d3e;
+        background: rgba(0, 0, 0, 0.02);
+        border-top: 1px solid var(--border-glass);
       }
 
       .chat-input-prompt {
-        color: #00ff80;
+        color: var(--accent);
         font-weight: bold;
         font-size: 13px;
         user-select: none;
-      }
-      [data-theme="light"] .chat-input-prompt {
-        color: #a8ff78;
       }
 
       .chat-input-box {
         flex: 1;
         background: transparent;
         border: none;
-        color: #ffffff;
+        color: var(--text-primary);
         font-family: var(--font-mono);
         font-size: 12px;
         outline: none;
       }
       .chat-input-box::placeholder {
-        color: #547562;
-      }
-      [data-theme="light"] .chat-input-box {
-        color: #cdd6f4;
-      }
-      [data-theme="light"] .chat-input-box::placeholder {
-        color: #6c7086;
+        color: var(--text-dim);
       }
 
       .chat-submit-btn {
@@ -2426,6 +2566,12 @@
     </style>
   </head>
   <body>
+    <!-- Glassmorphism Floating Glowing Orbs Background -->
+    <div class="glowing-orbs-container">
+      <div class="glow-orb orb-1"></div>
+      <div class="glow-orb orb-2"></div>
+      <div class="glow-orb orb-3"></div>
+    </div>
 
 
 
@@ -2843,102 +2989,127 @@
 
           <!-- Project 1 -->
           <div class="project-card in-view-card" data-domain="banking saas">
-            <div class="project-meta">
-              <span class="project-number">01 · NBFC Banking</span>
-              <span class="project-domain-tag">Banking / SaaS</span>
+            <div class="project-preview">
+              <img src="./assets/images/projects/bank.webp" alt="Smart Gold Loan Preview" class="project-img">
             </div>
-            <h3 class="project-title">Smart Gold Loan Management System</h3>
-            <p class="project-desc">Delivered a multi-branch gold loan platform featuring end-to-end lifecycle coverage (Lead → Credit Approval → Disbursement → EMI Tracking → Closure). Programmed dynamic ROI/scheme configuration controls, built automated EMI tracking alerts, and implemented a compliant Maker-Checker dual authorization loop.</p>
-            <div class="tech-stack">
-              <span class="tech-badge">Spring Boot</span>
-              <span class="tech-badge">Hibernate</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">Maker-Checker</span>
-              <span class="tech-badge">EMI Tracker</span>
+            <div class="project-card-content">
+              <div class="project-meta">
+                <span class="project-number">01 · NBFC Banking</span>
+                <span class="project-domain-tag">Banking / SaaS</span>
+              </div>
+              <h3 class="project-title">Smart Gold Loan Management System</h3>
+              <p class="project-desc">Delivered a multi-branch gold loan platform featuring end-to-end lifecycle coverage (Lead → Credit Approval → Disbursement → EMI Tracking → Closure). Programmed dynamic ROI/scheme configuration controls, built automated EMI tracking alerts, and implemented a compliant Maker-Checker dual authorization loop.</p>
+              <div class="tech-stack">
+                <span class="tech-badge">Spring Boot</span>
+                <span class="tech-badge">Hibernate</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">Maker-Checker</span>
+                <span class="tech-badge">EMI Tracker</span>
+              </div>
+              <a href="./gold-loan.html" class="project-view-btn">
+                View Case Study <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
-            <a href="./gold-loan.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
-            </a>
           </div>
 
           <!-- Project 2 -->
           <div class="project-card in-view-card" data-domain="banking">
-            <div class="project-meta">
-              <span class="project-number">02 · RBI Integration</span>
-              <span class="project-domain-tag">Banking</span>
+            <div class="project-preview">
+              <img src="./assets/images/projects/nach_preview.png" alt="NACH Clearing Pipeline Preview" class="project-img">
             </div>
-            <h3 class="project-title">NACH Credit &amp; Debit Processing Engine</h3>
-            <p class="project-desc">Engineered a robust transaction processing pipeline handling file-based NACH clearing cycles. The system parses and validates NPCI-compliant XML and TXT (306 format) clearing documents, implements RBI fail error codes (INW/RTN), and integrates Kafka queues to process transaction logs asynchronously.</p>
-            <div class="tech-stack">
-              <span class="tech-badge">Spring Boot</span>
-              <span class="tech-badge">Apache Kafka</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">XML Parsing</span>
-              <span class="tech-badge">TXT 30 Standard</span>
+            <div class="project-card-content">
+              <div class="project-meta">
+                <span class="project-number">02 · RBI Integration</span>
+                <span class="project-domain-tag">Banking</span>
+              </div>
+              <h3 class="project-title">NACH Credit &amp; Debit Processing Engine</h3>
+              <p class="project-desc">Engineered a robust transaction processing pipeline handling file-based NACH clearing cycles. The system parses and validates NPCI-compliant XML and TXT (306 format) clearing documents, implements RBI fail error codes (INW/RTN), and integrates Kafka queues to process transaction logs asynchronously.</p>
+              <div class="tech-stack">
+                <span class="tech-badge">Spring Boot</span>
+                <span class="tech-badge">Apache Kafka</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">XML Parsing</span>
+                <span class="tech-badge">TXT 30 Standard</span>
+              </div>
+              <a href="./nach-engine.html" class="project-view-btn">
+                View Case Study <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
-            <a href="./nach-engine.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
-            </a>
           </div>
 
           <!-- Project 3 -->
           <div class="project-card in-view-card" data-domain="erp">
-            <div class="project-meta">
-              <span class="project-number">03 · Institutional ERP</span>
-              <span class="project-domain-tag">ERP</span>
+            <div class="project-preview">
+              <img src="./assets/images/projects/clgdata.webp" alt="College ERP System Preview" class="project-img">
             </div>
-            <h3 class="project-title">College ERP System</h3>
-            <p class="project-desc">Built a highly modular ERP platform automating key academic workflows including HR data, admissions cycles, library books index, security gates, and student ID generation. Designed an RBAC access system with customized role permissions and built dynamic data exports utilizing Excel sheet reporting models.</p>
-            <div class="tech-stack">
-              <span class="tech-badge">Spring Boot</span>
-              <span class="tech-badge">Angular</span>
-              <span class="tech-badge">Hibernate</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">RBAC Layer</span>
+            <div class="project-card-content">
+              <div class="project-meta">
+                <span class="project-number">03 · Institutional ERP</span>
+                <span class="project-domain-tag">ERP</span>
+              </div>
+              <h3 class="project-title">College ERP System</h3>
+              <p class="project-desc">Built a highly modular ERP platform automating key academic workflows including HR data, admissions cycles, library books index, security gates, and student ID generation. Designed an RBAC access system with customized role permissions and built dynamic data exports utilizing Excel sheet reporting models.</p>
+              <div class="tech-stack">
+                <span class="tech-badge">Spring Boot</span>
+                <span class="tech-badge">Angular</span>
+                <span class="tech-badge">Hibernate</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">RBAC Layer</span>
+              </div>
+              <a href="./college-erp.html" class="project-view-btn">
+                View Case Study <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
-            <a href="./college-erp.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
-            </a>
           </div>
 
           <!-- Project 4 -->
           <div class="project-card in-view-card" data-domain="saas">
-            <div class="project-meta">
-              <span class="project-number">04 · Logistics App</span>
-              <span class="project-domain-tag">SaaS</span>
+            <div class="project-preview">
+              <img src="./assets/images/projects/instafuel.png" alt="InstaFuel Fuel Logistics Preview" class="project-img">
             </div>
-            <h3 class="project-title">InstaFuel — On-Demand Fuel Logistics</h3>
-            <p class="project-desc">Designed backend APIs driving driver/customer mobile applications (React Native) and a centralized administrative panel (Angular). Implemented JWT-based authorization routines, automated driver dispatch routing, order tracking transitions, and inventory synchronization across delivery zones.</p>
-            <div class="tech-stack">
-              <span class="tech-badge">Spring Boot</span>
-              <span class="tech-badge">Angular</span>
-              <span class="tech-badge">React Native</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">JWT Secure API</span>
+            <div class="project-card-content">
+              <div class="project-meta">
+                <span class="project-number">04 · Logistics App</span>
+                <span class="project-domain-tag">SaaS</span>
+              </div>
+              <h3 class="project-title">InstaFuel — On-Demand Fuel Logistics</h3>
+              <p class="project-desc">Designed backend APIs driving driver/customer mobile applications (React Native) and a centralized administrative panel (Angular). Implemented JWT-based authorization routines, automated driver dispatch routing, order tracking transitions, and inventory synchronization across delivery zones.</p>
+              <div class="tech-stack">
+                <span class="tech-badge">Spring Boot</span>
+                <span class="tech-badge">Angular</span>
+                <span class="tech-badge">React Native</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">JWT Secure API</span>
+              </div>
+              <a href="./instafuel.html" class="project-view-btn">
+                View Case Study <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
-            <a href="./instafuel.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
-            </a>
           </div>
 
           <!-- Project 5 -->
           <div class="project-card in-view-card" data-domain="erp">
-            <div class="project-meta">
-              <span class="project-number">05 · Industrial Compliance</span>
-              <span class="project-domain-tag">ERP</span>
+            <div class="project-preview">
+              <img src="./assets/images/projects/contractor_preview.png" alt="Contractor Management System Preview" class="project-img">
             </div>
-            <h3 class="project-title">Contractor Management System</h3>
-            <p class="project-desc">Developed a structured hazard documentation portal and compliance verification system for a Canadian enterprise. Incorporated multi-role forms, multi-step document verification checklists, and programmatically generated secure compliance PDF certificates using the iText5 engine.</p>
-            <div class="tech-stack">
-              <span class="tech-badge">Spring Boot</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">iText5 PDF</span>
-              <span class="tech-badge">Spring Security</span>
-              <span class="tech-badge">Wizards</span>
+            <div class="project-card-content">
+              <div class="project-meta">
+                <span class="project-number">05 · Industrial Compliance</span>
+                <span class="project-domain-tag">ERP</span>
+              </div>
+              <h3 class="project-title">Contractor Management System</h3>
+              <p class="project-desc">Developed a structured hazard documentation portal and compliance verification system for a Canadian enterprise. Incorporated multi-role forms, multi-step document verification checklists, and programmatically generated secure compliance PDF certificates using the iText5 engine.</p>
+              <div class="tech-stack">
+                <span class="tech-badge">Spring Boot</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">iText5 PDF</span>
+                <span class="tech-badge">Spring Security</span>
+                <span class="tech-badge">Wizards</span>
+              </div>
+              <a href="./contractor-management.html" class="project-view-btn">
+                View Case Study <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
-            <a href="./contractor-management.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
-            </a>
           </div>
 
           <!-- Featured Project: JSONArt -->
@@ -2976,11 +3147,13 @@
 
           <!-- GitHub CTA Card -->
           <div class="project-card in-view-card github-cta-card" data-domain="all">
-            <i class="fab fa-github cta-git-icon"></i>
-            <span class="cta-git-label">View All Case Studies</span>
-            <a href="https://github.com/JitendraDhamdhere" target="_blank" class="project-view-btn">
-              github.com/JitendraDhamdhere <i class="fas fa-external-link-alt"></i>
-            </a>
+            <div class="project-card-content">
+              <i class="fab fa-github cta-git-icon"></i>
+              <span class="cta-git-label">View All Case Studies</span>
+              <a href="https://github.com/JitendraDhamdhere" target="_blank" class="project-view-btn">
+                github.com/JitendraDhamdhere <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
           </div>
 
         </div>
@@ -3195,10 +3368,13 @@
                 </div>
 
                 <button type="submit" class="form-submit-btn" id="submitBtn">
-                  Send Enquiry
+                  Request Free Consultation
                   <i class="fas fa-paper-plane"></i>
                 </button>
 
+                <p style="margin-top:10px; text-align:center; font-size:0.78rem; color:var(--text-muted); font-family:'Courier New', monospace;">
+                  Messages are delivered to jitendradhamdhere333@gmail.com.
+                </p>
                 <p id="formStatus" style="margin-top:15px; text-align:center; font-weight:600; font-size:0.82rem; font-family:'Courier New', monospace;"></p>
               </form>
             </div>
@@ -3226,6 +3402,9 @@
                   email: form.email.value,
                   phone: form.phone.value || "Not Provided",
                   message: form.message.value,
+                  to_email: "jitendradhamdhere333@gmail.com",
+                  subject: "Free consultation request from portfolio",
+                  reply_to: form.email.value,
                   time: new Date().toLocaleString("en-IN")
                 };
 
@@ -3238,7 +3417,7 @@
                   );
 
                   status.style.color = "var(--accent)";
-                  status.innerHTML = "✅ Message sent successfully!";
+                  status.innerHTML = "✅ Request sent. I will reply on Gmail soon.";
                   form.reset();
                   submitBtn.innerHTML = 'Sent <i class="fas fa-check"></i>';
 
@@ -3431,7 +3610,7 @@
     });
 
     /* ─── SCROLL REVEAL & IN-VIEW CARDS ─── */
-    const revealItems = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger, .in-view-card');
+    const revealItems = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger, .in-view-card, section');
     const revealObserver = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {

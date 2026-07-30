@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initial = saved || (systemDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', initial);
+    })();
+  </script>
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,24 +37,51 @@
     /* ═══════════════════════════════════════════
        CASE STUDY CUSTOM CSS (Slate & Emerald)
        ═══════════════════════════════════════════ */
-    :root {
-      --bg: #050806;
-      --bg-panel: #0a0f0c;
-      --surface: #101813;
-      --border: rgba(0, 255, 128, 0.08);
-      --border-dark: rgba(0, 255, 128, 0.16);
+        :root {
+      --bg: #080b11;
+      --bg-panel: rgba(255, 255, 255, 0.04);
+      --surface: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-dark: rgba(255, 255, 255, 0.16);
+      --border-glass: rgba(255, 255, 255, 0.12);
       
-      --green: #00ff80;
-      --green-dark: #00b359;
-      --amber: #ffd700;
-      --amber-dark: #cc9900;
+      --green: #00d4ff;
+      --green-dark: #7c3aed;
+      --amber: #00e5ff;
+      --amber-dark: #7c3aed;
       
-      --text: #e6f5ec;
-      --muted: #96a99e;
-      --dim: #5c7566;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --dim: #64748b;
       
-      --sans: 'Outfit', sans-serif;
+      --sans: 'Poppins', 'Outfit', sans-serif;
       --code: 'JetBrains Mono', monospace;
+
+      --backdrop-blur: blur(20px);
+      --box-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+      --bg-navbar: rgba(8, 11, 17, 0.65);
+    }
+
+    [data-theme="light"] {
+      --bg: #e5e9f2;
+      --bg-panel: rgba(255, 255, 255, 0.45);
+      --surface: rgba(255, 255, 255, 0.65);
+      --border: rgba(255, 255, 255, 0.4);
+      --border-dark: rgba(255, 255, 255, 0.6);
+      --border-glass: rgba(255, 255, 255, 0.4);
+      
+      --green: #7c3aed;
+      --green-dark: #00d4ff;
+      --amber: #7c3aed;
+      --amber-dark: #00d4ff;
+      
+      --text: #0f172a;
+      --muted: #475569;
+      --dim: #94a3b8;
+
+      --backdrop-blur: blur(20px);
+      --box-shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
+      --bg-navbar: rgba(229, 233, 242, 0.65);
     }
 
     * {
@@ -463,14 +499,126 @@
         gap: 16px;
       }
     }
-  </style>
+  
+    /* Glassmorphism background glowing orbs */
+    .glowing-orbs-container {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -2;
+      pointer-events: none;
+    }
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+      mix-blend-mode: screen;
+      animation: floatOrb 25s infinite alternate ease-in-out;
+      will-change: transform;
+    }
+    [data-theme="light"] .glow-orb {
+      opacity: 0.06;
+      mix-blend-mode: multiply;
+      filter: blur(100px);
+    }
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--green) 0%, transparent 70%);
+      top: -10%;
+      left: -10%;
+      animation-duration: 20s;
+    }
+    .orb-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--green-dark) 0%, transparent 70%);
+      bottom: -20%;
+      right: -10%;
+      animation-duration: 28s;
+      animation-delay: -5s;
+    }
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--green) 0%, transparent 70%);
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-duration: 25s;
+      animation-delay: -10s;
+    }
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      33% { transform: translate(30px, -50px) scale(1.05) rotate(120deg); }
+      66% { transform: translate(-20px, 20px) scale(0.95) rotate(240deg); }
+      100% { transform: translate(0, 0) scale(1) rotate(360deg); }
+    }
+
+    /* Unified Glassmorphic cards overrides */
+    .metadata-card, .implementation-item, .tech-card {
+      background: var(--bg-panel) !important;
+      backdrop-filter: var(--backdrop-blur) !important;
+      -webkit-backdrop-filter: var(--backdrop-blur) !important;
+      border: 1px solid var(--border-glass) !important;
+      border-radius: 16px !important;
+      box-shadow: var(--box-shadow-glass) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .metadata-card:hover, .implementation-item:hover, .tech-card:hover {
+      background: var(--surface) !important;
+      border-color: var(--green) !important;
+      transform: translateY(-3px) !important;
+      box-shadow: 0 8px 32px 0 rgba(0, 212, 255, 0.12) !important;
+    }
+    [data-theme="light"] .metadata-card:hover, [data-theme="light"] .implementation-item:hover, [data-theme="light"] .tech-card:hover {
+      box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.1) !important;
+    }
+
+    /* Header top-bar & back button modifications */
+    .top-bar {
+      background: var(--bg-navbar) !important;
+      border-bottom: 1px solid var(--border-glass) !important;
+      backdrop-filter: var(--backdrop-blur) !important;
+      -webkit-backdrop-filter: var(--backdrop-blur) !important;
+      transition: background 0.3s ease;
+    }
+    .btn-back {
+      border-radius: 50px !important;
+      border: 1px solid var(--border-glass) !important;
+      background: rgba(255, 255, 255, 0.03) !important;
+      color: var(--text) !important;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .btn-back:hover {
+      border-color: var(--green) !important;
+      color: #ffffff !important;
+      background: var(--green) !important;
+    }
+    [data-theme="light"] .btn-back:hover {
+      color: #ffffff !important;
+      background: var(--green) !important;
+    }
+</style>
 </head>
 <body>
+  <!-- Glassmorphism Floating Orbs Background -->
+  <div class="glowing-orbs-container">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
 
   <!-- Top Navigation / Action Bar -->
   <header class="top-bar">
     <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-      <a href="https://jitendradhamdhere.github.io/portfolio/" class="btn-back">
+      <a href="./index.html#projects" class="btn-back">
         <i class="fas fa-arrow-left"></i> Back to Portfolio
       </a>
       <span class="top-meta">// Engineering Case Study</span>
@@ -737,7 +885,7 @@
 
     <!-- Back to Portfolio Button at the Bottom -->
     <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-      <a href="https://jitendradhamdhere.github.io/portfolio/" class="btn-back" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-family: var(--code); font-size: 0.8rem;">
+      <a href="./index.html#projects" class="btn-back" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-family: var(--code); font-size: 0.8rem;">
         <i class="fas fa-arrow-left"></i> Back to Portfolio
       </a>
     </div>
