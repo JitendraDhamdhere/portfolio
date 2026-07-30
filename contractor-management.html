@@ -1,14 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
+    <script>
     (function() {
       const saved = localStorage.getItem('theme');
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const initial = saved || (systemDark ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', initial);
     })();
+
+    /* ─── UNIVERSE BACKGROUND ANIMATIONS & PARALLAX ─── */
+    class SpaceBackground {
+      constructor() {
+        this.canvas = document.getElementById('space-canvas');
+        if (!this.canvas) return;
+        this.ctx = this.canvas.getContext('2d');
+        this.stars = [];
+        this.shootingStars = [];
+        this.starCount = window.innerWidth < 768 ? 100 : 180;
+        this.animationFrameId = null;
+        this.shootingStarChance = 0.0008;
+
+        this.init();
+        this.bindEvents();
+        this.start();
+      }
+
+      init() {
+        this.resize();
+        this.stars = [];
+        for (let i = 0; i < this.starCount; i++) {
+          this.stars.push({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height,
+            size: Math.random() * 1.5 + 0.5,
+            alpha: Math.random(),
+            twinkleSpeed: 0.01 + Math.random() * 0.02,
+            twinkleDir: Math.random() > 0.5 ? 1 : -1,
+            color: Math.random() > 0.7 ? '#e0f2fe' : '#ffffff'
+          });
+        }
+      }
+
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+
+      bindEvents() {
+        window.addEventListener('resize', () => {
+          this.resize();
+          this.stars.forEach(s => {
+            s.x = Math.random() * this.canvas.width;
+            s.y = Math.random() * this.canvas.height;
+          });
+        });
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            this.stop();
+          } else {
+            this.start();
+          }
+        });
+      }
+
+      start() {
+        if (this.animationFrameId) return;
+        const loop = () => {
+          this.updateAndDraw();
+          this.animationFrameId = requestAnimationFrame(loop);
+        };
+        this.animationFrameId = requestAnimationFrame(loop);
+      }
+
+      stop() {
+        if (this.animationFrameId) {
+          cancelAnimationFrame(this.animationFrameId);
+          this.animationFrameId = null;
+        }
+      }
+
+      createShootingStar() {
+        const startX = Math.random() * this.canvas.width * 0.7;
+        const startY = Math.random() * this.canvas.height * 0.4;
+        const length = Math.random() * 80 + 40;
+        const speed = Math.random() * 4 + 3;
+        const angle = Math.PI / 6 + Math.random() * (Math.PI / 12);
+
+        this.shootingStars.push({
+          x: startX,
+          y: startY,
+          dx: Math.cos(angle) * speed,
+          dy: Math.sin(angle) * speed,
+          length: length,
+          opacity: 1,
+          fadeSpeed: 0.008 + Math.random() * 0.008
+        });
+      }
+
+      updateAndDraw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.stars.forEach(star => {
+          star.alpha += star.twinkleSpeed * star.twinkleDir;
+          if (star.alpha >= 1) {
+            star.alpha = 1;
+            star.twinkleDir = -1;
+          } else if (star.alpha <= 0.1) {
+            star.alpha = 0.1;
+            star.twinkleDir = 1;
+          }
+          this.ctx.fillStyle = star.color;
+          this.ctx.globalAlpha = star.alpha;
+          this.ctx.beginPath();
+          this.ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+          this.ctx.fill();
+        });
+
+        if (Math.random() < this.shootingStarChance && this.shootingStars.length < 2) {
+          this.createShootingStar();
+        }
+
+        this.shootingStars.forEach((star, index) => {
+          star.x += star.dx;
+          star.y += star.dy;
+          star.opacity -= star.fadeSpeed;
+
+          if (star.opacity <= 0) {
+            this.shootingStars.splice(index, 1);
+            return;
+          }
+
+          this.ctx.beginPath();
+          this.ctx.strokeStyle = 'rgba(255, 255, 255, ' + star.opacity + ')';
+          this.ctx.lineWidth = 1.5;
+          this.ctx.lineCap = 'round';
+          this.ctx.moveTo(star.x, star.y);
+          this.ctx.lineTo(star.x - star.dx * 8, star.y - star.dy * 8);
+          this.ctx.stroke();
+        });
+
+        this.ctx.globalAlpha = 1;
+      }
+    }
+
+    // Parallax Scroll Control
+    const spaceCanvas = document.getElementById('space-canvas');
+    const spaceMidLayer = document.querySelector('.space-mid-layer');
+
+    function handleParallax() {
+      const scrollY = window.scrollY;
+      if (window.innerWidth >= 768) {
+        if (spaceCanvas) {
+          spaceCanvas.style.transform = 'translateY(' + (-scrollY * 0.04) + 'px)';
+        }
+        if (spaceMidLayer) {
+          spaceMidLayer.style.transform = 'translateY(' + (-scrollY * 0.1) + 'px)';
+        }
+      } else {
+        if (spaceCanvas) spaceCanvas.style.transform = '';
+        if (spaceMidLayer) spaceMidLayer.style.transform = '';
+      }
+    }
+
+    let parallaxTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!parallaxTicking) {
+        window.requestAnimationFrame(() => {
+          handleParallax();
+          parallaxTicking = false;
+        });
+        parallaxTicking = true;
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      new SpaceBackground();
+    });
   </script>
+
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,18 +207,18 @@
     /* ═══════════════════════════════════════════
        CASE STUDY CUSTOM CSS (Slate & Emerald)
        ═══════════════════════════════════════════ */
-        :root {
-      --bg: #080b11;
-      --bg-panel: rgba(255, 255, 255, 0.04);
-      --surface: rgba(255, 255, 255, 0.06);
+            :root {
+      --bg: #02040a;
+      --bg-panel: rgba(255, 255, 255, 0.05);
+      --surface: rgba(255, 255, 255, 0.07);
       --border: rgba(255, 255, 255, 0.1);
-      --border-dark: rgba(255, 255, 255, 0.16);
+      --border-dark: rgba(255, 255, 255, 0.18);
       --border-glass: rgba(255, 255, 255, 0.12);
       
-      --green: #00d4ff;
-      --green-dark: #7c3aed;
+      --green: #5ec8ff;
+      --green-dark: #7c5cff;
       --amber: #00e5ff;
-      --amber-dark: #7c3aed;
+      --amber-dark: #7c5cff;
       
       --text: #f1f5f9;
       --muted: #94a3b8;
@@ -57,9 +227,9 @@
       --sans: 'Poppins', 'Outfit', sans-serif;
       --code: 'JetBrains Mono', monospace;
 
-      --backdrop-blur: blur(20px);
-      --box-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
-      --bg-navbar: rgba(8, 11, 17, 0.65);
+      --backdrop-blur: blur(18px);
+      --box-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+      --bg-navbar: rgba(2, 4, 10, 0.65);
     }
 
     [data-theme="light"] {
@@ -70,16 +240,16 @@
       --border-dark: rgba(255, 255, 255, 0.6);
       --border-glass: rgba(255, 255, 255, 0.4);
       
-      --green: #7c3aed;
-      --green-dark: #00d4ff;
-      --amber: #7c3aed;
-      --amber-dark: #00d4ff;
+      --green: #7c5cff;
+      --green-dark: #5ec8ff;
+      --amber: #7c5cff;
+      --amber-dark: #5ec8ff;
       
       --text: #0f172a;
       --muted: #475569;
       --dim: #94a3b8;
 
-      --backdrop-blur: blur(20px);
+      --backdrop-blur: blur(18px);
       --box-shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
       --bg-navbar: rgba(229, 233, 242, 0.65);
     }
@@ -94,13 +264,18 @@
       scroll-behavior: smooth;
     }
 
-    body {
-      background: var(--bg);
+        body {
+      background: linear-gradient(135deg, #02040a 0%, #060918 50%, #0a0e2a 100%);
+      background-attachment: fixed;
       color: var(--text);
       font-family: var(--sans);
       line-height: 1.6;
       overflow-x: hidden;
       padding-bottom: 80px;
+    }
+    [data-theme="light"] body {
+      background: linear-gradient(135deg, #e5e9f2 0%, #d8e1f0 100%);
+      background-attachment: fixed;
     }
 
     /* Background Geometric Grid Accents */
@@ -500,62 +675,89 @@
       }
     }
   
-    /* Glassmorphism background glowing orbs */
-    .glowing-orbs-container {
+    
+    [data-theme="light"] .btn-back:hover {
+      color: #ffffff !important;
+      background: var(--green) !important;
+    }
+
+    /* Glassmorphism Background Glowing Orbs replaced by Space Elements */
+    #space-canvas {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
-      overflow: hidden;
+      z-index: -3;
+      pointer-events: none;
+      will-change: transform;
+      transition: opacity 0.3s ease;
+    }
+    [data-theme="light"] #space-canvas {
+      opacity: 0.15;
+    }
+
+    .space-mid-layer {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: -2;
       pointer-events: none;
-    }
-    .glow-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.15;
-      mix-blend-mode: screen;
-      animation: floatOrb 25s infinite alternate ease-in-out;
       will-change: transform;
     }
-    [data-theme="light"] .glow-orb {
-      opacity: 0.06;
-      mix-blend-mode: multiply;
-      filter: blur(100px);
+
+    .space-moon {
+      position: absolute;
+      top: 80px;
+      right: 10%;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #e2e8f0 45%, #94a3b8 100%);
+      box-shadow: 0 0 60px 15px rgba(125, 211, 252, 0.2), inset -8px -8px 16px rgba(0,0,0,0.45);
+      opacity: 0.85;
+      transition: opacity 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
     }
-    .orb-1 {
+    [data-theme="light"] .space-moon {
+      background: radial-gradient(circle at 35% 35%, #ffd700 0%, #facc15 60%, #ca8a04 100%);
+      box-shadow: 0 0 50px 10px rgba(234, 179, 8, 0.18), inset -8px -8px 16px rgba(0,0,0,0.2);
+      opacity: 0.6;
+    }
+
+    .space-nebula {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(130px);
+      opacity: 0.12;
+      mix-blend-mode: screen;
+      will-change: transform;
+      transition: background 1.5s ease, opacity 0.5s ease;
+    }
+    [data-theme="light"] .space-nebula {
+      opacity: 0.04;
+      mix-blend-mode: multiply;
+      filter: blur(105px);
+    }
+    .space-nebula.orb-1 {
       width: 500px;
       height: 500px;
       background: radial-gradient(circle, var(--green) 0%, transparent 70%);
-      top: -10%;
-      left: -10%;
-      animation-duration: 20s;
+      top: 10%;
+      left: -15%;
     }
-    .orb-2 {
-      width: 600px;
-      height: 600px;
+    .space-nebula.orb-2 {
+      width: 550px;
+      height: 550px;
       background: radial-gradient(circle, var(--green-dark) 0%, transparent 70%);
-      bottom: -20%;
+      bottom: 15%;
       right: -10%;
-      animation-duration: 28s;
-      animation-delay: -5s;
     }
-    .orb-3 {
+    .space-nebula.orb-3 {
       width: 400px;
       height: 400px;
       background: radial-gradient(circle, var(--green) 0%, transparent 70%);
       top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation-duration: 25s;
-      animation-delay: -10s;
-    }
-    @keyframes floatOrb {
-      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-      33% { transform: translate(30px, -50px) scale(1.05) rotate(120deg); }
-      66% { transform: translate(-20px, 20px) scale(0.95) rotate(240deg); }
-      100% { transform: translate(0, 0) scale(1) rotate(360deg); }
+      left: 45%;
     }
 
     /* Unified Glassmorphic cards overrides */
@@ -572,10 +774,10 @@
       background: var(--surface) !important;
       border-color: var(--green) !important;
       transform: translateY(-3px) !important;
-      box-shadow: 0 8px 32px 0 rgba(0, 212, 255, 0.12) !important;
+      box-shadow: 0 8px 32px 0 rgba(94, 200, 255, 0.12) !important;
     }
     [data-theme="light"] .metadata-card:hover, [data-theme="light"] .implementation-item:hover, [data-theme="light"] .tech-card:hover {
-      box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.1) !important;
+      box-shadow: 0 8px 32px 0 rgba(124, 92, 255, 0.1) !important;
     }
 
     /* Header top-bar & back button modifications */
@@ -607,12 +809,15 @@
 </style>
 </head>
 <body>
-  <!-- Glassmorphism Floating Orbs Background -->
-  <div class="glowing-orbs-container">
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
-    <div class="glow-orb orb-3"></div>
+    <!-- Universe / Space Background Layout -->
+  <canvas id="space-canvas"></canvas>
+  <div class="space-mid-layer">
+    <div class="space-moon"></div>
+    <div class="space-nebula orb-1"></div>
+    <div class="space-nebula orb-2"></div>
+    <div class="space-nebula orb-3"></div>
   </div>
+
 
 
   <!-- Top Navigation / Action Bar -->
