@@ -719,15 +719,13 @@
         object-fit: cover;
         object-position: center top;
         display: block;
-        filter: grayscale(100%);
-        transition: filter 0.3s ease, transform 0.3s ease;
+        transition: transform 0.3s ease;
       }
       [data-theme="light"] .hero-avatar-img {
-        filter: grayscale(5%) contrast(1.0);
+        contrast: 1.0;
       }
 
       .hero-avatar-wrapper:hover .hero-avatar-img {
-        filter: grayscale(0%);
         transform: scale(1.03);
       }
 
