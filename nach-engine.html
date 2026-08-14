@@ -233,6 +233,23 @@
   <meta name="keywords" content="Jitendra Dhamdhere, Case Study, NACH Engine, Java Developer, Spring Boot, Kafka, MySQL, Banking Integration, RBI Systems">
   <meta name="description" content="Engineering Case Study: NACH Credit & Debit Processing Engine designed by Java Backend Developer Jitendra Dhamdhere for Artcode Pvt Ltd.">
   <meta name="author" content="Jitendra Dhamdhere">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#01020a">
+  <link rel="canonical" href="https://jitendradhamdhere.github.io/portfolio/nach-engine.html">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Case Study: NACH Clearing Engine | Jitendra Dhamdhere">
+  <meta property="og:description" content="Engineering Case Study: NACH Credit & Debit Processing Engine designed by Java Backend Developer Jitendra Dhamdhere for Artcode Pvt Ltd.">
+  <meta property="og:image" content="https://jitendradhamdhere.github.io/portfolio/assets/images/projects/nach_preview.png">
+  <meta property="og:url" content="https://jitendradhamdhere.github.io/portfolio/nach-engine.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Jitendra Dhamdhere Portfolio">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Case Study: NACH Clearing Engine | Jitendra Dhamdhere">
+  <meta name="twitter:description" content="Engineering Case Study: NACH Credit & Debit Processing Engine designed by Java Backend Developer Jitendra Dhamdhere for Artcode Pvt Ltd.">
+  <meta name="twitter:image" content="https://jitendradhamdhere.github.io/portfolio/assets/images/projects/nach_preview.png">
 
   <!-- Title -->
   <title>Case Study: NACH Clearing Engine | Jitendra Dhamdhere</title>
@@ -860,12 +877,12 @@
 
   <!-- Top Navigation / Action Bar -->
   <header class="top-bar">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+    <nav class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;" aria-label="Back Navigation">
       <a href="./index.html#projects" class="btn-back">
         <i class="fas fa-arrow-left"></i> Back to Portfolio
       </a>
       <span class="top-meta">// Engineering Case Study</span>
-    </div>
+    </nav>
   </header>
 
   <main class="container">
@@ -980,7 +997,9 @@
 
       <!-- SVG Architectural Flowchart -->
       <div class="diagram-container">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 280">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 280" role="img" aria-label="NACH Clearing Engine Architecture Diagram">
+          <title>NACH Clearing Engine Architecture Diagram</title>
+          <desc>Visualizes the NACH clearing engine processing: Inbound XML/TXT standard 306 files are ingested by SAX parsers in Spring Boot, published asynchronously to Apache Kafka queues, validated and mapped through Maker-Checker steps into the MySQL DB, producing RBI-compliant RTN and RTN-ACK output files.</desc>
           <defs>
             <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="3" result="blur" />
