@@ -56,6 +56,24 @@
       --backdrop-blur: blur(18px);
       --box-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
 
+      /* Unified Glassmorphism Variables */
+      --glass-bg-dark: rgba(255, 255, 255, 0.04);
+      --glass-bg-light: rgba(255, 255, 255, 0.45);
+      --glass-bg: var(--glass-bg-dark);
+
+      --glass-bg-hover-dark: rgba(255, 255, 255, 0.08);
+      --glass-bg-hover-light: rgba(255, 255, 255, 0.65);
+      --glass-bg-hover: var(--glass-bg-hover-dark);
+
+      --glass-blur: blur(16px);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+
+      /* Fallback solid backgrounds */
+      --glass-fallback-dark: #0b0d19;
+      --glass-fallback-light: #f1f3f9;
+      --glass-fallback: var(--glass-fallback-dark);
+
       /* Text */
       --text-primary: #f1f5f9;
       /* crisp light slate */
@@ -105,6 +123,13 @@
       --border-glass: rgba(255, 255, 255, 0.4);
       --backdrop-blur: blur(18px);
       --box-shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
+
+      /* Unified Glassmorphism Overrides */
+      --glass-bg: var(--glass-bg-light);
+      --glass-bg-hover: var(--glass-bg-hover-light);
+      --glass-border: rgba(124, 92, 255, 0.15);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
+      --glass-fallback: var(--glass-fallback-light);
 
       /* Text */
       --text-primary: #0f172a;
@@ -182,13 +207,27 @@
     .contact-form-wrap,
     .github-cta-card,
     #jd-chat-window {
-      background: var(--bg-card) !important;
-      backdrop-filter: var(--backdrop-blur) !important;
-      -webkit-backdrop-filter: var(--backdrop-blur) !important;
-      border: 1px solid var(--border-glass) !important;
+      background-color: var(--glass-fallback) !important;
+      border: 1px solid var(--glass-border) !important;
       border-radius: 16px !important;
-      box-shadow: var(--box-shadow-glass) !important;
+      box-shadow: var(--glass-shadow) !important;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .stat-metric-card,
+      .skills-cat-card,
+      .job-card-content,
+      .edu-degree-card,
+      .cert-img-card,
+      .contact-info-card,
+      .contact-form-wrap,
+      .github-cta-card,
+      #jd-chat-window {
+        background-color: var(--glass-bg) !important;
+        backdrop-filter: var(--glass-blur) !important;
+        -webkit-backdrop-filter: var(--glass-blur) !important;
+      }
     }
 
     .stat-metric-card:hover,
@@ -199,7 +238,7 @@
     .contact-info-card:hover,
     .contact-form-wrap:hover,
     .github-cta-card:hover {
-      background: var(--bg-hover) !important;
+      background-color: var(--glass-bg-hover) !important;
       border-color: var(--accent) !important;
       box-shadow: 0 8px 32px 0 rgba(0, 212, 255, 0.15) !important;
       transform: translateY(-4px) scale(1.01) !important;
@@ -213,7 +252,7 @@
     [data-theme="light"] .contact-info-card:hover,
     [data-theme="light"] .contact-form-wrap:hover,
     [data-theme="light"] .github-cta-card:hover {
-      box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.12) !important;
+      box-shadow: 0 8px 32px 0 rgba(124, 92, 255, 0.12) !important;
     }
 
     /* Glassmorphism Background Glowing Orbs replaced by Space Elements */
@@ -452,19 +491,26 @@
     }
 
     .btn-ghost {
-      background: rgba(255, 255, 255, 0.03);
+      background-color: var(--glass-fallback);
       color: var(--text-primary);
-      border: 1px solid var(--border-glass);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .btn-ghost {
+        background-color: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+      }
     }
 
     .btn-ghost:hover {
       border-color: var(--accent);
-      color: #ffffff;
-      background: var(--accent);
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 10px 25px var(--accent-dim);
+      color: var(--accent);
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--accent-dim);
     }
 
     /* ===== HEADER & NAVBAR ===== */
@@ -472,12 +518,18 @@
       position: sticky;
       top: 0;
       width: 100%;
-      background-color: var(--bg-navbar);
-      backdrop-filter: var(--backdrop-blur);
-      -webkit-backdrop-filter: var(--backdrop-blur);
-      border-bottom: 1px solid var(--border-glass);
+      background-color: var(--glass-fallback);
+      border-bottom: 1px solid var(--glass-border);
       z-index: 1000;
       transition: all 0.3s ease;
+    }
+
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      header {
+        background-color: var(--bg-navbar);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+      }
     }
 
     .nav-container {
@@ -740,42 +792,66 @@
       transition: border-color 0.3s ease, color 0.3s ease;
     }
 
-    .hero-contact-info {
-      margin-top: 40px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px 30px;
+    .hero-contact-info-row {
+      margin-top: 30px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
       border-top: 1px solid var(--border);
-      padding-top: 30px;
+      padding-top: 24px;
       transition: border-color 0.3s ease;
     }
 
-    .hero-contact-item {
-      display: flex;
+    .hero-contact-icon-link {
+      position: relative;
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-size: 14px;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
       color: var(--text-secondary);
-      transition: color 0.3s ease;
-    }
-
-    .hero-contact-item i {
-      color: var(--accent);
-      font-size: 14px;
-      width: 16px;
-      text-align: center;
-      transition: color 0.3s ease;
-    }
-
-    .hero-contact-item a {
-      color: var(--text-muted);
+      font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       text-decoration: none;
-      transition: color 0.3s ease;
     }
 
-    .hero-contact-item a:hover {
+    .hero-contact-icon-link:hover {
+      border-color: var(--accent);
       color: var(--accent);
-      text-decoration: underline;
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--accent-dim);
+    }
+
+    /* CSS Tooltip */
+    .hero-contact-icon-link::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--bg-primary);
+      border: 1px solid var(--accent-border);
+      color: var(--text-primary);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      box-shadow: var(--box-shadow-glass);
+      z-index: 100;
+    }
+
+    .hero-contact-icon-link:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     /* Profile Avatar styling */
@@ -904,20 +980,21 @@
     .terminal-container {
       grid-area: terminal;
       width: 100%;
-      background: var(--bg-card);
-      backdrop-filter: var(--backdrop-blur);
-      -webkit-backdrop-filter: var(--backdrop-blur);
-      border: 1px solid var(--border-glass);
+      background-color: var(--glass-fallback);
+      border: 1px solid var(--glass-border);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: var(--box-shadow-glass);
+      box-shadow: var(--glass-shadow);
       font-family: var(--font-mono);
       transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
     }
 
-    [data-theme="light"] .terminal-container {
-      background: rgba(15, 23, 42, 0.04);
-      border-color: var(--border-glass);
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .terminal-container {
+        background-color: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+      }
     }
 
     .terminal-header {
@@ -1141,8 +1218,8 @@
     }
 
     .skill-badge-pill {
-      background: rgba(255, 255, 255, 0.03) !important;
-      border: 1px solid var(--border-glass) !important;
+      background-color: var(--glass-fallback) !important;
+      border: 1px solid var(--glass-border) !important;
       color: var(--text-secondary) !important;
       font-size: 12px !important;
       font-family: var(--font-mono) !important;
@@ -1151,8 +1228,14 @@
       /* Pill shape */
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
       cursor: default !important;
-      backdrop-filter: blur(4px) !important;
-      -webkit-backdrop-filter: blur(4px) !important;
+    }
+
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .skill-badge-pill {
+        background-color: var(--glass-bg) !important;
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
+      }
     }
 
     .skill-badge-pill:hover {
@@ -1331,8 +1414,8 @@
     }
 
     .filter-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background-color: var(--glass-fallback);
+      border: 1px solid var(--glass-border);
       color: var(--text-dim);
       font-family: var(--font-mono);
       font-size: 12px;
@@ -1343,21 +1426,38 @@
       transition: all 0.3s ease;
     }
 
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .filter-btn {
+        background-color: var(--glass-bg);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+    }
+
     .filter-btn:hover {
       border-color: var(--accent-border);
       color: var(--text-primary);
     }
 
-    .filter-btn.active {
-      background: var(--accent-light);
-      border-color: var(--accent-border);
-      color: var(--accent);
+    .filter-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
-    [data-theme="dark"] .filter-btn.active {
-      background: var(--accent-dim);
-      border-color: var(--accent-border);
-      color: var(--accent);
+    .filter-btn.active {
+      background: var(--accent) !important;
+      border-color: var(--accent) !important;
+      color: var(--bg-primary) !important;
+      font-weight: 700;
+      box-shadow: 0 4px 12px var(--accent-dim);
+    }
+
+    [data-theme="light"] .filter-btn.active {
+      background: var(--accent) !important;
+      border-color: var(--accent) !important;
+      color: #ffffff !important;
+      font-weight: 700;
+      box-shadow: 0 4px 12px var(--accent-dim);
     }
 
     .projects-grid {
@@ -1514,9 +1614,9 @@
       gap: 8px !important;
       margin-top: auto !important;
       align-self: flex-start !important;
-      border: 1px solid var(--border-glass) !important;
+      border: 1px solid var(--glass-border) !important;
       color: var(--text-primary) !important;
-      background: rgba(255, 255, 255, 0.05) !important;
+      background-color: var(--glass-fallback) !important;
       font-family: var(--font-mono) !important;
       font-size: 11px !important;
       padding: 10px 20px !important;
@@ -1526,8 +1626,14 @@
       text-transform: uppercase !important;
       font-weight: 600 !important;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      backdrop-filter: blur(8px) !important;
-      -webkit-backdrop-filter: blur(8px) !important;
+    }
+
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .project-view-btn {
+        background-color: var(--glass-bg) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+      }
     }
 
     .project-view-btn:hover {
@@ -1584,18 +1690,22 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      background: rgba(17, 17, 17, 0.45) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 255, 136, 0.15) !important;
+      background-color: var(--glass-fallback) !important;
+      border: 1px solid var(--glass-border) !important;
       position: relative;
       overflow: hidden;
       padding: 24px !important;
+      border-radius: 16px !important;
+      box-shadow: var(--glass-shadow) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 
-    [data-theme="light"] .featured-project-card {
-      background: rgba(255, 255, 255, 0.6) !important;
-      border-color: rgba(13, 110, 63, 0.15) !important;
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .featured-project-card {
+        background-color: var(--glass-bg) !important;
+        backdrop-filter: var(--glass-blur) !important;
+        -webkit-backdrop-filter: var(--glass-blur) !important;
+      }
     }
 
     .featured-project-card:hover {
@@ -1833,46 +1943,55 @@
     }
 
     .cert-img-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
+      background: var(--bg-card) !important;
+      backdrop-filter: var(--backdrop-blur) !important;
+      -webkit-backdrop-filter: var(--backdrop-blur) !important;
+      border: 1px solid var(--border-glass) !important;
+      border-radius: 16px !important;
+      padding: 16px !important;
       cursor: pointer;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-      transition: border-color 0.3s, transform 0.3s, background 0.3s, box-shadow 0.3s;
+      box-shadow: var(--box-shadow-glass) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
-    }
-
-    [data-theme="dark"] .cert-img-card {
-      box-shadow: none;
+      gap: 12px;
     }
 
     .cert-img-card:hover {
-      border-color: var(--accent-border);
-      box-shadow: 0 4px 12px rgba(13, 110, 63, 0.12);
-      transform: translateY(-4px);
+      background: var(--bg-hover) !important;
+      border-color: var(--accent) !important;
+      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15) !important;
+      transform: translateY(-4px) scale(1.01) !important;
     }
 
-    [data-theme="dark"] .cert-img-card:hover {
-      border-color: var(--accent);
-      box-shadow: none;
+    [data-theme="light"] .cert-img-card:hover {
+      box-shadow: 0 8px 32px rgba(124, 92, 255, 0.12) !important;
+    }
+
+    .cert-img-container {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--border-glass);
+      position: relative;
     }
 
     .cert-grid-img {
       width: 100%;
-      height: 80px;
+      height: 100%;
       object-fit: cover;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-      transition: border-color 0.3s;
+      transition: transform 0.3s ease;
+    }
+
+    .cert-img-card:hover .cert-grid-img {
+      transform: scale(1.05);
     }
 
     .cert-img-caption {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       font-family: var(--font-mono);
       text-align: center;
       white-space: nowrap;
@@ -1933,8 +2052,8 @@
       width: 40px;
       height: 40px;
       border-radius: 8px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background-color: var(--glass-fallback);
+      border: 1px solid var(--glass-border);
       color: var(--accent);
       font-size: 14px;
       display: flex;
@@ -1944,6 +2063,14 @@
       opacity: 0;
       pointer-events: none;
       transition: all 0.3s;
+    }
+
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .top-btn {
+        background-color: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+      }
     }
 
     .top-btn.show {
@@ -1972,11 +2099,17 @@
       inset: 0;
       z-index: 2000;
       background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(12px);
       align-items: center;
       justify-content: center;
       padding: 24px;
       animation: modalFadeIn 0.3s ease forwards;
+    }
+
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .modal {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
     }
 
     @keyframes modalFadeIn {
@@ -2004,15 +2137,23 @@
     .modal-content-wrap {
       max-width: 760px;
       width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background-color: var(--glass-fallback);
+      border: 1px solid var(--glass-border);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+      box-shadow: var(--glass-shadow);
       position: relative;
       transform: scale(0.95);
       animation: modalZoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       transition: background 0.3s, border 0.3s;
+    }
+
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      .modal-content-wrap {
+        background-color: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+      }
     }
 
     @keyframes modalZoomIn {
@@ -2619,7 +2760,7 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: var(--bg-card);
+      background-color: var(--glass-fallback);
       border: 1px solid var(--accent-border);
       color: var(--accent);
       font-family: var(--font-mono);
@@ -2634,6 +2775,14 @@
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      #jd-chat-toggle {
+        background-color: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+      }
+    }
+
     #jd-chat-toggle:hover {
       transform: scale(1.1) rotate(5deg);
       border-color: var(--accent);
@@ -2641,7 +2790,6 @@
     }
 
     [data-theme="light"] #jd-chat-toggle {
-      background: #ffffff;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
@@ -2652,16 +2800,10 @@
       width: 360px;
       height: 480px;
       max-width: calc(100vw - 48px);
-      background: var(--bg-card);
-      backdrop-filter: var(--backdrop-blur);
-      -webkit-backdrop-filter: var(--backdrop-blur);
-      border: 1px solid var(--border-glass);
-      border-radius: 16px;
       display: flex;
       flex-direction: column;
       z-index: 99990;
       overflow: hidden;
-      box-shadow: var(--box-shadow-glass);
       opacity: 0;
       transform: translateY(20px) scale(0.95);
       pointer-events: none;
@@ -2673,11 +2815,6 @@
       opacity: 1;
       transform: translateY(0) scale(1);
       pointer-events: all;
-    }
-
-    [data-theme="light"] #jd-chat-window {
-      background: rgba(15, 23, 42, 0.06);
-      border-color: var(--border-glass);
     }
 
     .chat-header {
@@ -2784,15 +2921,25 @@
     }
 
     .chat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-glass);
       color: var(--text-secondary);
       font-size: 10px;
-      padding: 4px 10px;
+      padding: 6px 12px;
       border-radius: 50px;
       cursor: pointer;
       font-family: var(--font-mono);
       transition: all 0.2s ease;
+    }
+
+    .chat-pill svg {
+      width: 12px;
+      height: 12px;
+      stroke-width: 2px;
+      flex-shrink: 0;
     }
 
     .chat-pill:hover {
@@ -2937,10 +3084,22 @@
     </div>
 
     <div class="chat-quick-replies" id="jd-chat-quick-replies">
-      <button class="chat-pill" onclick="triggerQuickReply('🔧 Skills')">🔧 Skills</button>
-      <button class="chat-pill" onclick="triggerQuickReply('💼 Projects')">💼 Projects</button>
-      <button class="chat-pill" onclick="triggerQuickReply('📩 Contact')">📩 Contact</button>
-      <button class="chat-pill" onclick="triggerQuickReply('💰 Open to work?')">💰 Open to work?</button>
+      <button class="chat-pill" onclick="triggerQuickReply('Skills')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        Skills
+      </button>
+      <button class="chat-pill" onclick="triggerQuickReply('Projects')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+        Projects
+      </button>
+      <button class="chat-pill" onclick="triggerQuickReply('Contact')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Contact
+      </button>
+      <button class="chat-pill" onclick="triggerQuickReply('Open to work?')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Open to work?
+      </button>
     </div>
 
     <form class="chat-input-form" id="jd-chat-form">
@@ -3020,28 +3179,23 @@
           </blockquote>
 
           <div class="btn-group">
-            <a href="#projects" class="btn btn-green"><i class="fas fa-terminal"></i> View Systems</a>
-            <a href="./resume.html" class="btn btn-ghost"><i class="fas fa-file-invoice"></i> Interactive Resume</a>
+            <a href="#projects" class="btn btn-green"><i class="fas fa-terminal"></i> $ view --systems</a>
+            <a href="./resume.html" class="btn btn-ghost"><i class="fas fa-file-invoice"></i> $ cat resume.md</a>
           </div>
 
-          <div class="hero-contact-info">
-            <div class="hero-contact-item">
+          <div class="hero-contact-info-row">
+            <a href="mailto:jitendradhamdhere333@gmail.com" class="hero-contact-icon-link" data-tooltip="jitendradhamdhere333@gmail.com" aria-label="Email">
               <i class="fas fa-envelope"></i>
-              <a href="mailto:jitendradhamdhere333@gmail.com">jitendradhamdhere333@gmail.com</a>
-            </div>
-            <div class="hero-contact-item">
+            </a>
+            <a href="tel:+919657795194" class="hero-contact-icon-link" data-tooltip="+91 96577 95194" aria-label="Phone">
               <i class="fas fa-phone"></i>
-              <a href="tel:+919657795194">+91 96577 95194</a>
-            </div>
-            <div class="hero-contact-item">
+            </a>
+            <a href="https://www.linkedin.com/in/jitendra-dhamdhere-0941ba235/" target="_blank" class="hero-contact-icon-link" data-tooltip="linkedin.com/in/jitendra" aria-label="LinkedIn">
               <i class="fab fa-linkedin"></i>
-              <a href="https://www.linkedin.com/in/jitendra-dhamdhere-0941ba235/"
-                target="_blank">linkedin.com/in/jitendra</a>
-            </div>
-            <div class="hero-contact-item">
+            </a>
+            <a href="https://github.com/JitendraDhamdhere" target="_blank" class="hero-contact-icon-link" data-tooltip="github.com/JitendraDhamdhere" aria-label="GitHub">
               <i class="fab fa-github"></i>
-              <a href="https://github.com/JitendraDhamdhere" target="_blank">github.com/JitendraDhamdhere</a>
-            </div>
+            </a>
           </div>
         </div>
 
@@ -3094,7 +3248,7 @@
      ═══════════════════════════════════════════ -->
   <section id="about" class="section-container">
     <div class="container">
-      <p class="section-label">// professional biography</p>
+      <p class="section-label">$ cat whoami.md</p>
       <h2 class="section-heading">The engineer behind the <em>enterprise layers.</em></h2>
 
       <div class="about-layout-grid">
@@ -3122,7 +3276,7 @@
             <span class="stat-label">Years Experience</span>
           </div>
           <div class="stat-metric-card in-view-card">
-            <span class="stat-number">5+</span>
+            <span class="stat-number">6+</span>
             <span class="stat-label">Core Systems Built</span>
           </div>
           <div class="stat-metric-card in-view-card">
@@ -3130,8 +3284,8 @@
             <span class="stat-label">BCA CGPA</span>
           </div>
           <div class="stat-metric-card in-view-card">
-            <span class="stat-number">100%</span>
-            <span class="stat-label">Decoupled Processing</span>
+            <span class="stat-number">15ms</span>
+            <span class="stat-label">Avg Query Latency</span>
           </div>
         </div>
       </div>
@@ -3146,7 +3300,7 @@
   <section id="skills" class="section-container">
     <canvas id="skills-canvas" class="section-canvas"></canvas>
     <div class="container">
-      <p class="section-label">// technical matrix</p>
+      <p class="section-label">$ skills --list</p>
       <h2 class="section-heading">Stack &amp; <em>Core Proficiency.</em></h2>
 
       <div class="skills-grid-container stagger-grid">
@@ -3236,7 +3390,7 @@
      ═══════════════════════════════════════════ -->
   <section id="experience" class="section-container">
     <div class="container">
-      <p class="section-label">// professional background</p>
+      <p class="section-label">$ history | grep work</p>
       <h2 class="section-heading">Timeline of <em>Systems Shipped.</em></h2>
 
       <div class="experience-timeline stagger-grid">
@@ -3317,15 +3471,15 @@
   <section id="projects" class="section-container">
     <canvas id="projects-canvas" class="section-canvas"></canvas>
     <div class="container">
-      <p class="section-label">// selected portfolio</p>
+      <p class="section-label">$ ls -la projects/</p>
       <h2 class="section-heading">Production-grade <em>Architecture.</em></h2>
 
       <div class="filter-wrap reveal">
         <div class="filter-buttons">
-          <button class="filter-btn active" data-filter="all">All Systems</button>
-          <button class="filter-btn" data-filter="banking">Banking Systems</button>
-          <button class="filter-btn" data-filter="erp">ERP Systems</button>
-          <button class="filter-btn" data-filter="saas">SaaS / Delivery</button>
+          <button class="filter-btn active" data-filter="all">all_systems</button>
+          <button class="filter-btn" data-filter="banking">banking_systems</button>
+          <button class="filter-btn" data-filter="erp">erp_systems</button>
+          <button class="filter-btn" data-filter="saas">saas_delivery</button>
         </div>
       </div>
 
@@ -3354,7 +3508,7 @@
               <span class="tech-badge">EMI Tracker</span>
             </div>
             <a href="./gold-loan.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
+              $ view case-study <i class="fas fa-arrow-right"></i>
             </a>
           </div>
         </div>
@@ -3380,10 +3534,10 @@
               <span class="tech-badge">Apache Kafka</span>
               <span class="tech-badge">MySQL</span>
               <span class="tech-badge">XML Parsing</span>
-              <span class="tech-badge">TXT 30 Standard</span>
+              <span class="tech-badge">TXT 306 Standard</span>
             </div>
             <a href="./nach-engine.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
+              $ view case-study <i class="fas fa-arrow-right"></i>
             </a>
           </div>
         </div>
@@ -3411,7 +3565,7 @@
               <span class="tech-badge">RBAC Layer</span>
             </div>
             <a href="./college-erp.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
+              $ view case-study <i class="fas fa-arrow-right"></i>
             </a>
           </div>
         </div>
@@ -3440,7 +3594,7 @@
               <span class="tech-badge">JWT Secure API</span>
             </div>
             <a href="./instafuel.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
+              $ view case-study <i class="fas fa-arrow-right"></i>
             </a>
           </div>
         </div>
@@ -3468,7 +3622,7 @@
               <span class="tech-badge">Wizards</span>
             </div>
             <a href="./contractor-management.html" class="project-view-btn">
-              View Case Study <i class="fas fa-arrow-right"></i>
+              $ view case-study <i class="fas fa-arrow-right"></i>
             </a>
           </div>
         </div>
@@ -3500,10 +3654,10 @@
             </div>
             <div class="featured-actions">
               <a href="https://jsonart.vercel.app/" target="_blank" class="project-view-btn live-btn">
-                Live Demo <i class="fas fa-external-link-alt" style="font-size: 0.75rem;"></i>
+                $ run live-demo <i class="fas fa-external-link-alt" style="font-size: 0.75rem;"></i>
               </a>
               <a href="./jsonart.html" class="project-view-btn case-btn">
-                Case Study <i class="fas fa-arrow-right"></i>
+                $ view case-study <i class="fas fa-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -3531,7 +3685,7 @@
      ═══════════════════════════════════════════ -->
   <section id="education" class="section-container">
     <div class="container">
-      <p class="section-label">// education &amp; certifications</p>
+      <p class="section-label">$ cat credentials.json</p>
       <h2 class="section-heading">Credentials &amp; <em>Accreditations.</em></h2>
 
       <div class="edu-grid-layout">
@@ -3590,31 +3744,41 @@
 
             <div class="cert-img-card in-view-card"
               onclick="openCertModal('./assets/images/educat/javafullstack.jpg', 'Capgemini Full Stack Java Certification', 'Symbiosis Skills & Professional University (SSPU) — Capgemini Sponsored')">
-              <img src="./assets/images/educat/javafullstack.jpg" alt="Java Full Stack" class="cert-grid-img">
+              <div class="cert-img-container">
+                <img src="./assets/images/educat/javafullstack.jpg" alt="Java Full Stack" class="cert-grid-img">
+              </div>
               <p class="cert-img-caption">Capgemini Full Stack Java</p>
             </div>
 
             <div class="cert-img-card in-view-card"
               onclick="openCertModal('./assets/images/educat/accenture.png', 'Accenture Virtual Experience Program', 'Accenture — Virtual Job Experience & Advanced Software Engineering')">
-              <img src="./assets/images/educat/accenture.png" alt="Accenture Certification" class="cert-grid-img">
+              <div class="cert-img-container">
+                <img src="./assets/images/educat/accenture.png" alt="Accenture Certification" class="cert-grid-img">
+              </div>
               <p class="cert-img-caption">Accenture Engineering</p>
             </div>
 
             <div class="cert-img-card in-view-card"
               onclick="openCertModal('./assets/images/educat/devton.png', 'Devton Hackathon Certificate', 'Devton — Enterprise System Design and Collaborative Hackathon Certificate')">
-              <img src="./assets/images/educat/devton.png" alt="Devton Certification" class="cert-grid-img">
+              <div class="cert-img-container">
+                <img src="./assets/images/educat/devton.png" alt="Devton Certification" class="cert-grid-img">
+              </div>
               <p class="cert-img-caption">Devton Hackathon</p>
             </div>
 
             <div class="cert-img-card in-view-card"
               onclick="openCertModal('./assets/images/educat/dsa.png', 'Data Structures & Algorithms in Java', 'SIU — Intensive DSA Coding Program Accreditation')">
-              <img src="./assets/images/educat/dsa.png" alt="DSA Certification" class="cert-grid-img">
+              <div class="cert-img-container">
+                <img src="./assets/images/educat/dsa.png" alt="DSA Certification" class="cert-grid-img">
+              </div>
               <p class="cert-img-caption">DSA in Java</p>
             </div>
 
             <div class="cert-img-card in-view-card"
               onclick="openCertModal('./assets/images/educat/microsoft_hostclone.png', 'Microsoft Cloud Hostclone Program', 'Microsoft Certification — Hostclone Engineering & Scalable Hosting')">
-              <img src="./assets/images/educat/microsoft_hostclone.png" alt="Microsoft Hostclone" class="cert-grid-img">
+              <div class="cert-img-container">
+                <img src="./assets/images/educat/microsoft_hostclone.png" alt="Microsoft Hostclone" class="cert-grid-img">
+              </div>
               <p class="cert-img-caption">Microsoft Hostclone</p>
             </div>
 
@@ -3665,7 +3829,7 @@
      ═══════════════════════════════════════════ -->
   <section id="contact" class="section-container">
     <div class="container">
-      <p class="section-label">// negotiations</p>
+      <p class="section-label">$ contact --init</p>
       <h2 class="section-heading">Let's build reliable <em>architecture together.</em></h2>
 
       <div class="contact-grid-layout">
@@ -3736,7 +3900,7 @@
               </div>
 
               <button type="submit" class="form-submit-btn" id="submitBtn">
-                Request Free Consultation
+                $ send --message
                 <i class="fas fa-paper-plane"></i>
               </button>
 
@@ -3856,8 +4020,8 @@
           style="display: none; width: 100%; height: 480px; border: none; border-radius: 4px;"></iframe>
       </div>
       <div class="modal-details">
-        <h3 class="modal-title" id="modalCertTitle">Certificate Name</h3>
-        <p class="modal-sub" id="modalCertIssuer">Issuer Institution</p>
+        <h3 class="modal-title" id="modalCertTitle"></h3>
+        <p class="modal-sub" id="modalCertIssuer"></p>
       </div>
     </div>
   </div>
@@ -4650,6 +4814,7 @@
 3. College ERP System — Academic ERP with modular HR profiles and fine-grained RBAC roles.
 4. InstaFuel — Logistics dispatch routing panel and mobile backend secure JWT APIs.
 5. Contractor Management System — Canadian industrial safety wizards programmatically generating PDFs.
+6. JSONArt – Developer JSON Toolkit — Modern web-based JSON toolkit for viewing, formatting, validating JSON.
 
 👉 Ask me details about any project! (e.g. "tell me about the Gold Loan project" or "tell me about NACH")`,
 
@@ -4679,6 +4844,12 @@
 - Description: Programmed hazard validation processes and multi-step verification wizards for a Canadian compliance system.
 - Core Features: Automated safety reports exports compiling verified credentials into secure compliance PDF certificates using the iText5 generator.
 - Tech: Spring Boot, iText5 PDF Engine, MySQL, Spring Security.`,
+
+        jsonart: `🎨 JSONArt – Developer JSON Toolkit:
+- Role: Full Stack Developer
+- Description: Designed and developed a lightweight developer toolkit for viewing, formatting, validating, comparing, and testing APIs.
+- Core Features: Features clean interactive trees, validation error pinpointing, diff comparator, and quick API requests tool.
+- Tech: HTML5, CSS3, JavaScript, REST API integration.`,
 
         contact: `📩 Contact & Node Coordinates:
 - Email: jitendradhamdhere333@gmail.com
@@ -4815,6 +4986,8 @@ Try searching keywords like:
           reply = chatDb.instafuel;
         } else if ((text.includes('project') || text.includes('system') || text.includes('build') || text.includes('made')) && (text.includes('contractor') || text.includes('compliance') || text.includes('hazard'))) {
           reply = chatDb.contractor;
+        } else if ((text.includes('project') || text.includes('system') || text.includes('build') || text.includes('made')) && (text.includes('json') || text.includes('jsonart') || text.includes('toolkit'))) {
+          reply = chatDb.jsonart;
         }
         // General project overview
         else if (text.includes('project') || text.includes('systems') || text.includes('case study') || text.includes('case studies') || text.includes('work done')) {
@@ -4831,6 +5004,8 @@ Try searching keywords like:
           reply = chatDb.instafuel;
         } else if (text.includes('contractor') || text.includes('compliance verification') || text.includes('itext5') || text.includes('hazard safety')) {
           reply = chatDb.contractor;
+        } else if (text.includes('jsonart') || text.includes('json toolkit') || text.includes('json formatter') || text.includes('json compare')) {
+          reply = chatDb.jsonart;
         }
         // Profile bio matches
         else if (text.includes('who are you') || text.includes('whoami') || text.includes('about') || text.includes('bio') || text.includes('profile') || text.includes('jitendra') || text.includes('summary') || text.includes('who is')) {
