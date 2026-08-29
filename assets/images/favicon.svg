@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient (Theme Cosmic Dark) -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0b112c"/>
+      <stop offset="60%" stop-color="#040612"/>
+      <stop offset="100%" stop-color="#020309"/>
+    </linearGradient>
+
+    <!-- Glowing Border Gradient (Cyan to Violet) -->
+    <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5ec8ff"/>
+      <stop offset="50%" stop-color="#7c5cff"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+
+    <!-- Brand JD Text Gradient -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5ec8ff"/>
+      <stop offset="50%" stop-color="#7c5cff"/>
+      <stop offset="100%" stop-color="#9353ff"/>
+    </linearGradient>
+
+    <!-- Radial Top Glow -->
+    <radialGradient id="radialShine" cx="50%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#5ec8ff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#5ec8ff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Soft Glow Filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Outer Glow -->
+  <rect x="36" y="36" width="440" height="440" rx="112" fill="#5ec8ff" opacity="0.2" filter="url(#softGlow)"/>
+
+  <!-- Squircle Base -->
+  <rect x="24" y="24" width="464" height="464" rx="116" fill="url(#bgGradient)"/>
+  
+  <!-- Subtle Top Radial Light -->
+  <rect x="24" y="24" width="464" height="464" rx="116" fill="url(#radialShine)"/>
+
+  <!-- Neon Border -->
+  <rect x="24" y="24" width="464" height="464" rx="116" fill="none" stroke="url(#borderGradient)" stroke-width="12"/>
+
+  <!-- JD Monogram with Electric Cyan-Violet Gradient -->
+  <g filter="url(#softGlow)">
+    <text x="256" y="335" 
+          text-anchor="middle" 
+          font-family="system-ui, -apple-system, 'Space Grotesk', 'Outfit', 'Segoe UI', sans-serif" 
+          font-size="240" 
+          font-weight="900" 
+          letter-spacing="-4" 
+          fill="url(#textGradient)">JD</text>
+  </g>
+</svg>
