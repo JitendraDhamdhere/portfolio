@@ -3173,6 +3173,17 @@
         </svg>
         Open to work?
       </button>
+      <button class="chat-pill" onclick="triggerQuickReply('Resume')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text">
+          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+          <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+          <path d="M10 9H8"/>
+          <path d="M16 13H8"/>
+          <path d="M16 17H8"/>
+        </svg>
+        Resume
+      </button>
     </div>
 
     <form class="chat-input-form" id="jd-chat-form">
@@ -3210,6 +3221,7 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#education">Education</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="./resume.html">Resume</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -3228,6 +3240,7 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="./resume.html">Resume</a></li>
     </ul>
   </header>
 
@@ -3256,6 +3269,7 @@
             <div class="btn-group">
               <a href="#projects" class="btn btn-green"><i class="fas fa-terminal"></i> $ view --systems</a>
               <a href="./resume.html" class="btn btn-ghost"><i class="fas fa-file-invoice"></i> $ cat resume.md</a>
+              <a href="./assets/Jitendra_Dhamdhere_Java_Developer_Resume.pdf" download="Jitendra_Dhamdhere_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" title="Download Official PDF Resume"><i class="fas fa-download"></i> $ get resume.pdf</a>
             </div>
 
             <div class="hero-contact-info-row">
@@ -4980,6 +4994,12 @@ Let's collaborate! You can reach me at jitendradhamdhere333@gmail.com.`,
 7. Data Structures & Algorithms in Java — SSPU DSA Coding Program
 8. Devton Hackathon Certificate — System Design Hackathon`,
 
+        resume: `📄 Official Resume / CV:
+- Online Interactive Resume: resume.html
+- Direct PDF Download: ./assets/Jitendra_Dhamdhere_Java_Developer_Resume.pdf
+
+You can view the full digital resume online or download the official PDF directly!`,
+
         greeting: `🤖 Hello! I am jd.bot, Jitendra's personal assistant terminal.
 I am running offline and can answer questions about Jitendra's backend engineering expertise, projects, and career options.
 
@@ -5131,6 +5151,10 @@ Try searching keywords like:
         // Greeting matches
         else if (text.includes('hello') || text.includes('hi') || text.includes('hey') || text.includes('start') || text.includes('welcome')) {
           reply = chatDb.greeting;
+        }
+        // Resume / CV matches
+        else if (text.includes('resume') || text.includes('cv') || text.includes('pdf') || text.includes('curriculum')) {
+          reply = chatDb.resume;
         }
 
         const typingIndicator = showTypingIndicator();
